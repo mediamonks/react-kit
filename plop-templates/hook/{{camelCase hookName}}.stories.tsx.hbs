@@ -1,0 +1,39 @@
+import type { StoryObj } from '@storybook/react';
+import { {{camelCase hookName}} } from './{{camelCase hookName}}';
+
+export default {
+  title: '{{camelCase hookName}}',
+};
+
+type DemoComponentProps = {
+};
+function DemoComponent({}: DemoComponentProps) {
+  const [] = {{camelCase hookName}}();
+
+  return (
+    <div>
+      <div className="alert alert-primary">
+        <h4 className="alert-heading">Instructions!</h4>
+        <p className="mb-0">Add instructions about the hook here.</p>
+      </div>
+      <div>
+        Value: <span className="badge rounded-pill bg-primary">{/* value */}</span>
+      </div>
+      <div class="card border-dark" data-ref="test-area">
+        <div class="card-header">Test Area</div>
+        <div class="card-body">
+          <p>TODO: Implement a test case for the hook.</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+export const Demo: StoryObj<DemoComponentProps> = {
+  render(args) {
+    return <DemoComponent {...args} />;
+  },
+  storyName: 'demo',
+  args: {
+    initialValue: true,
+  },
+};

@@ -1,0 +1,42 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta
+  title="{{camelCase hookName}}/docs"
+/>
+
+# {{camelCase hookName}}
+
+Please add a description about the `{{camelCase hookName}}` hook.
+
+## Reference
+
+```ts
+function {{camelCase hookName}}(): void
+```
+
+### Parameters
+
+* `TODO` - Describe the parameters here.
+
+### Returns
+
+* `TODO` - Define the return value here.
+
+## Usage
+
+```ts
+{{camelCase hookName}}();
+````
+
+```ts
+const Demo = defineComponent({
+  name: 'demo',
+  setup({ refs }) {
+
+    // TODO - Add an example implementation of the hook
+    {{camelCase hookName}}()
+
+    return [];
+  }
+})
+```
