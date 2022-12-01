@@ -1,11 +1,11 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { type MutableRefObject, ReactElement, ReactNode, useCallback, useState } from 'react';
+import { ReactNode, useCallback, useState } from 'react';
 
 /**
  * This hook is an internal utility function to visually "log" messages inside your story UI.
  *
  * ```
- *  const [getLog, log] = useStorybookLog();
+ *  const { getLog, log } = useStorybookLog();
  *
  *  return (
  *    <div>
@@ -17,7 +17,10 @@ import { type MutableRefObject, ReactElement, ReactNode, useCallback, useState }
  *
  * @param logRef The Ref that will hold the logs.
  */
-export function useStorybookLog(): readonly [() => ReactNode, (message: string) => void] {
+export function useStorybookLog(): {
+  getLog: () => ReactNode;
+  log: (message: string) => void;
+} {
   const [logs, setLogs] = useState<Array<string>>([]);
 
   const log = useCallback((message: string) => {
@@ -38,5 +41,5 @@ export function useStorybookLog(): readonly [() => ReactNode, (message: string) 
     [logs],
   );
 
-  return [getLog, log];
+  return { getLog, log };
 }
