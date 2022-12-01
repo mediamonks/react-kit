@@ -24,19 +24,17 @@ function {{camelCase hookName}}(): void
 
 ## Usage
 
-```ts
+```tsx
 {{camelCase hookName}}();
 ````
 
-```ts
-const Demo = defineComponent({
-  name: 'demo',
-  setup({ refs }) {
+```tsx
+function DemoComponent() {
+  {{camelCase hookName}}();
 
-    // TODO - Add an example implementation of the hook
-    {{camelCase hookName}}()
-
-    return [];
-  }
-})
+  return (
+    <div>
+    </div>
+  );
+}
 ```
