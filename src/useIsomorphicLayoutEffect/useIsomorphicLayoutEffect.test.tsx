@@ -3,6 +3,8 @@ import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
 
 describe('useIsomorphicLayoutEffect', () => {
   it('should not crash', async () => {
-    renderHook(useIsomorphicLayoutEffect);
+    renderHook(useIsomorphicLayoutEffect, {
+      initialProps: () => console.log('test'),
+    });
   });
 });
