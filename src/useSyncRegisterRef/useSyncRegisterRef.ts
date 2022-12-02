@@ -38,5 +38,5 @@ export function useSyncRegisterRef<T extends Record<string, unknown>, K extends 
       // eslint-disable-next-line no-param-reassign
       forwardRef.current = element;
     }
-  }, [forwardRef]);
+  }, [forwardRef, refs[key]]);
 }
