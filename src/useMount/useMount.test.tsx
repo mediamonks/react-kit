@@ -4,7 +4,7 @@ import { useMount } from './useMount';
 describe('useMount', () => {
   it('should not crash', async () => {
     renderHook(useMount, {
-      initialProps: () => console.log('component is mounted'),
+      initialProps: () => {},
     });
   });
 

@@ -4,7 +4,7 @@ import { useUnmount } from './useUnmount';
 describe('useUnmount', () => {
   it('should not crash', async () => {
     const { rerender, unmount } = renderHook(useUnmount, {
-      initialProps: () => console.log('component is unMounted'),
+      initialProps: () => {},
     });
     rerender();
     unmount();
