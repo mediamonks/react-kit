@@ -1,4 +1,5 @@
-import { act, renderHook } from '@testing-library/react';
+import { renderHook } from '@testing-library/react';
+import { jest } from '@jest/globals';
 import { useMount } from './useMount';
 
 describe('useMount', () => {

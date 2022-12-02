@@ -28,7 +28,7 @@
     "clean:test": "shx rm -rf coverage .nyc_output",
     "clean:npm": "shx rm -rf dist",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
-    "test": "NODE_OPTIONS=--experimental-vm-modules jest ./src/",
+    "test": "NODE_NO_WARNINGS=1 NODE_OPTIONS=--experimental-vm-modules jest ./src/",
     "check-types": "tsc --project tsconfig.json --noEmit --noUnusedLocals",
     "storybook": "sb dev -p 6006",
     "storybook:build": "sb build -o ./.docs/dist",

@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react';
+import { jest } from '@jest/globals';
 import { useUnmount } from './useUnmount';
 
 describe('useUnmount', () => {
