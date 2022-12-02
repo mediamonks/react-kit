@@ -13,13 +13,14 @@
   "exports": {
     "import": "./dist/index.js"
   },
-  "publishConfig": {
-    "access": "public"
-  },
+  "type": "module",
   "files": [
     "dist/**/*",
     "README.md"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "npm-run-all -s clean build:*",
     "build:ts": "tsc -p ./tsconfig.build.json",
@@ -27,7 +28,7 @@
     "clean:test": "shx rm -rf coverage .nyc_output",
     "clean:npm": "shx rm -rf dist",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
-    "test": "jest ./src/",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest ./src/",
     "check-types": "tsc --project tsconfig.json --noEmit --noUnusedLocals",
     "storybook": "sb dev -p 6006",
     "storybook:build": "sb build -o ./.docs/dist",
@@ -72,6 +73,8 @@
     "react": ">= 17"
   },
   "dependencies": {
-    "@psimk/typed-object": "^1.0.4"
+    "@psimk/typed-object": "^1.0.4",
+    "@types/lodash-es": "^4.17.6",
+    "lodash-es": "^4.17.21"
   }
 }

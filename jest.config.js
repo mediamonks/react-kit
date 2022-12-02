@@ -1,8 +1,21 @@
-module.exports = {
-  // preset: 'ts-jest',
-  preset: 'ts-jest/presets/js-with-ts-esm',
+export default {
+  // https://kulshekhar.github.io/ts-jest/docs/guides/esm-support
+  preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'jsdom',
-  transformIgnorePatterns: ['<rootDir>/node_modules/(?!lodash-es)'],
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
+  transform: {
+    // '^.+\\.[tj]sx?$' to process js/ts with `ts-jest`
+    // '^.+\\.m?[tj]sx?$' to process js/ts/mjs/mts with `ts-jest`
+    '^.+\\.m?[tj]sx?$': [
+      'ts-jest',
+      {
+        useESM: true,
+      },
+    ],
+  },
   // setupFilesAfterEnv: ['<rootDir>/test-utils/setupTests.ts'],
 
   // added "(?<!types.)" as a negative lookbehind to the default pattern
