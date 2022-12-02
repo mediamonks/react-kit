@@ -44,6 +44,23 @@
     ],
     "parserOptions": {
       "project": "./tsconfig.json"
+    },
+    "rules": {
+      "unicorn/prevent-abbreviations": [
+        "error",
+        {
+          "checkShorthandImports": false,
+          "allowList": { "fn": true },
+          "replacements": {
+            "ref": false,
+            "refs": false,
+            "params": false,
+            "param": false,
+            "props": false,
+            "prop": false
+          }
+        }
+      ]
     }
   },
   "devDependencies": {
