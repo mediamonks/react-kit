@@ -46,7 +46,7 @@ const [refs, registerRef] = useRegisterRef<Refs>();
 ```tsx
 type Refs = {
   element: HTMLDivElement;
-  elements: Array<HTMLSpanElement>;
+  elements: ReadonlyArray<HTMLSpanElement>;
 }
 
 function DemoComponent() {

@@ -13,8 +13,8 @@ type Refs = {
   item1: HTMLElement;
   item2: HTMLElement;
   btnMore: HTMLButtonElement;
-  listItems: Array<HTMLElement>;
-  keyList: Array<HTMLElement>;
+  listItems: ReadonlyArray<HTMLElement>;
+  keyList: ReadonlyArray<HTMLElement>;
 };
 function DemoComponent({}: DemoComponentProps) {
   const [refs, registerRef] = useRegisterRef<Refs>();

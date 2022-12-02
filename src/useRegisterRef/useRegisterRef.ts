@@ -31,14 +31,14 @@ function arrayTrimEnd<T extends Array<unknown>>(array: T) {
 }
 
 /**
- * A helper hook that allows you to easily register and access refs by "name", even supports arrays.
+ * A helper hook that allows you to easily register and access refs by "name", including ref collections.
  *
  * Usage:
  * ```
  *  // this gives auto-completion when registering or accessing the refs
  *  type RefMap = {
  *    element: HTMLDivElement;
- *    elements: Array<HTMLElement>;
+ *    elements: ReadonlyArray<HTMLElement>;
  *  };
  *
  *  // put this hook in your component
@@ -82,7 +82,7 @@ export function useRegisterRef<T extends Record<string, unknown>>() {
           const cleanName = name.replace('[]', '') as N;
           if (!oldRefs[cleanName]) oldRefs[cleanName] = [] as T[N];
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          const slot = oldRefs[cleanName] as Array<any>;
+          const slot = oldRefs[cleanName] as Array<unknown>;
           slot[index!] = ref;
 
           // if we set something to `null`, try to clean up the array
