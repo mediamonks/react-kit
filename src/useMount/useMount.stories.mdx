@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta
+  title="useUnmount/docs"
+/>
+
+# useMount
+
+React lifecycle hook that calls a function after the component is mounted.
+
+## Reference
+
+```ts
+function useMount(callbackFunction: () => void): void
+```
+
+### Parameters
+
+* `callbackFunction` - function that will be called when the component is mounted
+
+### Returns
+
+* `void`
+
+## Usage
+
+```tsx
+useMount(() => console.log('Component mounted'));
+````
+
+```tsx
+function DemoComponent() {
+  useMount(() => console.log('Component mounted'));
+
+  return (
+    <div>
+    </div>
+  );
+}
+```
