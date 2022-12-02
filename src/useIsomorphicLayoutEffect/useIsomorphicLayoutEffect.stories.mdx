@@ -21,12 +21,14 @@ This hook fixes this problem by switching between useEffect and useLayoutEffect 
 ## Reference
 
 ```ts
-function useIsomorphicLayoutEffect(): void
+function useIsomorphicLayoutEffect(callbackFunction: () => void, deps?: Array<any>): void
 ```
 
 ### Parameters
 
-* Check the ReactJS docs for `useEffect` and `useLayoutEffect`
+* Check the ReactJS docs:
+- [useEffect](https://reactjs.org/docs/hooks-reference.html#useeffect)
+- [useLayoutEffect](https://reactjs.org/docs/hooks-reference.html#uselayouteffect)
 
 ### Returns
 
@@ -35,7 +37,7 @@ function useIsomorphicLayoutEffect(): void
 ## Usage
 
 ```tsx
-useIsomorphicLayoutEffect();
+useIsomorphicLayoutEffect(() => console.log('test'), []);
 ````
 
 ```tsx
