@@ -1,0 +1,47 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta
+  title="useSyncRegisterRef/docs"
+/>
+
+# useSyncRegisterRef
+
+Syncs the forwardRef element with the internal ref element
+
+## Reference
+
+```ts
+function useSyncRegisterRef<T extends Record<string, unknown>, K extends keyof T>(
+  refs: T,
+  key: K,
+  forwardRef: ForwardedRef<T[K]>,
+): void
+```
+
+### Parameters
+
+* `refs` - Object of Refs that are used by the `useRegisterRef` hook
+* `key` - String of the key that is used in the `refs` object
+* `forwardRef` - The forwardRef element that comes from the forwardRef function
+
+### Returns
+
+* `void`
+
+## Usage
+
+```tsx
+useSyncRegisterRef(refs, 'element', forwardRef);
+````
+
+```tsx
+const DemoComponent = forwardRef<HTMLDivElement>((props, forwardRef): ReactElement => {
+  const [refs, registerRef] = useRegisterRef<TransitionRefs>();
+  useSyncRegisterRef(refs, 'element', forwardRef);
+
+  return (
+    <div ref={registerRef('element')}>
+    </div>
+  )
+});
+```
