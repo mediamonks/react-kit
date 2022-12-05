@@ -40,7 +40,9 @@
   "eslintConfig": {
     "extends": [
       "@mediamonks/eslint-config",
-      "@mediamonks/eslint-config-typescript"
+      "@mediamonks/eslint-config-react",
+      "@mediamonks/eslint-config-typescript",
+      "@mediamonks/eslint-config-typescript-react"
     ],
     "parserOptions": {
       "project": "./tsconfig.json"
@@ -60,12 +62,15 @@
             "prop": false
           }
         }
-      ]
+      ],
+      "react/jsx-no-literals": "off"
     }
   },
   "devDependencies": {
     "@mediamonks/eslint-config": "^2.0.6",
+    "@mediamonks/eslint-config-react": "^2.1.11",
     "@mediamonks/eslint-config-typescript": "^1.0.8",
+    "@mediamonks/eslint-config-typescript-react": "^1.0.10",
     "@mediamonks/prettier-config": "^1.0.1",
     "@storybook/addon-docs": "^7.0.0-alpha.56",
     "@storybook/builder-vite": "^7.0.0-alpha.56",

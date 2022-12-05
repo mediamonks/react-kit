@@ -6,7 +6,7 @@ import { Meta } from '@storybook/addon-docs';
 
 # useRegisterRef
 
-A helper hook that allows you to easily register and access refs by "name", including ref collections. 
+A helper hook that allows you to easily register and access refs by "name", even supports arrays.
 
 Due to the dynamic nature of collecting refs, it's tricky to know how many `useRef` calls you need
 to consistently do without explicitly setting (and updating when your refs change) the amount.
@@ -15,6 +15,19 @@ This is why this hook doesn't use `useRef` at all, but stores the actual DOM ele
 This means that other hooks that rely on `ref.current` will not work. In that case you should
 change the hook (if you can), or wrap your element inside a ref (TODO: this can be easily done
 with the `todo` hook).
+
+This hooks returns a `ref` object that will never change reference. Instead, the object will be
+mutated to store the HTML elements. This will allow similar usages to `useRef`. `refs.item` for
+example is similar to `ref.current` If you pass the `refs` object to other functions, it won't
+need to be added to dependency arrays, but as soon as that code is executed, the updated value
+will be available there.
+
+> **Note** due to the general usage of refs on HTML elements, you will almost always have them
+  available as soon as you execute code in a `useEffect`, and you wont use them anymore in an
+  `unmout`. For this reason, the hook doesn't enforce the `| null` type on ref object keys, so
+  you don't have to check for its existence in your code everytime you use it. If you do use
+  optional refs, or in situations where they might not exist, you must explicitly type them as
+  `| null` or as optional (`?`) in your `Refs` type.
 
 ## Reference
 
@@ -42,8 +55,10 @@ function useRegisterRef<T extends Record<string, unknown>>(): readonly [
 ```tsx
 const [refs, registerRef] = useRegisterRef<Refs>();
 ````
-
 ```tsx
+import { useEffect } from 'react';
+import { useRegisterRef } from '@mediamonks/react-hooks';
+
 type Refs = {
   element: HTMLDivElement;
   elements: ReadonlyArray<HTMLSpanElement>;
@@ -52,12 +67,14 @@ type Refs = {
 function DemoComponent() {
   const [refs, registerRef] = useRegisterRef<Refs>();
 
-  console.log(refs.element) // HTMLDivElement
-  console.log(refs.elements); // Array<HTMLSpanElement>
+  useEffect(() => {
+    console.log(refs.element) // HTMLDivElement
+    console.log(refs.elements); // Array<HTMLSpanElement>
+  }, []);
 
   return (
     <div ref={registerRef('element')}>
-      {items.map((item, index) => (
+      {['AA', 'BB'].map((item, index) => (
         <span key={item} ref={registerRef('elements[]', index)}>{item}</span>
       ))}
     </div>

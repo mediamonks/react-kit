@@ -30,5 +30,7 @@
   },
   "include": [
     "./src/**/*.ts",
+    "./src/**/*.tsx",
+    "./src/**/*.stories.tsx",
   ]
 }

@@ -30,12 +30,50 @@ describe('useRegisterRef', () => {
     const [refs, registerRef] = result.current;
 
     await act(() => {
-      // @ts-ignore
+      // @ts-expect-error generic inference doesn't work properly in tests
       registerRef('items[]', 0)('A');
-      // @ts-ignore
+      // @ts-expect-error generic inference doesn't work properly in tests
       registerRef('items[]', 1)('B');
     });
 
     expect(refs).toEqual({ items: ['A', 'B'] });
+  });
+
+  it('should be able to set a ref to null', async () => {
+    const { result } = renderHook(useRegisterRef);
+    const [refs, registerRef] = result.current;
+
+    await act(() => {
+      registerRef('item')('A');
+    });
+
+    expect(refs).toEqual({ item: 'A' });
+
+    await act(() => {
+      registerRef('item')(null);
+    });
+
+    expect(refs).toEqual({ item: null });
+  });
+
+  it('should trim Array refs when items disappear', async () => {
+    const { result } = renderHook(useRegisterRef);
+    const [refs, registerRef] = result.current;
+
+    await act(() => {
+      // @ts-expect-error generic inference doesn't work properly in tests
+      registerRef('items[]', 0)('A');
+      // @ts-expect-error generic inference doesn't work properly in tests
+      registerRef('items[]', 1)('B');
+    });
+
+    expect(refs).toEqual({ items: ['A', 'B'] });
+
+    await act(() => {
+      // @ts-expect-error generic inference doesn't work properly in tests
+      registerRef('items[]', 1)(null);
+    });
+
+    expect(refs).toEqual({ items: ['A'] });
   });
 });
