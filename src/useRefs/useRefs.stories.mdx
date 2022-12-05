@@ -1,0 +1,49 @@
+import { Meta } from '@storybook/addon-docs';
+
+<Meta title="useRefs/docs" />
+
+# useRefs
+
+Utility to create an object that automatically create refs. One ref object to rule them all, you
+don't have to use `useRef` for every element that you want to create a reference for.
+
+## Reference
+
+```ts
+export function useRefs<T extends Record<string | symbol, RefObject<unknown>>>(
+  initialTarget?: Partial<T>,
+): T;
+```
+
+### Returns
+
+- `refs` An object that automatically creates refs when accessing it's fields, return type matches
+  the structure and type of the generics argument.
+
+## Usage
+
+```tsx
+function DemoComponent() {
+  const buttonRef = useRef<Array<HTMLButtonElement>>([]);
+
+  const refs = useRef<{
+    heading: RefObject<HTMLHeadingElement | null>;
+    button: RefObject<Array<HTMLButtonElement | null>>;
+  }>({
+    buttonRef,
+  });
+
+  console.log(refs.element.current); // HTMLHeadingElement | null
+  console.log(refs.elements.current); // Array<HTMLButtonElement | null>
+
+  return (
+    <div ref={refs.element}>
+      {items.map((item, index) => (
+        <span key={item} ref={arrayRef(refs.elements, index)}>
+          {item}
+        </span>
+      ))}
+    </div>
+  );
+}
+```
