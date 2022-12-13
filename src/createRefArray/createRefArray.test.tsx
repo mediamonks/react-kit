@@ -42,7 +42,7 @@ describe('createRefArray', () => {
   });
 
   it('should accepts initial value', async () => {
-    const array = createRefArray<Array<RefObject<never> | null>>([
+    const array = createRefArray<RefObject<never> | null>([
       createRef(),
       createRef(),
       null,

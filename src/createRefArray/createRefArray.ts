@@ -2,12 +2,8 @@
  * Trim values from end of array
  */
 function trimEnd<T>(target: Array<T>, value: T): Array<T> {
-  for (let index = target.length - 1; index >= 0; index--) {
-    if (target[index] === value) {
-      target.pop();
-    } else {
-      break;
-    }
+  while (target.at(-1) === value) {
+    target.pop();
   }
 
   return target;
@@ -17,8 +13,6 @@ function trimEnd<T>(target: Array<T>, value: T): Array<T> {
  * Creates an array that trims itself after it changes
  */
 export function createRefArray<T>(initialTarget: Array<T> = []): typeof initialTarget {
-  let timeout = 0 as unknown as NodeJS.Timeout;
-
   return new Proxy<typeof initialTarget>(trimEnd(initialTarget, null) as Array<T>, {
     set(target, parameter, newValue): boolean {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -26,8 +20,9 @@ export function createRefArray<T>(initialTarget: Array<T> = []): typeof initialT
       target[parameter] = newValue;
 
       // Use timeouts to minimize array mutations
-      clearTimeout(timeout);
-      timeout = setTimeout(() => trimEnd(target, null), 0);
+      if (newValue === null) {
+        trimEnd(target, null);
+      }
 
       return true;
     },
