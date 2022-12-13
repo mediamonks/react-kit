@@ -18,7 +18,7 @@ import { createRef, useMemo, type RefObject } from 'react';
  * refs.button -> ref from target object
  */
 export function useRefs<T extends Record<string | symbol, RefObject<unknown>>>(
-  initialTarget?: Record<string | symbol, RefObject<unknown>>,
+  initialTarget?: Partial<T>,
 ): T {
   const proxyTarget = useMemo(() => initialTarget ?? {}, []);
 
