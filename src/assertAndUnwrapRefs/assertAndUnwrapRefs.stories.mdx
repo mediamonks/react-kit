@@ -35,7 +35,7 @@ function DemoComponent() {
   }, [refs]);
 
   return (
-    <div>
+    <>
       <h1 ref={refs.heading}>{heading}</h1>
 
       {items.map((item, index) => (
@@ -43,7 +43,7 @@ function DemoComponent() {
           {item}
         </button>
       ))}
-    </div>
+    </>
   );
 }
 ```
