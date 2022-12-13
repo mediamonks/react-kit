@@ -1,17 +1,17 @@
 import type { StoryObj } from '@storybook/react';
 import { shuffle } from 'lodash-es';
 import { useEffect, useState, type ReactElement } from 'react';
+import { arrayRef } from '../arrayRef/arrayRef';
 import { useRefs } from './useRefs';
-import type { Refs } from './useRefs.types';
-import { arrayRef } from './useRefs.util';
+import type { MutableRefs } from './useRefs.types';
 
 export default {
   title: 'useRefs',
 };
 
-type MyRefs = Refs<{
-  item1: HTMLDivElement | null;
-  item2: HTMLDivElement | null;
+type MyRefs = MutableRefs<{
+  item1: HTMLDivElement;
+  item2: HTMLDivElement;
   btnMore: HTMLButtonElement | null;
   listItems: Array<HTMLLIElement>;
   keyList: Array<HTMLLIElement>;

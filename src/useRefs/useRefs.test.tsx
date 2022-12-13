@@ -1,7 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
 import { useRefs } from './useRefs';
 import type { MutableRefs } from './useRefs.types';
-import { arrayRef } from './useRefs.util';
 
 type TestRefs = MutableRefs<{
   number1: number;
@@ -52,29 +51,5 @@ describe('useRefs', () => {
     });
 
     expect(result.current.number1.current).toEqual(null);
-  });
-
-  it('should trim Array refs when items disappear', async () => {
-    const { result } = renderHook(() => useRefs<TestRefs>());
-
-    await act(() => {
-      arrayRef(result.current.array, 0)(0);
-      arrayRef(result.current.array, 2)(2);
-
-      // Should only set 2nd element in array after 3rd element to make sure
-      // it's not trimmed immediately
-      arrayRef(result.current.array, 1)(null);
-
-      // 4th element in array should be trimmed
-      arrayRef(result.current.array, 3)(null);
-    });
-
-    expect(result.current.array.current).toEqual([0, null, 2]);
-
-    await act(() => {
-      arrayRef(result.current.array, 2)(null);
-    });
-
-    expect(result.current.array.current).toEqual([0]);
   });
 });
