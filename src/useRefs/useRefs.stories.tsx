@@ -1,7 +1,6 @@
 import type { StoryObj } from '@storybook/react';
 import { shuffle } from 'lodash-es';
-import { useEffect, useRef, useState, type ReactElement } from 'react';
-import { createRefArray } from '../createRefArray/createRefArray';
+import { useEffect, useState, type ReactElement } from 'react';
 import { useRefs } from './useRefs';
 import type { Refs } from './useRefs.types';
 import { arrayRef } from './useRefs.util';
@@ -90,13 +89,7 @@ function RefTable({ refs }: RefTableProps): ReactElement {
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 function DemoComponent(): ReactElement {
-  const listItemsRef = useRef(createRefArray<HTMLLIElement>());
-  const keyListRef = useRef(createRefArray<HTMLLIElement>());
-
-  const refs = useRefs<MyRefs>({
-    listItems: listItemsRef,
-    keyList: keyListRef,
-  });
+  const refs = useRefs<MyRefs>();
 
   const [count, setCount] = useState(3);
   const [keyList, setKeyList] = useState(['key A', 'key B', 'key C']);
