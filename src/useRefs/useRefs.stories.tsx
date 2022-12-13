@@ -1,6 +1,6 @@
 import type { StoryObj } from '@storybook/react';
 import { shuffle } from 'lodash-es';
-import { useRef, useState, type ReactElement } from 'react';
+import { useEffect, useRef, useState, type ReactElement } from 'react';
 import { createRefArray } from '../createRefArray/createRefArray';
 import { useRefs } from './useRefs';
 import type { Refs } from './useRefs.types';
@@ -10,20 +10,90 @@ export default {
   title: 'useRefs',
 };
 
-type DemoComponentRefs = Refs<{
-  item1: HTMLDivElement;
-  item2: HTMLParagraphElement;
-  btnMore: HTMLButtonElement;
-  listItems: Array<HTMLElement | null>;
-  keyList: Array<HTMLElement | null>;
+type MyRefs = Refs<{
+  item1: HTMLDivElement | null;
+  item2: HTMLDivElement | null;
+  btnMore: HTMLButtonElement | null;
+  listItems: Array<HTMLLIElement>;
+  keyList: Array<HTMLLIElement>;
 }>;
+
+type RefTableProps = {
+  refs: MyRefs;
+};
+
+function useRerender(interval = 100): void {
+  const [, setRenderState] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setRenderState((oldValue) => oldValue + 1);
+    }, interval);
+    return (): void => {
+      clearInterval(id);
+    };
+  }, [interval]);
+}
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+function RefTable({ refs }: RefTableProps): ReactElement {
+  // force re-render to show the new value of these refs
+  useRerender();
+
+  return (
+    <table className="table">
+      <thead>
+        <tr>
+          <th scope="col">Ref name</th>
+          <th scope="col">Resolved Element</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>item1</td>
+          <td>
+            <code>{refs.item1.current?.outerHTML ?? null}</code>
+          </td>
+        </tr>
+        <tr>
+          <th>item2</th>
+          <td>
+            <code>{refs.item2.current?.outerHTML ?? null}</code>
+          </td>
+        </tr>
+        <tr>
+          <td>btnMore</td>
+          <td>
+            <code>{refs.btnMore.current?.outerHTML ?? null}</code>
+          </td>
+        </tr>
+        <tr>
+          <td>listItems</td>
+          <td>
+            <code>
+              <pre>{refs.listItems.current?.map((element) => element.outerHTML).join('\n')}</pre>
+            </code>
+          </td>
+        </tr>
+        <tr>
+          <td>keyList</td>
+          <td>
+            <code>
+              <pre>{refs.keyList.current?.map((element) => element.outerHTML).join('\n')}</pre>
+            </code>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  );
+}
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 function DemoComponent(): ReactElement {
-  const listItemsRef = useRef(createRefArray());
-  const keyListRef = useRef(createRefArray());
+  const listItemsRef = useRef(createRefArray<HTMLLIElement>());
+  const keyListRef = useRef(createRefArray<HTMLLIElement>());
 
-  const refs = useRefs<DemoComponentRefs>({
+  const refs = useRefs<MyRefs>({
     listItems: listItemsRef,
     keyList: keyListRef,
   });
@@ -42,54 +112,9 @@ function DemoComponent(): ReactElement {
           in the array.
         </p>
       </div>
-      <div>
-        <table className="table">
-          <thead>
-            <tr>
-              <th scope="col">Ref name</th>
-              <th scope="col">Resolved Element</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td scope="row">item1</td>
-              <td>
-                <code>{refs.item1.current?.outerHTML ?? null}</code>
-              </td>
-            </tr>
-            <tr>
-              <td>item2</td>
-              <td>
-                <code>{refs.item2.current?.outerHTML ?? null}</code>
-              </td>
-            </tr>
-            <tr>
-              <td>btnMore</td>
-              <td>
-                <code>{refs.btnMore.current?.outerHTML ?? null}</code>
-              </td>
-            </tr>
-            <tr>
-              <td>itemList</td>
-              <td>
-                <code>
-                  <pre>
-                    {refs.listItems.current?.map((element) => element?.outerHTML).join('\n')}
-                  </pre>
-                </code>
-              </td>
-            </tr>
-            <tr>
-              <td>keyList</td>
-              <td>
-                <code>
-                  <pre>{refs.keyList.current?.map((element) => element?.outerHTML).join('\n')}</pre>
-                </code>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+
+      <RefTable refs={refs} />
+
       <div className="card border-dark" data-ref="test-area">
         <div className="card-header">Test Area</div>
         <div className="card-body">

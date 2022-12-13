@@ -16,12 +16,10 @@ function trimEnd<T>(target: Array<T>, value: T): Array<T> {
 /**
  * Creates an array that trims itself after it changes
  */
-export function createRefArray<T extends Array<unknown>>(
-  initialTarget: T = [] as unknown as T,
-): typeof initialTarget {
+export function createRefArray<T>(initialTarget: Array<T> = []): typeof initialTarget {
   let timeout = 0 as unknown as NodeJS.Timeout;
 
-  return new Proxy<typeof initialTarget>(trimEnd(initialTarget, null) as T, {
+  return new Proxy<typeof initialTarget>(trimEnd(initialTarget, null) as Array<T>, {
     set(target, parameter, newValue): boolean {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
