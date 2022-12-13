@@ -21,25 +21,29 @@ Object with unwrapped RefObjects
 ```tsx
 type DemoComponentRefs = Refs<{
   heading: HTMLHeadingElement;
-  button: Array<HTMLButtonElement | null>;
+  buttons: Array<HTMLButtonElement | null>;
 }>;
 
 function DemoComponent() {
   const refs = useRef<DemoComponentRefs>();
 
-  const { element, elements } = unwrapRefs(refs);
+  useEffect(() => {
+    const { element, elements } = unwrapRefs(refs);
 
-  console.log(element); // HTMLHeadingElement | null
-  console.log(elements); // Array<HTMLButtonElement | null>
+    console.log(element); // HTMLHeadingElement | null
+    console.log(elements); // Array<HTMLButtonElement | null> | null
+  }, [refs]);
 
   return (
-    <div ref={refs.element}>
+    <>
+      <h1 ref={refs.heading}>{heading}</h1>
+
       {items.map((item, index) => (
-        <span key={item} ref={arrayRef(refs.elements, index)}>
+        <button key={item} ref={arrayRef(refs.buttons, index)}>
           {item}
-        </span>
+        </button>
       ))}
-    </div>
+    </>
   );
 }
 ```
