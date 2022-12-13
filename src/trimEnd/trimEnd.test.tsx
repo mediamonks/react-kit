@@ -16,4 +16,14 @@ describe('createRefArray', () => {
 
     expect(trimEnd(array, null)).toHaveLength(4);
   });
+
+  it('should not end up in a loop when trimming undefined in empty array', async () => {
+    const array: Array<unknown> = [];
+    const arraySpy = jest.spyOn(array, 'pop');
+
+    // Try to trimEnd of empty array
+    trimEnd(array);
+
+    expect(arraySpy).toHaveBeenCalledTimes(0);
+  });
 });
