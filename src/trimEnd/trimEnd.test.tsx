@@ -1,6 +1,6 @@
 import { trimEnd } from './trimEnd';
 
-describe('createRefArray', () => {
+describe('trimEnd', () => {
   it('should not crash', async () => {
     expect(() => trimEnd([], null)).not.toThrow();
   });
