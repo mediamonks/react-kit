@@ -1,4 +1,5 @@
 import type { MutableRefObject } from 'react';
+import { createRefArray } from '../createRefArray/createRefArray';
 
 /**
  * Helper to set element in RefObject<Array>
@@ -9,9 +10,7 @@ export function arrayRef<T extends MutableRefObject<Array<unknown> | null>>(
 ): (element: NonNullable<T['current']>[number]) => void {
   return (element) => {
     if (ref.current === null) {
-      // eslint-disable-next-line no-console
-      console.warn('ref.current is undefined');
-      return;
+      ref.current = createRefArray();
     }
 
     ref.current[index] = element;
