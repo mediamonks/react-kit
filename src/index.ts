@@ -5,3 +5,4 @@ export * from './useUnmount/useUnmount';
 export * from './useRegisterRef/useRegisterRef';
 export * from './useToggle/useToggle';
 export * from './useRefs/useRefs';
+export * from './createRefArray/createRefArray';

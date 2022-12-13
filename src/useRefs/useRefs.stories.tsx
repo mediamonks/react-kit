@@ -1,6 +1,7 @@
 import type { StoryObj } from '@storybook/react';
 import { shuffle } from 'lodash-es';
 import { useRef, useState, type ReactElement } from 'react';
+import { createRefArray } from '../createRefArray/createRefArray';
 import { useRefs } from './useRefs';
 import type { Refs } from './useRefs.types';
 import { arrayRef } from './useRefs.util';
@@ -19,8 +20,8 @@ type DemoComponentRefs = Refs<{
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 function DemoComponent(): ReactElement {
-  const listItemsRef = useRef([]);
-  const keyListRef = useRef([]);
+  const listItemsRef = useRef(createRefArray());
+  const keyListRef = useRef(createRefArray());
 
   const refs = useRefs<DemoComponentRefs>({
     listItems: listItemsRef,
