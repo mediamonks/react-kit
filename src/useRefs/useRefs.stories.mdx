@@ -23,15 +23,13 @@ export function useRefs<T extends Record<string | symbol, RefObject<unknown>>>(
 ## Usage
 
 ```tsx
-function DemoComponent() {
-  const buttonRef = useRef<Array<HTMLButtonElement>>([]);
+type DemoComponentRefs = Refs<{
+  heading: HTMLHeadingElement;
+  button: Array<HTMLButtonElement | null>;
+}>;
 
-  const refs = useRef<{
-    heading: RefObject<HTMLHeadingElement | null>;
-    button: RefObject<Array<HTMLButtonElement | null>>;
-  }>({
-    buttonRef,
-  });
+function DemoComponent() {
+  const refs = useRef<DemoComponentRefs>();
 
   console.log(refs.element.current); // HTMLHeadingElement | null
   console.log(refs.elements.current); // Array<HTMLButtonElement | null>
