@@ -5,4 +5,6 @@ export * from './useUnmount/useUnmount';
 export * from './useRegisterRef/useRegisterRef';
 export * from './useToggle/useToggle';
 export * from './useRefs/useRefs';
+export * from './useRefs/useRefs.types';
+export * from './useRefs/useRefs.util';
 export * from './trimEnd/trimEnd';
