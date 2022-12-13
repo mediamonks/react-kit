@@ -1,5 +1,5 @@
 import type { MutableRefObject } from 'react';
-import { trimEnd } from '../trimEnd/trimEnd';
+import { trimEnd } from '../utils/trimEnd/trimEnd';
 
 /**
  * Helper to set element in RefObject<Array>
