@@ -17,8 +17,8 @@ export function useRefs<T extends Record<string | symbol, RefObject<unknown>>>(
 
 ### Returns
 
-- `refs` An object that automatically creates refs when accessing its fields. The return type matches
-  the structure and type of the generics argument.
+An object that automatically creates refs when accessing its fields. The return type matches the
+structure and type of the generics argument.
 
 ## Usage
 
@@ -32,18 +32,18 @@ function DemoComponent() {
   const refs = useRef<DemoComponentRefs>();
 
   console.log(refs.heading.current); // HTMLHeadingElement | null
-  console.log(refs.buttons.current); // Array<HTMLButtonElement | null>
+  console.log(refs.buttons.current); // Array<HTMLButtonElement | null> | null
 
   return (
-    <div>
+    <>
       <h1 ref={refs.heading}>{heading}</h1>
-      
+
       {items.map((item, index) => (
         <button key={item} ref={arrayRef(refs.buttons, index)}>
           {item}
         </button>
       ))}
-    </div>
+    </>
   );
 }
 ```
