@@ -2,20 +2,6 @@ import { createRef, useMemo, type RefObject } from 'react';
 
 /**
  * Utility to automatically create refs
- *
- * ```typescript
- * const buttonRef = useRef<Array<HTMLButtonElement>>([]);
- *
- * const refs = useRef<{
- *  heading: RefObject<HTMLHeadingElement | null>
- *  button: RefObject<Array<HTMLButtonElement | null>>
- * }>({
- *   buttonRef
- * })
- * ```
- *
- * refs.heading -> ref automatically created
- * refs.button -> ref from target object
  */
 export function useRefs<T extends Record<string | symbol, RefObject<unknown>>>(
   initialTarget?: Partial<T>,
