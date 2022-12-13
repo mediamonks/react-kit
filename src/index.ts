@@ -1,4 +1,7 @@
 /* PLOP_ADD_EXPORT */
+export * from './trimEnd/trimEnd';
+export * from './unwrapRefs/unwrapRefs';
+export * from './unwrapRefs/unwrapRefs.types';
 export * from './useIsomorphicLayoutEffect/useIsomorphicLayoutEffect';
 export * from './useMount/useMount';
 export * from './useRefs/useRefs';
