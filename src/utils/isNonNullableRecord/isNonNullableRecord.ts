@@ -10,11 +10,5 @@ export type NonNullableRecord<T extends UnknownRecord> = {
 export function isNonNullableRecord<T extends UnknownRecord>(
   record: T,
 ): record is NonNullableRecord<T> {
-  for (const value of Object.values(record)) {
-    if (value === undefined || value === null) {
-      return false;
-    }
-  }
-
-  return true;
+ return Object.values(record).every(value => value !== undefined && value !== null);
 }
