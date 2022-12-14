@@ -1,22 +1,22 @@
 import type { StoryObj } from '@storybook/react';
-import { useState } from 'react';
-import { useRegisterRef } from './useRegisterRef';
 import { shuffle } from 'lodash-es';
+import { useState, type ReactElement } from 'react';
+import { useRegisterRef } from './useRegisterRef';
 
 export default {
   title: 'useRegisterRef',
 };
 
-type DemoComponentProps = {};
-
 type Refs = {
-  item1: HTMLElement;
-  item2: HTMLElement;
-  btnMore: HTMLButtonElement;
-  listItems: ReadonlyArray<HTMLElement>;
-  keyList: ReadonlyArray<HTMLElement>;
+  item1: HTMLDivElement | null;
+  item2: HTMLParagraphElement | null;
+  btnMore: HTMLButtonElement | null;
+  listItems: ReadonlyArray<HTMLElement> | null;
+  keyList: ReadonlyArray<HTMLElement> | null;
 };
-function DemoComponent({}: DemoComponentProps) {
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+function DemoComponent(): ReactElement {
   const [refs, registerRef] = useRegisterRef<Refs>();
   const [count, setCount] = useState(3);
   const [keyList, setKeyList] = useState(['key A', 'key B', 'key C']);
@@ -86,14 +86,18 @@ function DemoComponent({}: DemoComponentProps) {
           <button
             type="button"
             className="btn btn-danger btn-sm"
-            onClick={() => setCount((oldCount) => Math.max(0, oldCount - 1))}
+            onClick={(): void => {
+              setCount((oldCount) => Math.max(0, oldCount - 1));
+            }}
           >
             Less
           </button>{' '}
           <button
             type="button"
             className="btn btn-success btn-sm"
-            onClick={() => setCount((oldCount) => Math.min(10, oldCount + 1))}
+            onClick={(): void => {
+              setCount((oldCount) => Math.min(10, oldCount + 1));
+            }}
             ref={registerRef('btnMore')}
           >
             More
@@ -108,7 +112,9 @@ function DemoComponent({}: DemoComponentProps) {
           <button
             type="button"
             className="btn btn-primary btn-sm"
-            onClick={() => setKeyList(shuffle(keyList))}
+            onClick={(): void => {
+              setKeyList(shuffle(keyList));
+            }}
           >
             Shuffle
           </button>
@@ -124,9 +130,10 @@ function DemoComponent({}: DemoComponentProps) {
     </div>
   );
 }
-export const Demo: StoryObj<DemoComponentProps> = {
-  render(args) {
-    return <DemoComponent {...args} />;
+// eslint-disable-next-line @typescript-eslint/naming-convention
+export const Demo: StoryObj = {
+  render() {
+    return <DemoComponent />;
   },
   name: 'demo',
   args: {
