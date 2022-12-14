@@ -28,10 +28,10 @@ function DemoComponent() {
   const refs = useRef<DemoComponentRefs>();
 
   useEffect(() => {
-    const { element, elements } = unwrapRefs(refs);
+    const { heading, buttons } = unwrapRefs(refs);
 
-    console.log(element); // HTMLHeadingElement | null
-    console.log(elements); // Array<HTMLButtonElement | null> | null
+    console.log(heading); // HTMLHeadingElement | null
+    console.log(buttons); // Array<HTMLButtonElement | null> | null
   }, [refs]);
 
   return (
