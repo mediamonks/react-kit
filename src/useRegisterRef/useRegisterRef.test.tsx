@@ -30,9 +30,11 @@ describe('useRegisterRef', () => {
     const [refs, registerRef] = result.current;
 
     await act(() => {
-      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       registerRef('items[]', 0)('A');
-      // @ts-ignore
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       registerRef('items[]', 1)('B');
     });
 
