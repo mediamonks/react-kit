@@ -1,12 +1,16 @@
+[![npm version](https://img.shields.io/npm/v/@mediamonks/react-hooks)](https://www.npmjs.com/package/@mediamonks/react-hooks)
+[![npm downloads](https://img.shields.io/npm/dm/@mediamonks/react-hooks)](https://www.npmjs.com/package/@mediamonks/react-hooks)
+
 # @mediamonks/react-hooks
 
-Commonly used hooks for Muban using the Vue Composition API.
+Collection of commonly used React hooks.
 
 ## Getting started
 
 ### Installing
 
 Add `@mediamonks/react-hooks` to your project:
+
 ```sh
 npm i @mediamonks/react-hooks
 ```
@@ -45,35 +49,36 @@ Run `npm run storybook` to preview your stories and documentation.
 ### Folder Structure
 
 `useHookName`
-* `useHookName.ts` – The Hook itself
-* `useHookName.stories.tsx` – To showcase the hook with a working UI, also used for dom testing
-* `useHookName.stories.mdx` – Documentation about the hook
-* `useHookName.test.tsx` – Unit tests for the hook
+
+- `useHookName.ts` – The Hook itself
+- `useHookName.stories.tsx` – To showcase the hook with a working UI, also used for dom testing
+- `useHookName.stories.mdx` – Documentation about the hook
+- `useHookName.test.tsx` – Unit tests for the hook
 
 ### Steps for adding a new Hook:
 
 Run the `plop` script and enter your hook name starting with `use`.
+
 ```shell
 npm run plop
 ```
 
 Which will execute the following steps, where you need to fill in the content.
 
-* Create a new folder and a new `ts` file with the hook
-  * Use the `use` prefix for the name of the hook
-  * Use named exports to export the hook
-  * Enter JSDoc for description and parameters
-* Re-export the hook in the `index.ts`
-* Add a markdown file documenting the hook
-  * General description
-  * Reference for types, parameters, return type
-  * Simple and extended use cases
-* Add a story file to test out the hook
-  * Add an instructions banner at the top of the story
-  * Create a type for the StoryArgs that match the template, so it can be used when rendering
-    the Story inside tests.
-* Add unit tests for the hook
-
+- Create a new folder and a new `ts` file with the hook
+  - Use the `use` prefix for the name of the hook
+  - Use named exports to export the hook
+  - Enter JSDoc for description and parameters
+- Re-export the hook in the `index.ts`
+- Add a markdown file documenting the hook
+  - General description
+  - Reference for types, parameters, return type
+  - Simple and extended use cases
+- Add a story file to test out the hook
+  - Add an instructions banner at the top of the story
+  - Create a type for the StoryArgs that match the template, so it can be used when rendering the
+    Story inside tests.
+- Add unit tests for the hook
 
 ## Writing Unit test
 
