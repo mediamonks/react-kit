@@ -52,7 +52,5 @@ jobs:
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-          access: "access"
-
       - name: Push latest version
         run: git push origin main --follow-tags
