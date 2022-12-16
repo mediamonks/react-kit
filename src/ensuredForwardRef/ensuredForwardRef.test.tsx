@@ -2,7 +2,6 @@ import { render } from '@testing-library/react';
 import type { MutableRefObject } from 'react';
 import { ensuredForwardRef } from './ensuredForwardRef';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const TestComponent = ensuredForwardRef<HTMLDivElement>((_, ref) => {
   if (!('current' in ref)) {
     throw new Error('ref is not a RefObject');
