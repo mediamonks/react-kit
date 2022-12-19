@@ -9,6 +9,7 @@
   "repository": "git@github.com:mediamonks/react-hooks.git",
   "author": "frontend.monks",
   "license": "MIT",
+  "types": "./dist/index.d.ts",
   "module": "./dist/index.js",
   "exports": {
     "import": "./dist/index.js"
