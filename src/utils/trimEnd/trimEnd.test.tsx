@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { trimEnd } from './trimEnd';
 
 describe('trimEnd', () => {
