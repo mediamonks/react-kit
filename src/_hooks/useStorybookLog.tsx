@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { type ReactNode, useCallback, useState } from 'react';
 
 /**
@@ -34,7 +33,9 @@ export function useStorybookLog(): {
     () => (
       <>
         {logs.map((message) => (
-          <div className="alert alert-dismissible alert-info">{message}</div>
+          <div className="alert alert-dismissible alert-info" key={message}>
+            {message}
+          </div>
         ))}
       </>
     ),

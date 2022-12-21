@@ -28,63 +28,51 @@
     "clean": "npm-run-all clean:*",
     "clean:test": "shx rm -rf coverage .nyc_output",
     "clean:npm": "shx rm -rf dist",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
+    "lint:eslint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
     "test": "NODE_NO_WARNINGS=1 NODE_OPTIONS=--experimental-vm-modules jest ./src/",
     "check-types": "tsc --project tsconfig.json --noEmit --noUnusedLocals",
     "storybook": "sb dev -p 6006",
     "storybook:build": "sb build -o ./.docs",
     "storybook:deploy": "./deploy-docs.sh",
     "prepublishOnly": "npm run build",
-    "plop": "plop"
+    "plop": "plop",
+    "prepare": "husky install"
   },
   "prettier": "@mediamonks/prettier-config",
   "eslintConfig": {
     "extends": [
       "@mediamonks/eslint-config",
-      "@mediamonks/eslint-config-typescript"
+      "@mediamonks/eslint-config-react",
+      "@mediamonks/eslint-config-typescript",
+      "@mediamonks/eslint-config-typescript-react"
     ],
     "parserOptions": {
       "project": "./tsconfig.json"
-    },
-    "rules": {
-      "unicorn/prevent-abbreviations": [
-        "error",
-        {
-          "checkShorthandImports": false,
-          "allowList": {
-            "fn": true
-          },
-          "replacements": {
-            "ref": false,
-            "refs": false,
-            "params": false,
-            "param": false,
-            "props": false,
-            "prop": false
-          }
-        }
-      ]
     }
   },
   "devDependencies": {
     "@jest/globals": "^29.3.1",
     "@mediamonks/eslint-config": "^2.0.6",
+    "@mediamonks/eslint-config-react": "^2.1.11",
     "@mediamonks/eslint-config-typescript": "^1.0.8",
+    "@mediamonks/eslint-config-typescript-react": "^1.0.10",
     "@mediamonks/prettier-config": "^1.0.1",
     "@storybook/addon-essentials": "^7.0.0-beta.13",
     "@storybook/addon-interactions": "^7.0.0-beta.13",
     "@storybook/addon-links": "^7.0.0-beta.13",
     "@storybook/blocks": "^7.0.0-beta.13",
     "@storybook/cli": "^7.0.0-beta.13",
-    "@storybook/react-vite": "^7.0.0-beta.13",
     "@storybook/react": "^7.0.0-beta.13",
+    "@storybook/react-vite": "^7.0.0-beta.13",
     "@storybook/types": "^7.0.0-beta.13",
     "@testing-library/react": "^13.4.0",
     "@types/jest": "^29.2.3",
     "@types/react": "^18.0.25",
     "eslint": "^8.28.0",
+    "husky": "^8.0.0",
     "jest": "^29.3.1",
     "jest-environment-jsdom": "^29.3.1",
+    "lint-staged": "^13.1.0",
     "npm-run-all": "^4.1.5",
     "plop": "^3.1.1",
     "prettier": "^2.8.0",
@@ -100,5 +88,8 @@
     "@psimk/typed-object": "^1.0.4",
     "@types/lodash-es": "^4.17.6",
     "lodash-es": "^4.17.21"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,md,json}": "prettier --write"
   }
 }

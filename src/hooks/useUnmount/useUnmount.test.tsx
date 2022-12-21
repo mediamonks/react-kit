@@ -1,10 +1,11 @@
-import { renderHook } from '@testing-library/react';
 import { jest } from '@jest/globals';
+import { renderHook } from '@testing-library/react';
 import { useUnmount } from './useUnmount';
 
 describe('useUnmount', () => {
   it('should not crash', async () => {
     const { rerender, unmount } = renderHook(useUnmount, {
+      // eslint-disable-next-line @typescript-eslint/no-empty-function
       initialProps: () => {},
     });
     rerender();

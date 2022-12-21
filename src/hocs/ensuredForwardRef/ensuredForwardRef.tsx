@@ -26,6 +26,7 @@ export function ensuredForwardRef<T, P = Record<string | number | symbol, unknow
   // eslint-disable-next-line @typescript-eslint/naming-convention
   Component: EnsuredForwardRefRenderFunction<T, P>,
 ): ForwardRefExoticComponent<PropsWithoutRef<P> & RefAttributes<T>> {
+  // eslint-disable-next-line react/display-name
   return forwardRef<T, P>((props, ref) => {
     const refObject = useMemo(() => {
       if (ref !== null && 'current' in ref) {

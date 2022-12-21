@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind, react/no-multi-comp, react/jsx-no-literals */
 import type { ReactElement } from 'react';
 import { useToggle } from './useToggle';
 
@@ -9,7 +10,6 @@ type DemoComponentProps = {
   initialValue?: boolean;
 };
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 function DemoComponent({ initialValue = false }: DemoComponentProps): ReactElement {
   const [state, toggle] = useToggle(initialValue);
 
@@ -57,7 +57,6 @@ function DemoComponent({ initialValue = false }: DemoComponentProps): ReactEleme
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export function Demo(arguments_: DemoComponentProps): ReactElement {
-  return <DemoComponent {...arguments_} />;
+export function Demo(_arguments: DemoComponentProps): ReactElement {
+  return <DemoComponent {..._arguments} />;
 }

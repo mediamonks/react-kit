@@ -1,15 +1,19 @@
-import { useCallback, useState } from 'react';
 import { memoize } from 'lodash-es';
+import { useCallback, useState } from 'react';
 
 // appends the `[]` after the existing key when the type is an Array
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type RefKey<T, K extends string> = T extends ReadonlyArray<any> ? `${K}[]` : K;
 // only returns non-array keys
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type RefKeyPlain<T, K extends string> = T extends ReadonlyArray<any> ? never : K;
 // only returns array keys
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type RefKeyList<T, K extends string> = T extends ReadonlyArray<any> ? `${K}[]` : never;
 
 // get modified and optionally filtered object keys
 export type RefKeys<
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   T extends Record<string, any>,
   M extends 'all' | 'list' | 'plain' = 'all',
 > = Exclude<
@@ -23,10 +27,11 @@ export type RefKeys<
   number | symbol
 >;
 
-function arrayTrimEnd<T extends Array<unknown>>(array: T) {
-  const existingElementIndex = [...array].reverse().findIndex((val) => Boolean(val));
+function arrayTrimEnd<T extends Array<unknown>>(array: T): void {
+  const existingElementIndex = [...array].reverse().findIndex(Boolean);
   const lastExistingItemIndex =
     existingElementIndex === -1 ? 0 : array.length - existingElementIndex;
+
   array.splice(lastExistingItemIndex);
 }
 
@@ -59,6 +64,7 @@ function arrayTrimEnd<T extends Array<unknown>>(array: T) {
  *  </div>
  * ```
  */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types, @typescript-eslint/explicit-function-return-type
 export function useRegisterRef<T extends Record<string, unknown>>() {
   const [refs, setRefs] = useState({} as T);
 
@@ -80,10 +86,15 @@ export function useRegisterRef<T extends Record<string, unknown>>() {
         // array mode
         if (name.endsWith('[]')) {
           const cleanName = name.replace('[]', '') as N;
-          if (!oldRefs[cleanName]) oldRefs[cleanName] = [] as T[N];
+          if (!oldRefs[cleanName]) {
+            oldRefs[cleanName] = [] as T[N];
+          }
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const slot = oldRefs[cleanName] as Array<unknown>;
-          slot[index!] = ref;
+
+          if (index !== undefined) {
+            slot[index] = ref;
+          }
 
           // if we set something to `null`, try to clean up the array
           if (!ref) {
@@ -100,10 +111,12 @@ export function useRegisterRef<T extends Record<string, unknown>>() {
     };
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const registerRef = useCallback(
     // memoize the function creation so it doesn't cause re-renders when they are passed to the `ref` attribute
-    memoize(registerRefInternal, (...args) => `${args[0]}-${args[1]}`),
+    memoize(registerRefInternal, (..._arguments) => `${_arguments[0]}-${_arguments[1]}`),
     [],
   );
+
   return [refs, registerRef] as const;
 }

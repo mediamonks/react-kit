@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind, react/no-multi-comp, react/jsx-no-literals */
 import { shuffle } from 'lodash-es';
 import { useState, type ReactElement } from 'react';
 import { useRegisterRef } from './useRegisterRef';
@@ -41,7 +42,7 @@ function DemoComponent(): ReactElement {
           </thead>
           <tbody>
             <tr>
-              <td scope="row">item1</td>
+              <td>item1</td>
               <td>
                 <code>{refs.item1?.outerHTML ?? null}</code>
               </td>

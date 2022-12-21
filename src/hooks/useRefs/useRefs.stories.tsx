@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-bind, react/no-multi-comp, react/jsx-no-literals */
 import { shuffle } from 'lodash-es';
 import { useEffect, useState, type ReactElement } from 'react';
 import { arrayRef } from '../../utils/arrayRef/arrayRef';
@@ -21,6 +22,7 @@ type RefTableProps = {
 };
 
 function useRerender(interval = 100): void {
+  // eslint-disable-next-line react/hook-use-state
   const [, setRenderState] = useState(0);
 
   useEffect(() => {
@@ -33,7 +35,6 @@ function useRerender(interval = 100): void {
   }, [interval]);
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 function RefTable({ refs }: RefTableProps): ReactElement {
   // force re-render to show the new value of these refs
   useRerender();
@@ -86,7 +87,6 @@ function RefTable({ refs }: RefTableProps): ReactElement {
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 function DemoComponent(): ReactElement {
   const refs = useRefs<MyRefs>();
 
@@ -160,7 +160,6 @@ function DemoComponent(): ReactElement {
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 export function Demo(): ReactElement {
   return <DemoComponent />;
 }
