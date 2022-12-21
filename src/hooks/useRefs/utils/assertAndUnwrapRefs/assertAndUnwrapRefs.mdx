@@ -1,0 +1,49 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useRefs/utils/assertAndUnwrapRefs" />
+
+# unwrapRefs
+
+Utility to assert and unwrap RefObjects in an object
+
+## Reference
+
+```ts
+export function assertAndUnwrapRefs<T extends Refs>(refs: T): NonNullableRecord<UnwrapRefs<T>>;
+```
+
+### Returns
+
+Object with NonNullable unwrapped RefObjects
+
+## Usage
+
+```tsx
+type DemoComponentRefs = Refs<{
+  heading: HTMLHeadingElement;
+  buttons: Array<HTMLButtonElement | null>;
+}>;
+
+function DemoComponent() {
+  const refs = useRefs<DemoComponentRefs>();
+
+  const onClick = useCallback(() => {
+    const { heading, buttons } = assertAndUnwrapRefs(refs);
+
+    console.log(heading); // HTMLHeadingElement
+    console.log(buttons); // Array<HTMLButtonElement | null>
+  }, [refs]);
+
+  return (
+    <>
+      <h1 ref={refs.heading}>{heading}</h1>
+
+      {items.map((item, index) => (
+        <button key={item} ref={arrayRef(refs.buttons, index)} onClick={onClick}>
+          {item}
+        </button>
+      ))}
+    </>
+  );
+}
+```

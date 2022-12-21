@@ -1,0 +1,67 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useRegisterRef" />
+
+# useRegisterRef
+
+A helper hook that allows you to easily register and access refs by "name", including ref
+collections.
+
+Due to the dynamic nature of collecting refs, it's tricky to know how many `useRef` calls you need
+to consistently do without explicitly setting (and updating when your refs change) the amount. This
+is why this hook doesn't use `useRef` at all, but stores the actual DOM elements directly.
+
+This means that other hooks that rely on `ref.current` will not work. In that case you should change
+the hook (if you can), or wrap your element inside a ref (TODO: this can be easily done with the
+`todo` hook).
+
+## Reference
+
+```ts
+function useRegisterRef<T extends Record<string, unknown>>(): readonly [
+  T,
+  (name: string, index?: number) => (ref: Element | null) => void,
+];
+```
+
+### Returns
+
+- `[refs, registerRef]` - Define the return value here.
+  - `refs` – An object with the registered DOM Elements, matching the structure and type of the
+    passed `Refs` in the generics.
+  - `registerRef` – A factory to create a scoped function to pass to the JSX `ref` attribute. You
+    pass the name of the ref you want to capture (matching the `Refs` generics) and the index if you
+    are registering a collection of items, and it returns a function that collects the React element
+    under that name in the `refs` object. When using arrays (and your `Refs` defines something as an
+    array), you have to append `[]` to the name of the ref, so we can turn on the array capture
+    behaviour.
+
+## Usage
+
+```tsx
+const [refs, registerRef] = useRegisterRef<Refs>();
+```
+
+```tsx
+type Refs = {
+  element: HTMLDivElement;
+  elements: ReadonlyArray<HTMLSpanElement>;
+};
+
+function DemoComponent() {
+  const [refs, registerRef] = useRegisterRef<Refs>();
+
+  console.log(refs.element); // HTMLDivElement
+  console.log(refs.elements); // Array<HTMLSpanElement>
+
+  return (
+    <div ref={registerRef('element')}>
+      {items.map((item, index) => (
+        <span key={item} ref={registerRef('elements[]', index)}>
+          {item}
+        </span>
+      ))}
+    </div>
+  );
+}
+```

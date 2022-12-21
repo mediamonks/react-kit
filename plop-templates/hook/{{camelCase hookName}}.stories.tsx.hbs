@@ -1,12 +1,12 @@
-import type { StoryObj } from '@storybook/react';
 import { {{camelCase hookName}} } from './{{camelCase hookName}}';
 
 export default {
-  title: '{{camelCase hookName}}',
+  title: 'hooks/{{camelCase hookName}}',
 };
 
 type DemoComponentProps = {
 };
+
 function DemoComponent({}: DemoComponentProps) {
   const [] = {{camelCase hookName}}();
 
@@ -28,12 +28,7 @@ function DemoComponent({}: DemoComponentProps) {
     </div>
   );
 }
-export const Demo: StoryObj<DemoComponentProps> = {
-  render(args) {
-    return <DemoComponent {...args} />;
-  },
-  name: 'demo',
-  args: {
-    initialValue: true,
-  },
-};
+
+export function Demo(arguments_: DemoComponentProps): ReactElement {
+  return <DemoComponent {...arguments_} />;
+}

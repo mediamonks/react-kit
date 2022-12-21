@@ -1,0 +1,55 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useToggle" />
+
+# useToggle
+
+The `useToggle` hook provides you with a `boolean` `state` and a `toggle` function that can be used
+to toggle or set the value of the `state`.
+
+It saves you from using `setState(!state)`.
+
+## Reference
+
+```ts
+function useToggle(initialValue: boolean): readonly [boolean, (force?: boolean) => void];
+```
+
+### Parameters
+
+- `initialValue` – The initial value of the state.
+
+### Returns
+
+- `[state, toggle]`
+  - `state` – The current state
+  - `toggle` – A toggle function. When called without any parameters, it will negate the state.
+    Otherwise, it will set the state to the passed value.
+
+## Usage
+
+```ts
+const [state, toggle] = useToggle(false);
+```
+
+```tsx
+function DemoComponent() {
+  // receive the value, and a toggle function to update it
+  const [state, toggle] = useToggle(false);
+
+  return (
+    <div>
+      <div>
+        {/* Display the current value */}
+        Value: <span className="badge rounded-pill bg-primary">{state ? 'true' : 'false'}</span>
+      </div>
+      <div style={{ marginTop: '20px' }}>
+        {/* Toggle the value */}
+        <button onClick={() => toggle()}>Toggle</button>
+        {/* Explicitly set the value */}
+        <button onClick={() => toggle(true)}>Enable</button>
+      </div>
+    </div>
+  );
+}
+```
