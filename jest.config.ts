@@ -1,4 +1,7 @@
-export default {
+/* eslint-disable @typescript-eslint/naming-convention */
+import type { Config } from 'jest';
+
+const config: Config = {
   // https://kulshekhar.github.io/ts-jest/docs/guides/esm-support
   preset: 'ts-jest/presets/default-esm',
   testEnvironment: 'jsdom',
@@ -22,3 +25,5 @@ export default {
   // to exclude .types.test.ts patterns from being picked up by jest
   testRegex: '(/__tests__/.*|(\\.|/)(?<!types.)(test|spec))\\.[jt]sx?$',
 };
+
+export default config;
