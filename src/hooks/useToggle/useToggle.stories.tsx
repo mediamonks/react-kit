@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-no-bind, react/no-multi-comp, react/jsx-no-literals */
+import type { StoryObj } from '@storybook/react';
 import type { ReactElement } from 'react';
 import { useToggle } from './useToggle';
 
@@ -57,6 +58,9 @@ function DemoComponent({ initialValue = false }: DemoComponentProps): ReactEleme
   );
 }
 
-export function Demo(_arguments: DemoComponentProps): ReactElement {
-  return <DemoComponent {..._arguments} />;
-}
+export const Demo: StoryObj = {
+  name: 'Demo',
+  render(_arguments: DemoComponentProps) {
+    return <DemoComponent {..._arguments} />;
+  },
+};

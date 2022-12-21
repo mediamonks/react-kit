@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-no-bind, react/no-multi-comp, react/jsx-no-literals */
+import type { StoryObj } from '@storybook/react';
 import { shuffle } from 'lodash-es';
 import { useState, type ReactElement } from 'react';
 import { useRegisterRef } from './useRegisterRef';
@@ -15,7 +16,6 @@ type Refs = {
   keyList: ReadonlyArray<HTMLElement> | null;
 };
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
 function DemoComponent(): ReactElement {
   const [refs, registerRef] = useRegisterRef<Refs>();
   const [count, setCount] = useState(3);
@@ -131,7 +131,9 @@ function DemoComponent(): ReactElement {
   );
 }
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-export function Demo(): ReactElement {
-  return <DemoComponent />;
-}
+export const Demo: StoryObj = {
+  name: 'Demo',
+  render() {
+    return <DemoComponent />;
+  },
+};

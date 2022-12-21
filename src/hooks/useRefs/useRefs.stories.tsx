@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-no-bind, react/no-multi-comp, react/jsx-no-literals */
+import type { StoryObj } from '@storybook/react';
 import { shuffle } from 'lodash-es';
 import { useEffect, useState, type ReactElement } from 'react';
 import { arrayRef } from '../../utils/arrayRef/arrayRef';
@@ -160,6 +161,9 @@ function DemoComponent(): ReactElement {
   );
 }
 
-export function Demo(): ReactElement {
-  return <DemoComponent />;
-}
+export const Demo: StoryObj = {
+  name: 'Demo',
+  render() {
+    return <DemoComponent />;
+  },
+};

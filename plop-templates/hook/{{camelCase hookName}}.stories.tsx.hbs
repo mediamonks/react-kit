@@ -1,3 +1,4 @@
+import type { StoryObj } from '@storybook/react';
 import { {{camelCase hookName}} } from './{{camelCase hookName}}';
 
 export default {
@@ -29,6 +30,8 @@ function DemoComponent({}: DemoComponentProps) {
   );
 }
 
-export function Demo(_arguments: DemoComponentProps): ReactElement {
-  return <DemoComponent {..._arguments} />;
-}
+export const Demo: StoryObj = {
+  render(_arguments: DemoComponentProps) {
+    return <DemoComponent {..._arguments} />;
+  }
+};
