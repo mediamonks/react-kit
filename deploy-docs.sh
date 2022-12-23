@@ -7,7 +7,7 @@ set -e
 npm run storybook:build
 
 # navigate into the build output directory
-cd .docs
+cd .docs/react-hooks
 
 # if you are deploying to a custom domain
 # echo 'www.example.com' > CNAME

@@ -32,7 +32,7 @@
     "test": "NODE_NO_WARNINGS=1 NODE_OPTIONS=--experimental-vm-modules jest ./src/",
     "check-types": "tsc --project tsconfig.json --noEmit --noUnusedLocals",
     "storybook": "sb dev -p 6006",
-    "storybook:build": "sb build -o ./.docs",
+    "storybook:build": "sb build -o ./.docs/react-hooks",
     "storybook:deploy": "./deploy-docs.sh",
     "prepublishOnly": "npm run build",
     "plop": "plop",
