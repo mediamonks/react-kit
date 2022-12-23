@@ -1,0 +1,35 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useUnmount" />
+
+# useUnmount
+
+React lifecycle hook that calls a function when the component will unmount.
+
+## Reference
+
+```ts
+function useUnmount(callbackFunction: () => void): void;
+```
+
+### Parameters
+
+- `callbackFunction` - function that will be called when the component will unmount
+
+### Returns
+
+- `void`
+
+## Usage
+
+```tsx
+useUnmount(() => console.log('unmounted'));
+```
+
+```tsx
+function DemoComponent() {
+  useUnmount(() => console.log('unmounted'));
+
+  return <div></div>;
+}
+```
