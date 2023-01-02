@@ -2,7 +2,7 @@
 import type { StoryObj } from '@storybook/react';
 import { shuffle } from 'lodash-es';
 import { useState, type ReactElement } from 'react';
-import { useRegisterRef } from './useRegisterRef';
+import { useRegisterRef } from './useRegisterRef.js';
 
 export default {
   title: 'hooks/useRegisterRef',

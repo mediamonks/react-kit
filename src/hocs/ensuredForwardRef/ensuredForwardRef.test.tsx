@@ -1,7 +1,7 @@
 import { jest } from '@jest/globals';
 import { render } from '@testing-library/react';
 import type { MutableRefObject } from 'react';
-import { ensuredForwardRef } from './ensuredForwardRef';
+import { ensuredForwardRef } from './ensuredForwardRef.js';
 
 const TestComponent = ensuredForwardRef<HTMLDivElement>((_, ref) => {
   if (!('current' in ref)) {

@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react';
-import { useMount } from './useMount';
+import { useMount } from './useMount.js';
 
 describe('useMount', () => {
   it('should not crash', async () => {

@@ -1,6 +1,6 @@
 import { act, renderHook } from '@testing-library/react';
-import { useRefs } from './useRefs';
-import type { MutableRefs } from './useRefs.types';
+import { useRefs } from './useRefs.js';
+import type { MutableRefs } from './useRefs.types.js';
 
 type TestRefs = MutableRefs<{
   number1: number;

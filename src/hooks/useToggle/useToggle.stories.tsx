@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-bind, react/no-multi-comp, react/jsx-no-literals */
 import type { StoryObj } from '@storybook/react';
 import type { ReactElement } from 'react';
-import { useToggle } from './useToggle';
+import { useToggle } from './useToggle.js';
 
 export default {
   title: 'hooks/useToggle',

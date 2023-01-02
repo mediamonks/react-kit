@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
-import { useToggle } from './useToggle';
+import { useToggle } from './useToggle.js';
 
 describe('useToggle', () => {
   it('should not crash', () => {

@@ -1,7 +1,7 @@
 import { renderHook } from '@testing-library/react';
-import { useRefs } from '../../useRefs';
-import type { MutableRefs } from '../../useRefs.types';
-import { assertAndUnwrapRefs } from './assertAndUnwrapRefs';
+import { useRefs } from '../../useRefs.js';
+import type { MutableRefs } from '../../useRefs.types.js';
+import { assertAndUnwrapRefs } from './assertAndUnwrapRefs.js';
 
 type TestRefs = MutableRefs<{
   item1: string;

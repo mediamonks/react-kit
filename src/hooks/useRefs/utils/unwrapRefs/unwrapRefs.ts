@@ -1,5 +1,5 @@
-import type { Refs } from '../../useRefs.types';
-import type { UnwrapRefs } from './unwrapRefs.types';
+import type { Refs } from '../../useRefs.types.js';
+import type { UnwrapRefs } from './unwrapRefs.types.js';
 
 /**
  * Unwraps RefObjects in object
