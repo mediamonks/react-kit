@@ -1,10 +1,10 @@
 import {
   isNonNullableRecord,
   type NonNullableRecord,
-} from '../../../../_utils/isNonNullableRecord/isNonNullableRecord';
-import type { Refs } from '../../useRefs.types';
-import { unwrapRefs } from '../unwrapRefs/unwrapRefs';
-import type { UnwrapRefs } from '../unwrapRefs/unwrapRefs.types';
+} from '../../../../_utils/isNonNullableRecord/isNonNullableRecord.js';
+import type { Refs } from '../../useRefs.types.js';
+import { unwrapRefs } from '../unwrapRefs/unwrapRefs.js';
+import type { UnwrapRefs } from '../unwrapRefs/unwrapRefs.types.js';
 
 /**
  * Unwraps refs and assert every field is not null

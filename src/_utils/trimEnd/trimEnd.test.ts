@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import { trimEnd } from './trimEnd';
+import { trimEnd } from './trimEnd.js';
 
 describe('trimEnd', () => {
   it('should not crash', async () => {

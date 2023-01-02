@@ -1,5 +1,5 @@
 import { createRef, type RefObject } from 'react';
-import { arrayRef } from './arrayRef';
+import { arrayRef } from './arrayRef.js';
 
 describe('arrayRef', () => {
   it('should set element in RefObject<Array<unknown>>', async () => {

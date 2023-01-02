@@ -2,9 +2,9 @@
 import type { StoryObj } from '@storybook/react';
 import { shuffle } from 'lodash-es';
 import { useEffect, useState, type ReactElement } from 'react';
-import { arrayRef } from '../../utils/arrayRef/arrayRef';
-import { useRefs } from './useRefs';
-import type { MutableRefs } from './useRefs.types';
+import { arrayRef } from '../../utils/arrayRef/arrayRef.js';
+import { useRefs } from './useRefs.js';
+import type { MutableRefs } from './useRefs.types.js';
 
 export default {
   title: 'hooks/useRefs',

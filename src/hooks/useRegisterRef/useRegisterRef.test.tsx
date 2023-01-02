@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
-import { useRegisterRef } from './useRegisterRef';
+import { useRegisterRef } from './useRegisterRef.js';
 
 describe('useRegisterRef', () => {
   it('should not crash', async () => {

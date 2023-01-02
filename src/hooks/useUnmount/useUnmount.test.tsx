@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react';
-import { useUnmount } from './useUnmount';
+import { useUnmount } from './useUnmount.js';
 
 describe('useUnmount', () => {
   it('should not crash', async () => {

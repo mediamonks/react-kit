@@ -2,6 +2,11 @@
 import type { Config } from 'jest';
 
 const config: Config = {
+  extensionsToTreatAsEsm: ['.ts', '.tsx'],
+  moduleNameMapper: {
+    '^(\\.{1,2}/.*)\\.js$': '$1',
+  },
+  testEnvironment: 'jsdom',
   transform: {
     '^.+\\.(t|j)sx?$': [
       '@swc/jest',
@@ -16,8 +21,6 @@ const config: Config = {
       },
     ],
   },
-  testEnvironment: 'jsdom',
-  extensionsToTreatAsEsm: ['.ts', '.tsx'],
 };
 
 export default config;
