@@ -1,6 +1,6 @@
 {
   "name": "@mediamonks/react-hooks",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A collection of React hooks we use at Media.Monks",
   "keywords": [
     "react",
