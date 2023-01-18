@@ -21,22 +21,54 @@ Function that sets element on array index in given RefObject.
 
 ## Usage
 
+Usage with `useRef` hook.
+
+```tsx
+type DemoComponentProps = {
+  items: ReadonlyArray<string>;
+};
+
+function DemoComponent({ items }: DemoComponentProps): ReactElement {
+  const buttonsRef = useRef<Array<HTMLButtonElement | null>>([]);
+
+  useEffect(() => {
+    console.log(buttonsRef.current); // Array<HTMLButtonElement | null>
+  }, []);
+
+  return (
+    <>
+      {items.map((item, index) => (
+        <button key={item} ref={arrayRef(buttonsRef, index)} type="button">
+          {item}
+        </button>
+      ))}
+    </>
+  );
+}
+```
+
+Usage together with `useRefs` hook.
+
 ```tsx
 type DemoComponentRefs = Refs<{
   buttons: Array<HTMLButtonElement | null>;
 }>;
 
-function DemoComponent() {
+type DemoComponentProps = {
+  items: ReadonlyArray<string>;
+};
+
+function DemoComponent({ items }: DemoComponentProps): ReactElement {
   const refs = useRefs<DemoComponentRefs>();
 
   useEffect(() => {
     console.log(refs.buttons.current); // Array<HTMLButtonElement | null>
-  }, [refs]);
+  }, []);
 
   return (
     <>
       {items.map((item, index) => (
-        <button key={item} ref={arrayRef(refs.buttons, index)}>
+        <button key={item} ref={arrayRef(refs.buttons, index)} type="button">
           {item}
         </button>
       ))}
