@@ -1,0 +1,28 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useWindowEvent" />
+
+# useWindowEvent
+
+This hook allows you to add a window event listener and remove it when the component unmounts.
+
+## Reference
+
+```ts
+function useWindowEvent<T extends keyof WindowEventMap>(
+  event: T,
+  callback: (event: WindowEventMap[T]) => void,
+): void;
+```
+
+## Usage
+
+```tsx
+function DemoComponent() {
+  useWindowEvent('resize', () => {
+    console.log('window resized');
+  });
+
+  return <div></div>;
+}
+```
