@@ -10,7 +10,7 @@ import {
   type ReactElement,
   type RefCallback,
 } from 'react';
-import { arrayRef } from '../utils/arrayRef/arrayRef.js';
+import { arrayRef } from '../../utils/arrayRef/arrayRef.js';
 
 type AutoFillChildrenProps = {
   ref: RefCallback<unknown>;
