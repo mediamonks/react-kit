@@ -1,0 +1,24 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useDocumentEvent" />
+
+# useDocumentEvent
+
+This hook allows you to add a document event listener and remove it when the component unmounts.
+
+## Reference
+
+```ts
+export function useDocumentEvent<T extends keyof DocumentEventMap>(
+  event: T,
+  callback: (event: DocumentEventMap[T]) => void,
+): void;
+```
+
+## Usage
+
+```tsx
+useDocumentEvent('focusin', () => {
+  console.log(document.activeElement);
+});
+```
