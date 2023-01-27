@@ -1,0 +1,52 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="components/AutoFill" />
+
+# AutoFill
+
+Repeats children to fill the parent element in given axis.
+
+## Reference
+
+```ts
+interface AutoFillProps {
+  children: ReadonlyArray<ReactNode>;
+  axis?: 'x' | 'y'; // Default: 'x'
+}
+
+function AutoFill(props: AutoFillProps): ReactElement;
+```
+
+## Usage
+
+AutoFill for X axis:
+
+```tsx
+function DemoComponent() {
+  return (
+    <div style={{ width: 1000, display: 'grid', outline: '1px solid black' }}>
+      <AutoFill>
+        <div style={{ padding: 15 }}>
+          <div style={{ width: 50, outline: '1px solid red' }}>Child</div>
+        </div>
+      </AutoFill>
+    </div>
+  );
+}
+```
+
+AutoFill for Y axis:
+
+```tsx
+function DemoComponent() {
+  return (
+    <div style={{ height: 1000, outline: '1px solid black' }}>
+      <AutoFill>
+        <div style={{ padding: 15 }}>
+          <div style={{ width: 50, outline: '1px solid red' }}>Child</div>
+        </div>
+      </AutoFill>
+    </div>
+  );
+}
+```
