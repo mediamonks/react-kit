@@ -1,20 +1,12 @@
-import { useEffect } from 'react';
+import { useEventListener } from '../useEventListener/useEventListener.js';
 
 /**
- * This hook allows you to add a window event listener and remove it when the component unmounts.
- *
- * @param event - The event to listen for
- * @param callback - The callback to fire when the event is triggered
+ * SSR-safe hook that adds an event listener to the window.
  */
-export function useWindowEvent<T extends keyof WindowEventMap>(
-  event: T,
-  callback: (event: WindowEventMap[T]) => void,
+export function useWindowEvent<K extends keyof WindowEventMap>(
+  type: K,
+  listener: (this: Window, event: WindowEventMap[K]) => void,
+  options?: boolean | AddEventListenerOptions,
 ): void {
-  useEffect(() => {
-    window.addEventListener(event, callback);
-
-    return () => {
-      window.removeEventListener(event, callback);
-    };
-  }, [event, callback]);
+  useEventListener(typeof window === 'undefined' ? undefined : window, type, listener, options);
 }

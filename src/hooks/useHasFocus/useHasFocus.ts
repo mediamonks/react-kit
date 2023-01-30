@@ -16,6 +16,7 @@ export function useHasFocus(
   const matches = useCallback(() => ref.current?.matches(selector) ?? false, [ref, selector]);
 
   const [state, setState] = useState(matches);
+
   useDocumentEvent('focusin', () => {
     setState(matches());
   });

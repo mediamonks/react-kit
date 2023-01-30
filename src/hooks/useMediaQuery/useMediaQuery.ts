@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useEventListener } from '../useEventListener/useEventListener.js';
 
 /**
  * The MediaQuery type is used for the `mediaQueryVariableName` parameter of
@@ -36,24 +37,21 @@ export function getMediaQueryList(
  * @param defaultValue - The default value to return if the matchMedia API is not available.
  */
 export function useMediaQuery(mediaQueryVariableName: MediaQueries, defaultValue = false): boolean {
-  const [isMatching, setIsMatching] = useState<boolean>(
-    () => getMediaQueryList(mediaQueryVariableName)?.matches ?? defaultValue,
+  const [mediaQueryList, setMediaQueryList] = useState<MediaQueryList | undefined>(() =>
+    getMediaQueryList(mediaQueryVariableName),
   );
-
-  const onChange = useCallback((event: MediaQueryListEvent) => {
-    setIsMatching(event.matches);
-  }, []);
+  const [matches, setMatches] = useState<boolean | undefined>(defaultValue);
 
   useEffect(() => {
-    const mediaQueryList = getMediaQueryList(mediaQueryVariableName);
-    mediaQueryList?.addEventListener('change', onChange);
+    const _mediaQueryList = getMediaQueryList(mediaQueryVariableName);
 
-    setIsMatching(mediaQueryList?.matches ?? defaultValue);
+    setMediaQueryList(_mediaQueryList);
+    setMatches(_mediaQueryList?.matches);
+  }, [defaultValue, mediaQueryList?.matches, mediaQueryVariableName]);
 
-    return () => {
-      mediaQueryList?.removeEventListener('change', onChange);
-    };
-  }, [defaultValue, mediaQueryVariableName, onChange]);
+  useEventListener(mediaQueryList, 'change', (event) => {
+    setMatches(event.matches);
+  });
 
-  return isMatching;
+  return matches ?? defaultValue;
 }

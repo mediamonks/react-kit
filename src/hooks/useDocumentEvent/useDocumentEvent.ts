@@ -1,20 +1,12 @@
-import { useEffect } from 'react';
+import { useEventListener } from '../useEventListener/useEventListener.js';
 
 /**
- * This hook allows you to add a document event listener and remove it when the component unmounts.
- *
- * @param event - The event to listen for
- * @param callback - The callback to fire when the event is triggered
+ * SSR-safe hook that adds an event listener to the document.
  */
-export function useDocumentEvent<T extends keyof DocumentEventMap>(
-  event: T,
-  callback: (event: DocumentEventMap[T]) => void,
+export function useDocumentEvent<K extends keyof DocumentEventMap>(
+  type: K,
+  listener: (this: Document, event: DocumentEventMap[K]) => void,
+  options?: boolean | AddEventListenerOptions,
 ): void {
-  useEffect(() => {
-    document.addEventListener(event, callback);
-
-    return () => {
-      document.removeEventListener(event, callback);
-    };
-  }, [event, callback]);
+  useEventListener(typeof document === 'undefined' ? undefined : document, type, listener, options);
 }

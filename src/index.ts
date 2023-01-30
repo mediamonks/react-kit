@@ -1,6 +1,7 @@
 /* PLOP_ADD_EXPORT */
 export * from './hocs/ensuredForwardRef/ensuredForwardRef.js';
 export * from './hooks/useDocumentEvent/useDocumentEvent.js';
+export * from './hooks/useEventListener/useEventListener.js';
 export * from './hooks/useHasFocus/useHasFocus.js';
 export * from './hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
 export * from './hooks/useMediaQuery/useMediaQuery.js';

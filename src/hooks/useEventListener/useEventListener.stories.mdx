@@ -1,0 +1,19 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useEventListener" />
+
+# useEventListener
+
+This hook allows you to add an event listener to `EventTarget`, the listener is automatically
+removed when the component unmounts.
+
+## Reference
+
+```ts
+export function useEventListener<T extends EventTarget, K extends keyof EventMap>(
+  target: T | undefined,
+  event: K,
+  listener: (this: EventTarget, event: EventMap[K]) => void,
+  options?: boolean | EventListenerOptions,
+): void;
+```
