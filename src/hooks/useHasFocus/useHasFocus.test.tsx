@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-literals */
 /* eslint-disable react/no-multi-comp */
 import { render, waitFor } from '@testing-library/react';
-import { type ReactElement, useRef } from 'react';
+import { useRef, type ReactElement } from 'react';
 import { useHasFocus } from './useHasFocus.js';
 
 describe('useHasFocus', () => {
@@ -14,10 +14,7 @@ describe('useHasFocus', () => {
     }
 
     const result = render(<TestComponent />);
-
-    await waitFor(() => {
-      expect(result.queryByTestId('focus')).toBeNull();
-    });
+    expect(result.queryByTestId('focus')).not.toBeInTheDocument();
   });
 
   it('should update when element has focus within', async () => {
@@ -38,10 +35,9 @@ describe('useHasFocus', () => {
 
     const result = render(<TestComponent />);
 
-    await waitFor(() => {
+    waitFor(() => {
       result.getByTestId('button').focus();
-
-      expect(result.queryByTestId('focus')).toBeDefined();
+      expect(result.queryByTestId('focus')).toBeInTheDocument();
     });
   });
 });
