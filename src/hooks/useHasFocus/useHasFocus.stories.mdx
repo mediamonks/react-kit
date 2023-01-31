@@ -1,0 +1,28 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useHasFocus" />
+
+# useHasFocus
+
+This hook allows you to determine if an element matches the :focus, :focus-visible, or :focus-within
+pseudo selectors.
+
+## Reference
+
+```ts
+function useHasFocus(
+  ref: RefObject<HTMLElement>,
+  selector: FocusPseudoSelector = ':focus',
+): boolean;
+```
+
+## Usage
+
+```tsx
+function DemoComponent() {
+  const ref = useRef<HTMLElement>(null);
+  const hasFocus = useHasFocus(ref, ':focus-within');
+
+  return <div ref={ref}></div>;
+}
+```

@@ -1,0 +1,41 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useMediaQuery" />
+
+# useMediaQuery
+
+Hook that returns a boolean indicating whether the media query matches.
+
+## Augmenting the MediaQuery type
+
+The `MediaQuery` type is used for the `mediaQueryVariableName` parameter of `useMediaQuery`.
+
+Augment the `MediaQuery` interface to add the names for the CSS variables that describe media
+queries in your project.
+
+```tsx
+declare module '@mediamonks/react-hooks' {
+  interface MediaQuery {
+    '--min-width-480': never;
+    '--min-width-820': never;
+    '--min-width-768': never;
+    '--min-width-1024': never;
+  }
+}
+```
+
+## Reference
+
+```ts
+function useMediaQuery(mediaQueryVariableName: keyof MediaQuery, defaultValue = false): boolean;
+```
+
+## Usage
+
+```tsx
+function DemoComponent() {
+  const isMinWidth428px = useMediaQuery('--min-width-428', true);
+
+  return <div></div>;
+}
+```

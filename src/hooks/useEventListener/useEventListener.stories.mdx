@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useEventListener" />
+
+# useEventListener
+
+This hook allows you to add an event listener to `EventTarget`, the listener is automatically
+removed when the component unmounts.
+
+## Reference
+
+```ts
+export function useEventListener<T extends EventTarget, K extends keyof EventMap>(
+  target: T | undefined,
+  event: K,
+  listener: (this: EventTarget, event: EventMap[K]) => void,
+  options?: boolean | EventListenerOptions,
+): void;
+```
+
+## Usage
+
+## Server-size rendering
+
+The hook doesn't throw errors when the target is undefined to support server-side rendering.
+
+```tsx
+useEventListener(typeof document === 'undefined' ? undefined : document, 'focusin', (event) => {
+  ...
+});
+```
+
+```tsx
+useEventListener(typeof window === 'undefined' ? undefined : window, 'resize', (event) => {
+  ...
+});
+```
+
+Adding events to the `window` and `document` happens often. The `useWindowEventListener` and
+`useDocumentEventListener` hooks are available for convenience.

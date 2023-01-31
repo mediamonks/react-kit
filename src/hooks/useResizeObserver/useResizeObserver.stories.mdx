@@ -1,0 +1,28 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useResizeObserver" />
+
+# useResizeObserver
+
+This hook allows you to add a ResizeObserver for an element and remove it when the component
+unmounts.
+
+## Reference
+
+```ts
+function useResizeObserver(ref: RefObject<Element>, callback: ResizeObserverCallback): void;
+```
+
+## Usage
+
+```tsx
+function DemoComponent() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useResizeObserver(ref, () => {
+    console.log('Element resized');
+  });
+
+  return <div ref={ref}></div>;
+}
+```
