@@ -1,6 +1,6 @@
 /* PLOP_ADD_EXPORT */
 export * from './hocs/ensuredForwardRef/ensuredForwardRef.js';
-export * from './hooks/useDocumentEvent/useDocumentEvent.js';
+export * from './hooks/useDocumentEventListener/useDocumentEventListener.js';
 export * from './hooks/useEventListener/useEventListener.js';
 export * from './hooks/useHasFocus/useHasFocus.js';
 export * from './hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
@@ -15,5 +15,5 @@ export * from './hooks/useRegisterRef/useRegisterRef.js';
 export * from './hooks/useResizeObserver/useResizeObserver.js';
 export * from './hooks/useToggle/useToggle.js';
 export * from './hooks/useUnmount/useUnmount.js';
-export * from './hooks/useWindowEvent/useWindowEvent.js';
+export * from './hooks/useWindowEventListener/useWindowEventListener.js';
 export * from './utils/arrayRef/arrayRef.js';

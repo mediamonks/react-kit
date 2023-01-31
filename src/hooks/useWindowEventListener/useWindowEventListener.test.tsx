@@ -1,13 +1,13 @@
 import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react';
-import { useWindowEvent } from './useWindowEvent.js';
+import { useWindowEventListener } from './useWindowEventListener.js';
 
-describe('useWindowEvent', () => {
+describe('useWindowEventListener', () => {
   it('should not crash', async () => {
     const spy = jest.fn();
 
     renderHook(() => {
-      useWindowEvent('resize', () => {
+      useWindowEventListener('resize', () => {
         spy();
 
         // eslint-disable-next-line no-console

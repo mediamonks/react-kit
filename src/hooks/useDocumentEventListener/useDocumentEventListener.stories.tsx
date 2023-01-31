@@ -1,16 +1,16 @@
 /* eslint-disable react/jsx-no-literals */
 import type { StoryObj } from '@storybook/react';
 import { type ReactElement, useState } from 'react';
-import { useDocumentEvent } from './useDocumentEvent.js';
+import { useDocumentEventListener } from './useDocumentEventListener.js';
 
 export default {
-  title: 'hooks/useDocumentEvent',
+  title: 'hooks/useDocumentEventListener',
 };
 
 function DemoComponent(): ReactElement {
   const [keydown, setKeydown] = useState<ReadonlyArray<string>>([]);
 
-  useDocumentEvent('keydown', (event) => {
+  useDocumentEventListener('keydown', (event) => {
     setKeydown((previous) => [...previous, event.key]);
   });
 

@@ -1,11 +1,11 @@
 import { renderHook } from '@testing-library/react';
-import { useDocumentEvent } from './useDocumentEvent.js';
+import { useDocumentEventListener } from './useDocumentEventListener.js';
 
-describe('useDocumentEvent', () => {
+describe('useDocumentEventListener', () => {
   it('should not crash', () => {
     renderHook(
       () => {
-        useDocumentEvent('focusin', () => {
+        useDocumentEventListener('focusin', () => {
           // eslint-disable-next-line no-console
           console.log(document.activeElement);
         });

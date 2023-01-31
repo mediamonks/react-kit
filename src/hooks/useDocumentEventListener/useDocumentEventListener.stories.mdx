@@ -1,15 +1,15 @@
 import { Meta } from '@storybook/blocks';
 
-<Meta title="hooks/useDocumentEvent" />
+<Meta title="hooks/useDocumentEventListener" />
 
-# useDocumentEvent
+# useDocumentEventListener
 
 This hook allows you to add a document event listener and remove it when the component unmounts.
 
 ## Reference
 
 ```ts
-export function useDocumentEvent<T extends keyof DocumentEventMap>(
+export function useDocumentEventListener<T extends keyof DocumentEventMap>(
   event: T,
   callback: (event: DocumentEventMap[T]) => void,
 ): void;
@@ -20,7 +20,7 @@ export function useDocumentEvent<T extends keyof DocumentEventMap>(
 ```tsx
 const [keydown, setKeydown] = useState<ReadonlyArray<string>>([]);
 
-useDocumentEvent('keydown', (event) => {
+useDocumentEventListener('keydown', (event) => {
   setKeydown((previous) => [...previous, event.key]);
 });
 ```

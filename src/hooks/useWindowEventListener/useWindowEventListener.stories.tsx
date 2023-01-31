@@ -1,16 +1,16 @@
 /* eslint-disable react/jsx-no-literals */
 import type { StoryObj } from '@storybook/react';
 import { type ReactElement, useState } from 'react';
-import { useWindowEvent } from './useWindowEvent.js';
+import { useWindowEventListener } from './useWindowEventListener.js';
 
 export default {
-  title: 'hooks/useWindowEvent',
+  title: 'hooks/useWindowEventListener',
 };
 
 function DemoComponent(): ReactElement {
   const [size, setSize] = useState([0, 0]);
 
-  useWindowEvent('resize', () => {
+  useWindowEventListener('resize', () => {
     setSize([window.innerWidth, window.innerHeight]);
   });
 
