@@ -17,9 +17,12 @@ export function useHasFocus(
 
   const [state, setState] = useState(matches);
 
-  useDocumentEvent('focusin', () => {
+  const onUpdate = useCallback(() => {
     setState(matches());
-  });
+  }, [matches, setState]);
+
+  useDocumentEvent('focusin', onUpdate);
+  useDocumentEvent('focusout', onUpdate);
 
   return state;
 }
