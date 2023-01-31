@@ -35,3 +35,6 @@ useEventListener(typeof window === 'undefined' ? undefined : window, 'resize', (
   ...
 });
 ```
+
+Adding events to the `window` and `document` happens often. The `useWindowEventListener` and
+`useDocumentEventListener` hooks are available for convenience.
