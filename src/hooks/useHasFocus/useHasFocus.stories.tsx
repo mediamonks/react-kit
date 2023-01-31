@@ -21,6 +21,11 @@ function DemoComponent(): ReactElement {
 
   return (
     <div>
+      <div className="alert alert-primary">
+        <h4 className="alert-heading">Instructions!</h4>
+        <p className="mb-0">Change focus to see the useHasFocus hook in action.</p>
+      </div>
+
       <button type="button" ref={ref}>
         Button 1
       </button>

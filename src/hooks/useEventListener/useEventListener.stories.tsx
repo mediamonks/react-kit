@@ -21,11 +21,14 @@ function DemoComponent(): ReactElement {
 
   return (
     <div>
+      <div className="alert alert-primary">
+        <h4 className="alert-heading">Instructions!</h4>
+        <p className="mb-0">Change focus to listen to the focusin event on the document.</p>
+      </div>
+
       <button type="button">Button 1</button>
       <button type="button">Button 2</button>
       <button type="button">Button 3</button>
-
-      <p>Change focus to listen to the focusin event on the document</p>
 
       <ul>
         {text.map((key, index) => (

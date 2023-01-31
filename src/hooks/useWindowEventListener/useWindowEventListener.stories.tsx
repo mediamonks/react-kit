@@ -16,7 +16,10 @@ function DemoComponent(): ReactElement {
 
   return (
     <div>
-      <p>Resize the viewport to listen to the resize event on the window</p>
+      <div className="alert alert-primary">
+        <h4 className="alert-heading">Instructions!</h4>
+        <p className="mb-0">Resize the viewport to listen to the resize event on the window.</p>
+      </div>
 
       <pre>Viewport size: {size.join('x')}</pre>
     </div>

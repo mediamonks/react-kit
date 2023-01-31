@@ -16,7 +16,10 @@ function DemoComponent(): ReactElement {
 
   return (
     <div>
-      <p>Press a key to trigger the document keydown event</p>
+      <div className="alert alert-primary">
+        <h4 className="alert-heading">Instructions!</h4>
+        <p className="mb-0">Press a key to trigger the document keydown event.</p>
+      </div>
 
       <ul>
         {keydown.map((key, index) => (
