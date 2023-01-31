@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-literals */
 import type { StoryObj } from '@storybook/react';
-import { useEffect, useRef, type ReactElement } from 'react';
+import { useEffect, useRef, useState, type ReactElement } from 'react';
 import { useHasFocus } from './useHasFocus.js';
 
 export default {
@@ -8,20 +8,26 @@ export default {
 };
 
 function DemoComponent(): ReactElement {
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef<HTMLButtonElement>(null);
 
-  const hasFocus = useHasFocus(ref, ':focus-within');
+  const hasFocus = useHasFocus(ref, ':focus-visible');
+  const [text, setText] = useState('No focus');
 
   useEffect(() => {
-    // eslint-disable-next-line no-console
-    console.log(hasFocus);
+    setText(
+      hasFocus ? 'Button 1 matches :focus-visible' : 'Button 1 does not match :focus-visible',
+    );
   }, [hasFocus]);
 
   return (
-    <div ref={ref}>
-      <button type="button">Click me to change focus</button>
-      <button type="button">Click me to change focus</button>
-      <button type="button">Click me to change focus</button>
+    <div>
+      <button type="button" ref={ref}>
+        Button 1
+      </button>
+
+      <button type="button">Button 2</button>
+
+      <pre>{text}</pre>
     </div>
   );
 }

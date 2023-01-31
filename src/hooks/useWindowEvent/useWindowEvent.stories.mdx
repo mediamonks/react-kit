@@ -18,11 +18,13 @@ function useWindowEvent<T extends keyof WindowEventMap>(
 ## Usage
 
 ```tsx
-function DemoComponent() {
+function DemoComponent(): ReactElement {
+  const [size, setSize] = useState([0, 0]);
+
   useWindowEvent('resize', () => {
-    console.log('window resized');
+    setSize([window.innerWidth, window.innerHeight]);
   });
 
-  return <div></div>;
+  return <div>{size.join('x')}</div>;
 }
 ```

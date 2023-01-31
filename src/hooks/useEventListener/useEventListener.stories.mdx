@@ -17,3 +17,21 @@ export function useEventListener<T extends EventTarget, K extends keyof EventMap
   options?: boolean | EventListenerOptions,
 ): void;
 ```
+
+## Usage
+
+## Server-size rendering
+
+The hook doesn't throw errors when the target is undefined to support server-side rendering.
+
+```tsx
+useEventListener(typeof document === 'undefined' ? undefined : document, 'focusin', (event) => {
+  ...
+});
+```
+
+```tsx
+useEventListener(typeof window === 'undefined' ? undefined : window, 'resize', (event) => {
+  ...
+});
+```

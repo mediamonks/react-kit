@@ -19,12 +19,12 @@ describe('useHasFocus', () => {
 
   it('should update when element has focus within', async () => {
     function TestComponent(): ReactElement {
-      const ref = useRef<HTMLDivElement>(null);
-      const hasFocus = useHasFocus(ref);
+      const ref = useRef<HTMLButtonElement>(null);
+      const hasFocus = useHasFocus(ref, ':focus');
 
       return (
-        <div ref={ref}>
-          <button type="button" data-testid="button">
+        <div>
+          <button type="button" data-testid="button" ref={ref}>
             Click me
           </button>
 
@@ -34,9 +34,9 @@ describe('useHasFocus', () => {
     }
 
     const result = render(<TestComponent />);
+    result.getByTestId('button').focus();
 
-    waitFor(() => {
-      result.getByTestId('button').focus();
+    await waitFor(async () => {
       expect(result.queryByTestId('focus')).toBeInTheDocument();
     });
   });

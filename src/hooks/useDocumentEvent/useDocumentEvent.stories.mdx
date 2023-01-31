@@ -18,7 +18,9 @@ export function useDocumentEvent<T extends keyof DocumentEventMap>(
 ## Usage
 
 ```tsx
-useDocumentEvent('focusin', () => {
-  console.log(document.activeElement);
+const [keydown, setKeydown] = useState<ReadonlyArray<string>>([]);
+
+useDocumentEvent('keydown', (event) => {
+  setKeydown((previous) => [...previous, event.key]);
 });
 ```
