@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-literals */
 /* eslint-disable react/no-multi-comp */
-import { render, waitFor } from '@testing-library/react';
+import { act, render, waitFor } from '@testing-library/react';
 import { useRef, type ReactElement } from 'react';
 import { useHasFocus } from './useHasFocus.js';
 
@@ -14,6 +14,7 @@ describe('useHasFocus', () => {
     }
 
     const result = render(<TestComponent />);
+
     expect(result.queryByTestId('focus')).not.toBeInTheDocument();
   });
 
@@ -34,10 +35,11 @@ describe('useHasFocus', () => {
     }
 
     const result = render(<TestComponent />);
-    result.getByTestId('button').focus();
 
-    await waitFor(async () => {
-      expect(result.queryByTestId('focus')).toBeInTheDocument();
+    await act(() => {
+      result.getByTestId('button').focus();
     });
+
+    expect(result.queryByTestId('focus')).toBeInTheDocument();
   });
 });
