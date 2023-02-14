@@ -1,22 +1,14 @@
 import { jest } from '@jest/globals';
 import { render } from '@testing-library/react';
-import type { MutableRefObject } from 'react';
+import { createRef, type MutableRefObject } from 'react';
 import { ensuredForwardRef } from './ensuredForwardRef.js';
 
-const TestComponent = ensuredForwardRef<HTMLDivElement>((_, ref) => {
-  if (!('current' in ref)) {
-    throw new Error('ref is not a RefObject');
-  }
-
-  return <div ref={ref} data-testid="test" />;
-});
-
 describe('ensuredForwardRef', () => {
-  it('should not crash', () => {
-    render(<TestComponent />);
-  });
-
   it('should store ref in refObject', () => {
+    const TestComponent = ensuredForwardRef<HTMLDivElement>((_, ref) => (
+      <div ref={ref} data-testid="test" />
+    ));
+
     const ref: MutableRefObject<HTMLDivElement | null> = {
       current: null,
     };
@@ -26,6 +18,10 @@ describe('ensuredForwardRef', () => {
   });
 
   it('should accept ref functions', () => {
+    const TestComponent = ensuredForwardRef<HTMLDivElement>((_, ref) => (
+      <div ref={ref} data-testid="test" />
+    ));
+
     let ref1: HTMLDivElement | null = null;
 
     const ref1Function = jest.fn((_ref: HTMLDivElement | null) => {
@@ -50,5 +46,19 @@ describe('ensuredForwardRef', () => {
     // Sets ref to null
     unmount();
     expect(ref2).toEqual(null);
+  });
+
+  it('should update ref when no ref object/ref function is provided', () => {
+    let _ref: MutableRefObject<HTMLDivElement | null> = createRef();
+
+    const Component = ensuredForwardRef<HTMLDivElement>((_, ref) => {
+      _ref = ref;
+
+      return <div ref={ref} data-testid="test" />;
+    });
+
+    const result = render(<Component />);
+
+    expect(_ref.current).toEqual(result.getByTestId('test'));
   });
 });

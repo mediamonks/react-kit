@@ -33,12 +33,16 @@ export function ensuredForwardRef<T, P = Record<string | number | symbol, unknow
         return ref;
       }
 
-      return new Proxy(createRef<T>(), {
+      return new Proxy(createRef<T>() as MutableRefObject<T>, {
         set(target, prop, newValue): boolean {
           if (prop !== 'current') {
             return false;
           }
 
+          // Update proxy ref value
+          target.current = newValue;
+
+          // Call ref function when it exists
           ref?.(newValue);
           return true;
         },
