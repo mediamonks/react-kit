@@ -6,7 +6,11 @@ import { createRef, useMemo, type RefObject } from 'react';
 export function useRefs<T extends Record<string | symbol, RefObject<unknown>>>(
   initialTarget?: Partial<T>,
 ): T {
-  const proxyTarget = useMemo(() => initialTarget ?? {}, [initialTarget]);
+  const proxyTarget = useMemo(
+    () => initialTarget ?? {},
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
 
   return useMemo(
     () =>
