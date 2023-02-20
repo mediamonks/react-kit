@@ -19,6 +19,8 @@ export function arrayRef<T extends MutableRefObject<Array<unknown> | null>>(
 
 Function that sets element on array index in given RefObject.
 
+The function is memoized and will not change between renders unless the ref or index changes.
+
 ## Usage
 
 Usage with `useRef` hook.
