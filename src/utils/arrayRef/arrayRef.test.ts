@@ -31,4 +31,14 @@ describe('arrayRef', () => {
 
     expect(ref.current).toEqual([0]);
   });
+
+  it('should not create a new function when called multiple times', async () => {
+    const ref = createRef() as RefObject<Array<unknown>>;
+
+    // this might happen when re-rendering the parent component
+    const function1 = arrayRef(ref, 0);
+    const function2 = arrayRef(ref, 0);
+
+    expect(function1).toBe(function2);
+  });
 });

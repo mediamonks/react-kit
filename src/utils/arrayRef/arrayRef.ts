@@ -1,10 +1,11 @@
+import { memoize } from 'lodash-es';
 import type { MutableRefObject } from 'react';
 import { trimEnd } from '../../_utils/trimEnd/trimEnd.js';
 
 /**
  * Helper to set element in RefObject<Array>
  */
-export function arrayRef<T extends MutableRefObject<Array<unknown> | null>>(
+function arrayRefInternal<T extends MutableRefObject<Array<unknown> | null>>(
   ref: T,
   index: number,
 ): (element: NonNullable<T['current']>[number]) => void {
@@ -20,3 +21,30 @@ export function arrayRef<T extends MutableRefObject<Array<unknown> | null>>(
     }
   };
 }
+
+const refMap = new Map<MutableRefObject<Array<unknown> | null>, number>();
+let uniqueValueCounter = 0;
+
+/**
+ * Turns a ref and index into a unique key
+ * This is needed because the memoize function only uses string keys,
+ * and we need to use a ref as a key.
+ * The Map is used to make sure that the same ref always gets the same unique number,
+ * since Maps can use objects as keys.
+ *
+ * @param ref
+ * @param index
+ */
+function getMemoizeKeyForRefAndIndex(
+  ref: MutableRefObject<Array<unknown> | null>,
+  index: number,
+): string {
+  if (!refMap.has(ref)) {
+    refMap.set(ref, ++uniqueValueCounter);
+  }
+  return `${refMap.get(ref)}_${index}`;
+}
+
+export const arrayRef = memoize(arrayRefInternal, (ref, index) =>
+  getMemoizeKeyForRefAndIndex(ref, index),
+);
