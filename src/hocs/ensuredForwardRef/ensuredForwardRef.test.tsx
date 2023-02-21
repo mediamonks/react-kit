@@ -61,4 +61,20 @@ describe('ensuredForwardRef', () => {
 
     expect(_ref.current).toEqual(result.getByTestId('test'));
   });
+
+  it('should not break when passing undefined as a ref', () => {
+    let _ref: MutableRefObject<HTMLDivElement | null> = createRef();
+
+    const Component = ensuredForwardRef<HTMLDivElement>((_, ref) => {
+      _ref = ref;
+
+      return <div ref={ref} data-testid="test" />;
+    });
+
+    // Note; even though it passes undefined, it's still passed as `null`
+    // when the ensuredForwardRef is called. So this test doesn't do much.
+    const result = render(<Component ref={undefined} />);
+
+    expect(_ref.current).toEqual(result.getByTestId('test'));
+  });
 });

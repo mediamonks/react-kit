@@ -29,7 +29,12 @@ export function ensuredForwardRef<T, P = Record<string | number | symbol, unknow
   // eslint-disable-next-line react/display-name
   return forwardRef<T, P>((props, ref) => {
     const refObject = useMemo(() => {
-      if (ref !== null && 'current' in ref) {
+      // At runtime, ref _could_ be undefined when this component is rendered
+      // from a framework level that doesn't leverage typescript.
+      // Example is Next.js with dynamic imports.
+      // This can't be covered with tests.
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      if (ref !== null && ref !== undefined && 'current' in ref) {
         return ref;
       }
 
