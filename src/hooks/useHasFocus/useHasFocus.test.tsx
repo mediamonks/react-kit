@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-literals */
 /* eslint-disable react/no-multi-comp */
-import { act, render, waitFor } from '@testing-library/react';
+import { act, render } from '@testing-library/react';
 import { useRef, type ReactElement } from 'react';
 import { useHasFocus } from './useHasFocus.js';
 
