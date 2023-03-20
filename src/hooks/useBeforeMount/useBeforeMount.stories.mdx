@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/lifecycle/useBeforeMount" />
+
+# useBeforeMount
+
+**Synchronously** run a function before the component is mounted, only once.
+
+This is especially useful for initializing objects that are used in code further down.
+
+It's opposite of `useMount`, which runs asynchronously after the component is mounted.
+
+> If you only care about knowing if it is the first render, you can use the `useIsMounted`
+hook, which returns a boolean ref that you can use in other places, including JSX.
+
+## Reference
+
+```ts
+function useBeforeMount(callback: () => void): void;
+```
+
+### Parameters
+
+* `callback` - A function to be executed during the initial render, before mounting, but not
+during subsequent renders.
+
+## Usage
+
+```tsx
+function DemoComponent() {
+  useBeforeMount(() => {
+    console.log('I will run before the component is mounted');
+  });
+
+  return (
+    <div>
+    </div>
+  );
+}
+```
