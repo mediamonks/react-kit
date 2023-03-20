@@ -1,9 +1,13 @@
 /* PLOP_ADD_EXPORT */
 export * from './components/AutoFill/AutoFill.js';
 export * from './hocs/ensuredForwardRef/ensuredForwardRef.js';
+export * from './hooks/useBeforeMount/useBeforeMount.js';
 export * from './hooks/useDocumentEventListener/useDocumentEventListener.js';
 export * from './hooks/useEventListener/useEventListener.js';
+export * from './hooks/useForceRerender/useForceRerender.js';
 export * from './hooks/useHasFocus/useHasFocus.js';
+export * from './hooks/useIsMountedState/useIsMountedState.js';
+export * from './hooks/useIsMounted/useIsMounted.js';
 export * from './hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
 export * from './hooks/useMediaQuery/useMediaQuery.js';
 export * from './hooks/useMount/useMount.js';

@@ -1,0 +1,106 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/lifecycle/useIsMounted" />
+
+# useIsMounted
+
+Keeps track of whether the component is mounted, and returns a ref object that is updated
+accordingly.
+
+- `isMounted.current` is `false` before the component is mounted
+- `isMounted.current` is `true` after the component is mounted
+- `isMounted.current` is `false` during the unmount cleanup phase and after the component is
+  unmounted
+
+> Note that during the cleanup phase, the component is technically still mounted, even though the
+ref object is updated to `false`. This is because the cleanup phase is executed before the
+component is technically unmounted. However, since the logic during cleanup and after unmount is
+often the same, this is not a problem.
+
+The initial `false` state before the component is mounted can be useful to conditionally execute
+some logic or render something. However, this hook will not cause a re-render, so it's best to use
+alternative hooks mentioned below in case you need that.
+
+The `false` state during and after the cleanup phase is useful for preventing memory leaks and
+preventing state updates after the component is unmounted. This is often the case when using
+`useEffect` with an async function, and the async function is still running after the component
+is unmounted.
+
+> If the code you want to execute before mount is more isolated as a side effect, you can use the
+`useBeforeMount` hook instead.
+
+> If your code result is different before and after mount, and should execute again, you can use the
+`useIsMountedState` hook instead.
+
+> If you want to execute code after the component is **mounted**, you can use the `useMount` hook.
+
+> If you want to execute code after the component is **unmounted**, you can use the `useUnmount`
+hook.
+
+## Reference
+
+```ts
+function useIsMounted(): RefObject<boolean>;
+```
+
+### Returns
+
+* `RefObject<boolean>` - The current mounting state.
+  - `false` before the component is mounted
+  - `true` after the component is mounted
+  - `false` during the unmount cleanup phase and after the component is unmounted
+
+## Usage
+
+```ts
+const isMounted = useIsMounted();
+console.log(isMounted.current); // false
+```
+
+Use after unmount in async functions, to prevent memory leaks and state updates after unmount.
+
+```tsx
+function DemoComponent() {
+  const isMounted = useIsMounted();
+
+  useMount(() => {
+    fetchSomething().then(() => {
+      // check if the component is still mounted after the async operation
+      if (isMounted.current) {
+        // do something with the result
+      }
+    });
+  })
+
+  return (
+    <div>
+    </div>
+  );
+}
+```
+
+Use in `useEffect` cleanup, for some very specific scenarios.
+
+```tsx
+import { useEffect } from 'react';
+function DemoComponent() {
+  const isMounted = useIsMounted();
+
+  useEffect(() => {
+    // do something
+
+    return () => {
+      if (isMounted.current) {
+        // this is executed every time someChangingValue changes
+      } else {
+        // this is executed only once, when the component is unmounted
+      }
+    }
+  }, [someChangingValue]);
+
+  return (
+    <div>
+    </div>
+  );
+}
+```
