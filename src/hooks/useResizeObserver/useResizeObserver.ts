@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unnecessary-condition */
 import { debounce } from 'lodash-es';
 import { type RefObject, useEffect } from 'react';
 
