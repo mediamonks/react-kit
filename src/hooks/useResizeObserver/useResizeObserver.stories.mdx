@@ -7,10 +7,16 @@ import { Meta } from '@storybook/blocks';
 This hook allows you to add a ResizeObserver for an element and remove it when the component
 unmounts.
 
+By default the callback is debouncedat 200ms to improve performance.
+
 ## Reference
 
 ```ts
-function useResizeObserver(ref: RefObject<Element>, callback: ResizeObserverCallback): void;
+function useResizeObserver(
+  ref: RefObject<Element>,
+  callback: ResizeObserverCallback,
+  debounceTime: number | null,
+): void;
 ```
 
 ## Usage
