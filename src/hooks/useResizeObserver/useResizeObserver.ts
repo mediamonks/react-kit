@@ -2,6 +2,9 @@
 import { debounce } from 'lodash-es';
 import { type RefObject, useEffect } from 'react';
 
+const resizeObserverInstanceCallbacks = new Map<Element, ResizeObserverCallback>();
+let resizeObserverInstance: ResizeObserver | null = null;
+
 /**
  * This hook allows you to add a ResizeObserver for an element and remove it
  * when the component unmounts.
@@ -20,14 +23,25 @@ export function useResizeObserver(
       throw new Error('`ref.current` is undefined');
     }
 
+    if (!resizeObserverInstance) {
+      resizeObserverInstance = new ResizeObserver((entries, observer) => {
+        for (const entry of entries) {
+          resizeObserverInstanceCallbacks.get(entry.target)?.(entries, observer);
+        }
+      });
+    }
+
     const element = ref.current;
     const callbackFunction =
       debounceTime === null ? callback : debounce(callback, debounceTime ?? 200);
-    const resizeObserverInstance = new ResizeObserver(callbackFunction);
+    resizeObserverInstanceCallbacks.set(element, callbackFunction);
     resizeObserverInstance.observe(element);
 
     return () => {
-      resizeObserverInstance.unobserve(element);
+      if (resizeObserverInstance && element) {
+        resizeObserverInstance.unobserve(element);
+        resizeObserverInstanceCallbacks.delete(element);
+      }
     };
   }, [ref, callback, debounceTime]);
 }
