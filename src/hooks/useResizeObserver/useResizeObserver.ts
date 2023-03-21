@@ -37,10 +37,8 @@ export function useResizeObserver(
     resizeObserverInstance.observe(element);
 
     return () => {
-      if (resizeObserverInstance && element) {
-        resizeObserverInstance.unobserve(element);
-        resizeObserverInstanceCallbacks.delete(element);
-      }
+      resizeObserverInstance?.unobserve(element);
+      resizeObserverInstanceCallbacks.delete(element);
     };
   }, [ref, callback, debounceTime]);
 }
