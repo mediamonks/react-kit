@@ -19,7 +19,7 @@ export function useIsMounted(): RefObject<boolean> {
     return () => {
       isMounted.current = false;
     };
-  });
+  }, []);
 
   return isMounted;
 }
