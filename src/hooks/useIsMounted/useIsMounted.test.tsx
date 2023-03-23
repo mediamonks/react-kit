@@ -1,4 +1,7 @@
+import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react';
+import { useEffect } from 'react';
+import { useUnmount } from '../useUnmount/useUnmount.js';
 import { useIsMounted } from './useIsMounted.js';
 
 describe('useIsMounted', () => {
@@ -33,5 +36,39 @@ describe('useIsMounted', () => {
     rerender();
     unmount();
     expect(result.current.current).toBe(false);
+  });
+
+  it('should be false during cleanup of the unmount', async () => {
+    const duringCleanupSpy = jest.fn();
+    const { rerender, unmount } = renderHook(() => {
+      const isMounted = useIsMounted();
+
+      useUnmount(() => {
+        duringCleanupSpy(isMounted.current);
+      });
+    });
+
+    rerender();
+    unmount();
+    expect(duringCleanupSpy).toBeCalledTimes(1);
+    expect(duringCleanupSpy).toBeCalledWith(false);
+  });
+
+  it('should be true during cleanup of in between renders', async () => {
+    const duringCleanupSpy = jest.fn();
+    const { rerender, unmount } = renderHook(() => {
+      const isMounted = useIsMounted();
+
+      useEffect(() => (): void => {
+        duringCleanupSpy(isMounted.current);
+      });
+    });
+
+    rerender();
+    expect(duringCleanupSpy).toBeCalledTimes(1);
+    expect(duringCleanupSpy).toBeCalledWith(true);
+    unmount();
+    expect(duringCleanupSpy).toBeCalledTimes(2);
+    expect(duringCleanupSpy).toBeCalledWith(false);
   });
 });
