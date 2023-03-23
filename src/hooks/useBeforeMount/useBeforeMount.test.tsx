@@ -1,5 +1,6 @@
 import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react';
+import { useEffect } from 'react';
 import { useBeforeMount } from './useBeforeMount.js';
 
 describe('useBeforeMount', () => {
@@ -16,6 +17,31 @@ describe('useBeforeMount', () => {
       useBeforeMount(spy);
     });
     expect(spy).toBeCalledTimes(1);
+  });
+
+  it('should execute during synchronous render, before mount', async () => {
+    const beforeMount = jest.fn();
+    const inlineSpy = jest.fn();
+    const mountedSpy = jest.fn();
+    renderHook(() => {
+      useEffect(() => {
+        mountedSpy();
+      }, []);
+
+      useBeforeMount(beforeMount);
+
+      inlineSpy();
+    });
+
+    expect(beforeMount).toBeCalledTimes(1);
+    expect(mountedSpy).toBeCalledTimes(1);
+    expect(inlineSpy).toBeCalledTimes(1);
+    expect(beforeMount.mock.invocationCallOrder[0]).toBeLessThan(
+      mountedSpy.mock.invocationCallOrder[0],
+    );
+    expect(beforeMount.mock.invocationCallOrder[0]).toBeLessThan(
+      inlineSpy.mock.invocationCallOrder[0],
+    );
   });
 
   it('should not execute a callback on re-renders', async () => {
