@@ -23,13 +23,13 @@ module.exports = function (plop) {
           type: 'addMany',
           base: 'plop-templates/hook',
           templateFiles: 'plop-templates/hook/*.*',
-          destination: `src/{{camelCase hookName}}/`,
+          destination: `src/hooks/{{camelCase hookName}}/`,
         },
         {
           type: 'append',
           path: 'src/index.ts',
           pattern: /(\/\* PLOP_ADD_EXPORT \*\/)/gi,
-          template: `export * from './{{camelCase hookName}}/{{camelCase hookName}}';`,
+          template: `export * from './hooks/{{camelCase hookName}}/{{camelCase hookName}}.js';`,
         },
       ];
     },
