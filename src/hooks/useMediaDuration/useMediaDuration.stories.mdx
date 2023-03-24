@@ -1,0 +1,46 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useMediaDuration" />
+
+# useMediaDuration
+
+`useMediaDuration` hook retrieves the duration of the audio / video file.
+
+## Reference
+
+```ts
+export function useMediaDuration(
+  mediaElementRef: MutableRefObject<Pick<
+    HTMLAudioElement,
+    'addEventListener' | 'removeEventListener' | 'duration'
+  > | null>,
+): number;
+```
+
+### Parameters
+
+`mediaElementRef` - mutable reference object to an HTML audio or video element.
+
+### Returns
+
+- number, which is the duration of the media element in seconds.
+
+## Usage
+
+```tsx
+export type DemoComponentRefs = MutableRefs<{
+  video: HTMLVideoElement;
+}>;
+
+function DemoComponent() {
+  const ref = useRef<DemoComponentRefs>();
+  const videoDuration = useMediaDuration(ref);
+
+  return (
+    <div>
+      {videoDuration && <p>{`This video is ${videoDuration}sec long`}</p>}
+      <video ref={ref} />
+    </div>
+  );
+}
+```
