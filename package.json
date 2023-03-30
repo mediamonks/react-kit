@@ -36,7 +36,8 @@
     "storybook:deploy": "./deploy-docs.sh",
     "prepublishOnly": "npm run build",
     "plop": "plop",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "playwright": "playwright test -c playwright.config.ts"
   },
   "prettier": "@mediamonks/prettier-config",
   "eslintConfig": {
@@ -57,6 +58,7 @@
     "@mediamonks/eslint-config-typescript": "^1.0.8",
     "@mediamonks/eslint-config-typescript-react": "^1.0.10",
     "@mediamonks/prettier-config": "^1.0.1",
+    "@playwright/experimental-ct-react": "^1.32.1",
     "@storybook/addon-essentials": "^7.0.0-beta.36",
     "@storybook/addon-interactions": "^7.0.0-beta.36",
     "@storybook/addon-links": "^7.0.0-beta.36",
