@@ -13,7 +13,7 @@ test('Should detect initial screen size', async ({ page, mount }) => {
 });
 
 test('Should detect screen size changes', async ({ page, mount }) => {
-  const component = await mount(<Component />, {});
+  await mount(<Component />, {});
 
   await page.setViewportSize({
     width: 250,
@@ -21,16 +21,16 @@ test('Should detect screen size changes', async ({ page, mount }) => {
   });
 
   // Wait for the resize to be handled by the hook
-  await page.waitForTimeout(32);
-  await expect(component).toContainText('small');
+  await page.getByText('small').waitFor({
+    timeout: 100,
+  });
 
   await page.setViewportSize({
     width: 480,
     height: 480,
   });
 
-  // Wait for the resize to be handled by the hook
-  await page.waitForTimeout(32);
-
-  await expect(component).toContainText('large');
+  await page.getByText('large').waitFor({
+    timeout: 100,
+  });
 });
