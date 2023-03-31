@@ -28,6 +28,9 @@ export default defineConfig({
 
     /* Port to use for Playwright component endpoint. */
     ctPort: 3100,
+
+    /* Retain video on failure to be able to debug test. */
+    video: 'retain-on-failure',
   },
 
   /* Configure projects for major browsers */
