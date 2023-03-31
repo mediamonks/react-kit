@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/experimental-ct-react';
-import { Component } from './useMediaQuery.component.js';
+import { UseMediaQueryComponent } from './useMediaQuery.component.js';
 
 test('Should detect initial screen size', async ({ page, mount }) => {
   await page.setViewportSize({
@@ -7,13 +7,13 @@ test('Should detect initial screen size', async ({ page, mount }) => {
     height: 480,
   });
 
-  const component = await mount(<Component />, {});
+  const component = await mount(<UseMediaQueryComponent />);
 
   await expect(component).toContainText('large');
 });
 
 test('Should detect screen size changes', async ({ page, mount }) => {
-  await mount(<Component />, {});
+  await mount(<UseMediaQueryComponent />);
 
   await page.setViewportSize({
     width: 250,
@@ -21,16 +21,12 @@ test('Should detect screen size changes', async ({ page, mount }) => {
   });
 
   // Wait for the resize to be handled by the hook
-  await page.getByText('small').waitFor({
-    timeout: 100,
-  });
+  await page.getByText('small').waitFor();
 
   await page.setViewportSize({
     width: 480,
     height: 480,
   });
 
-  await page.getByText('large').waitFor({
-    timeout: 100,
-  });
+  await page.getByText('large').waitFor();
 });

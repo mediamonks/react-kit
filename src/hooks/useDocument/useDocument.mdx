@@ -1,0 +1,28 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useDocument" />
+
+# useDocument
+
+This hook returns the Document instance when it's availbable in the environment. If the Document is
+not available, it will return `undefined`.
+
+## Reference
+
+```ts
+function useDocument(): Document | undefined;
+```
+
+## Usage
+
+```tsx
+function DemoComponent(): ReactNode {
+  const document = useDocument(ref, ':focus-within');
+
+  useEventListener(document, 'focusin', (event) => {
+    // do something
+  });
+
+  return null;
+}
+```

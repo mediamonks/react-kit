@@ -1,0 +1,28 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useWindow" />
+
+# useWindow
+
+This hook returns the Window instance when it's availbable in the environment. If the Window is not
+available, it will return `undefined`.
+
+## Reference
+
+```ts
+function useWindow(): Window | undefined;
+```
+
+## Usage
+
+```tsx
+function DemoComponent(): ReactNode {
+  const window = useWindow(ref, ':focus-within');
+
+  useEventListener(window, 'keydown', (event) => {
+    // do something
+  });
+
+  return null;
+}
+```
