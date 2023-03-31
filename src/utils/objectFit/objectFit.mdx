@@ -1,0 +1,155 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="utils/objectFit" />
+
+# objectFit
+
+This util mimics the CSS property `object-fit` for all HTML elements;
+
+It exports two reusable methods: `contain` and `cover`. Given the sizes of an parent element and its
+child element: Contain returns the size to be applied to the element to let it fits its parent and
+keeping its apect ratio. Cover returns the size to be applied to the element to let it fill its
+parent, keeping its aspect ratio, most likely overflowing the parent element.
+
+If the sizes or aspect ratio are initially known, it's better to use values instead of retrieving
+sizes from an image because its faster from a performance perspective.
+
+## Reference
+
+```ts
+function objectFit(fit: 'contain' | 'cover') {
+  return (
+    parentWidth: number,
+    parentHeight: number,
+    childWidth: number,
+    childHeight: number,
+  ): { x: number; y: number; width: number; height: number; scale: number; cssText: string } => {
+    if ([parentWidth, parentHeight, childWidth, childHeight].some((value) => value <= 0)) {
+      throw new Error(`All arguments should have a positive value`);
+    }
+
+    const mathMethod = fit === 'contain' ? Math.min : Math.max;
+    const scale = mathMethod(parentWidth / childWidth, parentHeight / childHeight);
+    const width = Math.ceil(childWidth * scale);
+    const height = Math.ceil(childHeight * scale);
+    const x = Math.trunc((parentWidth - width) * 0.5);
+    const y = Math.trunc((parentHeight - height) * 0.5);
+
+    return {
+      x,
+      y,
+      width,
+      height,
+      scale,
+      cssText: `left:${x}px;top:${y}px;width:${width}px;height:${height}px;`,
+    };
+  };
+}
+
+export const contain = objectFit('contain');
+export const cover = objectFit('cover');
+```
+
+### Parameters
+
+- parentWidth: number
+- parentHeight: number
+- childWidth: number
+- childHeight: number
+
+### Returns
+
+An object containing:
+
+- x: number
+- y: number
+- width: number
+- height: number
+- scale: number
+- cssText: string (easily add CSS values to child element)
+
+## Usage
+
+Contain:
+
+With the contain method you can use both position absolute and relative on the child element.
+Relative can be useful if you want to position elements inside absolute to the parent.
+
+```tsx
+import { contain } from './objectFit.js';
+
+export function Contain(): ReactElement {
+  const parentRef = useRef<HTMLDivElement>(null);
+  const childRef = useRef<HTMLDivElement>(null);
+
+  const onResize = useCallback(() => {
+    if (!parentRef.current || !childRef.current) {
+      return;
+    }
+
+    const objectFit = contain(parentRef.current.offsetWidth, parentRef.current.offsetHeight, 1, 1);
+
+    childRef.current.style.cssText += objectFit.cssText;
+  }, [parentRef, childRef]);
+
+  useResizeObserver(parentRef, onResize);
+
+  return (
+    <div
+      ref={parentRef}
+      style={{
+        width: '100px',
+        height: '100px',
+        outline: '1px solid green',
+        position: 'relative',
+      }}
+    >
+      <div ref={childRef} style={{ position: 'relative', outline: '1px solid blue' }} />
+    </div>
+  );
+}
+```
+
+Cover:
+
+With contain you need to use position absolute to position the child.
+
+```tsx
+import { cover } from './objectFit.js';
+
+export function Cover(): ReactElement {
+  const parentRef = useRef<HTMLDivElement>(null);
+  const childRef = useRef<HTMLDivElement>(null);
+
+  const onResize = useCallback(() => {
+    if (!parentRef.current || !childRef.current) {
+      return;
+    }
+
+    const objectFit = cover(
+      parentRef.current.offsetWidth,
+      parentRef.current.offsetHeight,
+      1920,
+      1080,
+    );
+
+    childRef.current.style.cssText += objectFit.cssText;
+  }, [parentRef, childRef]);
+
+  useResizeObserver(parentRef, onResize);
+
+  return (
+    <div
+      ref={parentRef}
+      style={{
+        width: '100px',
+        height: '100px',
+        outline: '1px solid green',
+        position: 'relative',
+      }}
+    >
+      <div ref={childRef} style={{ position: 'absolute', outline: '1px solid blue' }} />
+    </div>
+  );
+}
+```
