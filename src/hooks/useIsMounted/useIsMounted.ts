@@ -15,8 +15,23 @@ export function useIsMounted(): RefObject<boolean> {
   const isMounted = useRef(false);
 
   useEffect(() => {
-    isMounted.current = true;
+    let unmounted = false;
+
+    // Delay setting this to true until all other useEffects have run
+    // however, this can be too late if there are any "setState" actions inside
+    // the other useEffects that cause an immediate re-render in the same tick.
+    // This is okay, since multiple renders in the same tick can still be considered
+    // as the mounting phase, and very rare.
+    queueMicrotask(() => {
+      if (unmounted) {
+        return;
+      }
+
+      isMounted.current = true;
+    });
+
     return () => {
+      unmounted = true;
       isMounted.current = false;
     };
   }, []);
