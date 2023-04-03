@@ -50,8 +50,12 @@ describe('useBeforeMount', () => {
       useBeforeMount(spy);
     });
     expect(spy).toBeCalledTimes(1);
+
+    await Promise.resolve();
     rerender();
     expect(spy).toBeCalledTimes(1);
+
+    await Promise.resolve();
     rerender();
     expect(spy).toBeCalledTimes(1);
   });

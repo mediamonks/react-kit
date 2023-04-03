@@ -19,7 +19,7 @@ often the same, this is not a problem.
 
 The initial `false` state before the component is mounted can be useful to conditionally execute
 some logic or render something. However, this hook will not cause a re-render, so it's best to use
-alternative hooks mentioned below in case you need that.
+alternative hooks mentioned below if that is required.
 
 The `false` state during and after the cleanup phase is useful for preventing memory leaks and
 preventing state updates after the component is unmounted. This is often the case when using
@@ -32,15 +32,15 @@ initial `useEffect` callbacks have been executed.
 If the component uses a setState directly from a `useMount`, the component will rerender during the
 mount phase, and the isMounted value will still be `false`.
 
-> If the code you want to execute before mount is more isolated as a side effect, you can use the
+> If code needs to be executed before mount and is more isolated as a side effect, use the
 `useBeforeMount` hook instead.
 
-> If your code result is different before and after mount, and should execute again, you can use the
+> If the code result is different before and after mount, and should execute again, use the
 `useIsMountedState` hook instead.
 
-> If you want to execute code after the component is **mounted**, you can use the `useMount` hook.
+> If code execution is required after the component is **mounted**, use the `useMount` hook.
 
-> If you want to execute code after the component is **unmounted**, you can use the `useUnmount`
+> If code execution is required after the component is **unmounted**, use the `useUnmount`
 hook.
 
 ## Reference
