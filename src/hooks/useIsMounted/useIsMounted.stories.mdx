@@ -26,6 +26,12 @@ preventing state updates after the component is unmounted. This is often the cas
 `useEffect` with an async function, and the async function is still running after the component
 is unmounted.
 
+The state is set to `true` using a `queueMicrotask` callback, so it will be updated after all the
+initial `useEffect` callbacks have been executed.
+
+If the component uses a setState directly from a `useMount`, the component will rerender during the
+mount phase, and the isMounted value will still be `false`.
+
 > If the code you want to execute before mount is more isolated as a side effect, you can use the
 `useBeforeMount` hook instead.
 

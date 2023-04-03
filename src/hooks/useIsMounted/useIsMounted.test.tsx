@@ -23,9 +23,32 @@ describe('useIsMounted', () => {
     expect(isMounted).toBe(false);
   });
 
+  it('should return false on first useEffect execution, before mounting', async () => {
+    const spy = jest.fn();
+
+    const {
+      result: { current: isMounted },
+    } = renderHook(() => {
+      // eslint-disable-next-line @typescript-eslint/no-shadow
+      const isMounted = useIsMounted();
+
+      useEffect(() => {
+        spy(isMounted.current);
+      }, []);
+
+      // special setup to capture this value _before_ the useEffect is executed and the ref is set
+      return isMounted.current;
+    });
+
+    expect(isMounted).toBe(false);
+    expect(spy).toBeCalledTimes(1);
+    expect(spy).toBeCalledWith(false);
+  });
+
   it('should return true on second render, after mounting', async () => {
     const { result, rerender } = renderHook(() => useIsMounted());
 
+    await Promise.resolve();
     rerender();
     expect(result.current.current).toBe(true);
   });
@@ -64,9 +87,12 @@ describe('useIsMounted', () => {
       });
     });
 
+    await Promise.resolve();
     rerender();
     expect(duringCleanupSpy).toBeCalledTimes(1);
     expect(duringCleanupSpy).toBeCalledWith(true);
+
+    await Promise.resolve();
     unmount();
     expect(duringCleanupSpy).toBeCalledTimes(2);
     expect(duringCleanupSpy).toBeCalledWith(false);
