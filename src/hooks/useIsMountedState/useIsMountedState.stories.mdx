@@ -16,6 +16,11 @@ client. To prevent hydration errors, you want the first render on the client to 
 the render on the server. If you have state that is only available on the client, you can use
 this hook to only render with the new state after the component is mounted.
 
+The state is set to `true` using a `queueMicrotask` callback, so it will be updated after all the
+initial `useEffect` callbacks have been executed. Because of this delay, it will also make sure that
+the component will re-render after the initial render, instead of during the mount phase, making it
+compatible with `useIsMounted`.
+
 
 ## Reference
 

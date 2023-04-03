@@ -13,7 +13,11 @@ export function useIsMountedState(): boolean {
   const [isMounted, setIsMounted] = useState(false);
 
   useMount(() => {
-    setIsMounted(true);
+    // make sure that mounting has finished
+    // and then trigger a render in the next "tick"
+    queueMicrotask(() => {
+      setIsMounted(true);
+    });
   });
 
   return isMounted;
