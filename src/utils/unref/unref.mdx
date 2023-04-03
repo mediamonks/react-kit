@@ -1,12 +1,12 @@
 import { Meta } from '@storybook/blocks';
 
-<Meta title="utils/getRefObjectOption" />
+<Meta title="utils/unref" />
 
-# getRefObjectOption
+# unref
 
 This module contains utilities for working with ref objects.
 
-## `RefObjectOption<T>`
+## `Unreffable<T>`
 
 Type for a value that is optionally wrapped in a RefObject type. This is useful for cases where a
 value may be passed as either a plain value or a RefObject containing the value.
@@ -14,25 +14,25 @@ value may be passed as either a plain value or a RefObject containing the value.
 ### Example usage
 
 ```ts
-type MyType = RefObjectOption<string>;
+type MyType = Unreffable<string>;
 
 const plainValue = 'foo' satisfies MyType; // plain value
 const refObjectValue = { current: 'bar' } satisfies MyType; // RefObject containing value
 ```
 
-## `RefObjectOptionValue<T extends RefObjectOption<unknown>>`
+## `Unref<T extends Unreffable<unknown>>`
 
-Type to get the value of a RefObjectOption. If the input type is a RefObject<T>, it returns the type
-T. Otherwise, it returns the input type itself.
+Type to get the value of an Unreffable object. If the input type is a RefObject<T>, it returns the
+type T. Otherwise, it returns the input type itself.
 
 ### Example usage
 
 ```ts
-type MyType = RefObjectOption<string>;
-type MyValueType = RefObjectOptionValue<MyType>; // string
+type MyPlainType = Unref<string>; // string
+type MyRefObject = RefObject<RefObject<string>>; // string
 ```
 
-## `getRefObjectOptionValue<T>(target: RefObjectOption<T>): T | null`
+## `unref<T>(target: Unreffable<T>): T | null`
 
 This function allows you to get the current value of a ref object, or the value as is.
 
@@ -46,8 +46,8 @@ The current value of the ref object, or the input value if it is not a ref objec
 
 ```ts
 const myRefObject = { current: 'foo' };
-getRefObjectOptionValue(myRefObject); // 'foo'
+unref(myRefObject); // 'foo'
 
 const myValue = 'bar';
-getRefObjectOptionValue(myValue); // 'bar'
+unref(myValue); // 'bar'
 ```

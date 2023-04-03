@@ -1,4 +1,4 @@
-import { type RefObject } from 'react';
+import type { RefObject } from 'react';
 
 /**
  * Type guard to check if a value is a RefObject

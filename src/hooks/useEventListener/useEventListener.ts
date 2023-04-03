@@ -1,13 +1,10 @@
 /* eslint-disable  @typescript-eslint/unified-signatures, @typescript-eslint/no-explicit-any */
-import { useEffect } from 'react';
-import {
-  getRefObjectOptionValue,
-  type RefObjectOption,
-} from '../../utils/getRefObjectOption/getRefObjectOption.js';
+import { useEffect, type RefObject } from 'react';
+import { unref } from '../../utils/unref/unref.js';
 import { useRefValue } from '../useRefValue/useRefValue.js';
 
 export function useEventListener<T extends EventTarget>(
-  targetOption: RefObjectOption<T> | null | undefined,
+  targetOption: RefObject<T> | T | null | undefined,
   type: string,
   listener: EventListener,
   options?: boolean | AddEventListenerOptions,
@@ -15,7 +12,7 @@ export function useEventListener<T extends EventTarget>(
   const listenerRef = useRefValue(listener);
 
   useEffect(() => {
-    const target = getRefObjectOptionValue(targetOption);
+    const target = unref(targetOption);
 
     function callback(this: unknown, event: Event): void {
       listenerRef.current?.(event);
