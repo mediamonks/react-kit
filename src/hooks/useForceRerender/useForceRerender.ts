@@ -1,7 +1,7 @@
-// use an arbitrary large number instead of a toggle boolean to avoid potential optimization issues
-// when called multiple times in a single render, but have a cap to avoid overflow
 import { useReducer } from 'react';
 
+// use an arbitrary large number instead of a toggle boolean to avoid potential optimization issues
+// when called multiple times in a single render, but have a cap to avoid overflow
 const updateReducer = (value: number): number => (value + 1) % Number.MAX_SAFE_INTEGER;
 
 /**

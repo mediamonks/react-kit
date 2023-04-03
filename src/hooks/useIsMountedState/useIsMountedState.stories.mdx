@@ -13,8 +13,8 @@ This hook is useful when you want to perform an action after the component is mo
 when using SSR.
 There, the initial render is executed on the server, and subsequent renders are executed on the
 client. To prevent hydration errors, you want the first render on the client to be identical to
-the render on the server. If you have state that is only available on the client, you can use
-this hook to only render with the new state after the component is mounted.
+the render on the server. If there is state that is only available on the client, use
+this hook to only render with the new state after the component has mounted.
 
 The state is set to `true` using a `queueMicrotask` callback, so it will be updated after all the
 initial `useEffect` callbacks have been executed. Because of this delay, it will also make sure that
