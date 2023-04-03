@@ -17,7 +17,7 @@ function useDocument(): Document | undefined;
 
 ```tsx
 function DemoComponent(): ReactNode {
-  const document = useDocument(ref, ':focus-within');
+  const document = useDocument();
 
   useEventListener(document, 'focusin', (event) => {
     // do something

@@ -17,7 +17,7 @@ function useWindow(): Window | undefined;
 
 ```tsx
 function DemoComponent(): ReactNode {
-  const window = useWindow(ref, ':focus-within');
+  const window = useWindow();
 
   useEventListener(window, 'keydown', (event) => {
     // do something
