@@ -18,4 +18,4 @@ export * from './hooks/useToggle/useToggle.js';
 export * from './hooks/useUnmount/useUnmount.js';
 export * from './hooks/useWindowEventListener/useWindowEventListener.js';
 export * from './utils/arrayRef/arrayRef.js';
-export * from './utils/waitForTimeout/waitForTimeout.js';
+export * from './utils/createTimeout/createTimeout.js';

@@ -1,11 +1,11 @@
-import { waitForTimeout } from './waitForTimeout.js';
+import { createTimeout } from './createTimeout.js';
 
-describe('waitForTimeout', () => {
+describe('createTimeout', () => {
   it('should wait for a tick', async () => {
     let value = 0;
 
     const promise = (async (): Promise<void> => {
-      await waitForTimeout();
+      await createTimeout();
       value = 1;
     })();
 
@@ -20,7 +20,7 @@ describe('waitForTimeout', () => {
     const timeout = 250;
     const startTime = Date.now();
 
-    await waitForTimeout(timeout);
+    await createTimeout(timeout);
 
     const currentTime = Date.now();
 
