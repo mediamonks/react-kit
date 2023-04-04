@@ -29,7 +29,7 @@ the type `T`. Otherwise, it returns the input type itself.
 
 ```ts
 type MyPlainType = Unref<string>; // string
-type MyRefObject = RefObject<RefObject<string>>; // string
+type MyRefObject = Unref<RefObject<string>>; // string
 ```
 
 ## `unref<T>(target: Unreffable<T>): T | null`
