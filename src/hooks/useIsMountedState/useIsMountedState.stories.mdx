@@ -44,7 +44,9 @@ console.log(isMounted); // false
 Trigger a re-render after the component is mounted to update the state.
 
 ```tsx
-function DemoComponent() {
+import {somethingSameAsServer, somethingCustomOnTheClient} from './somewhere.js';
+
+function DemoComponent({ otherItems }) {
   const isMounted = useIsMountedState();
 
   // help with SSR, since `isMounted` is part of the deps,
