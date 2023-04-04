@@ -1,0 +1,70 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/lifecycle/useIsMountedState" />
+
+# useIsMountedState
+
+Exposes the mounted state that is updated after the component is mounted.
+
+This hook uses `setState` to update the state after the component is mounted, which means that
+the component will be re-rendered after the first render.
+
+This hook is useful when you want to perform an action after the component is mounted, often used
+when using SSR.
+There, the initial render is executed on the server, and subsequent renders are executed on the
+client. To prevent hydration errors, you want the first render on the client to be identical to
+the render on the server. If there is state that is only available on the client, use
+this hook to only render with the new state after the component has mounted.
+
+The state is set to `true` using a `queueMicrotask` callback, so it will be updated after all the
+initial `useEffect` callbacks have been executed. Because of this delay, it will also make sure that
+the component will re-render after the initial render, instead of during the mount phase, making it
+compatible with `useIsMounted`.
+
+
+## Reference
+
+```ts
+function useIsMountedState(): boolean;
+```
+### Returns
+
+* `boolean` - The mounted state, `false` initially, and `true` after the component is mounted.
+
+## Usage
+
+```ts
+const isMounted = useIsMountedState();
+console.log(isMounted); // false
+```
+
+```tsx
+```
+
+Trigger a re-render after the component is mounted to update the state.
+
+```tsx
+import {somethingSameAsServer, somethingCustomOnTheClient} from './somewhere.js';
+
+function DemoComponent({ otherItems }) {
+  const isMounted = useIsMountedState();
+
+  // help with SSR, since `isMounted` is part of the deps,
+  // it will execute this `useMemo` again after the component is mounted
+  // but now with state that is only known on the client
+  const items = useMemo(() => {
+    if (!isMounted) {
+      return somethingSameAsServer(otherItems);
+    }
+    return somethingCustomOnTheClient(otherItems);
+  }, [otherItems, isMounted]);
+
+  return (
+    <div>
+      {items.map(item => <div>{item}</div>)}
+      {/* this element is not rendered on the server, so had to be delayed on the client */}
+      {isMounted && <div>Rendered only the client after mount</div>}
+    </div>
+  );
+}
+```

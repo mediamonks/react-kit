@@ -1,0 +1,43 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/lifecycle/useForceRerender" />
+
+# useForceRerender
+
+Forces a rerender of the component when the returned function is called.
+
+This should only be used when there is no other state that can be used to trigger a rerender.
+
+Examples could be to force a rerender after a timeout or interval, to compare the current time
+(that changes) with the time when the component was last updated.
+
+## Reference
+
+```ts
+function useForceRerender(): () => void;
+```
+
+### Returns
+
+* `forceRerender` - A function that can be called to force a rerender.
+
+## Usage
+
+```ts
+const forceRerender = useForceRerender();
+
+forceRerender();
+```
+
+```tsx
+function DemoComponent() {
+  const forceRerender = useForceRerender();
+
+  return (
+    <div>
+      <div>Time: {Date.now()}</div>
+      <button onClick={forceRerender}>Update</button>
+    </div>
+  );
+}
+```

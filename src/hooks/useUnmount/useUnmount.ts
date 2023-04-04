@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useRefValue } from '../useRefValue/useRefValue.js';
 
 /**
  * React lifecycle hook that calls a function after the component is unmounted.
@@ -12,9 +13,12 @@ import { useEffect } from 'react';
  * ```
  */
 export function useUnmount(callbackFunction: () => void): void {
+  const callbackRef = useRefValue(callbackFunction);
+
   useEffect(
-    () => callbackFunction,
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [],
+    () => () => {
+      callbackRef.current?.();
+    },
+    [callbackRef],
   );
 }

@@ -1,5 +1,5 @@
 import { useCallback, useState, type RefObject } from 'react';
-import { useDocumentEventListener } from '../useDocumentEventListener/useDocumentEventListener.js';
+import { useEventListener } from '../useEventListener/useEventListener.js';
 
 export type FocusPseudoSelector = ':focus' | ':focus-visible' | ':focus-within';
 
@@ -21,8 +21,8 @@ export function useHasFocus(
     setState(matches());
   }, [matches, setState]);
 
-  useDocumentEventListener('focusin', onUpdate);
-  useDocumentEventListener('focusout', onUpdate);
+  useEventListener(globalThis.document, 'focusin', onUpdate);
+  useEventListener(globalThis.document, 'focusout', onUpdate);
 
   return state;
 }
