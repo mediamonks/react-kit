@@ -1,4 +1,5 @@
 import { StorybookConfig } from '@storybook/types';
+
 export default {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(ts|tsx)'],
   staticDirs: ['../public'],
@@ -7,10 +8,7 @@ export default {
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
   ],
-  framework: {
-    name: '@storybook/react-vite',
-    options: {},
-  },
+  framework: '@storybook/react-vite',
   docs: {
     autodocs: true,
   },
