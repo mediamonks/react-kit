@@ -88,8 +88,7 @@ function DemoComponent() {
 Use in `useEffect` cleanup, for some very specific scenarios.
 
 ```tsx
-import { useEffect } from 'react';
-function DemoComponent() {
+function DemoComponent({ someChangingValue }) {
   const isMounted = useIsMounted();
 
   useEffect(() => {
