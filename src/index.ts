@@ -18,6 +18,7 @@ export * from './hooks/useRefs/utils/unwrapRefs/unwrapRefs.types.js';
 export * from './hooks/useRefValue/useRefValue.js';
 export * from './hooks/useRegisterRef/useRegisterRef.js';
 export * from './hooks/useResizeObserver/useResizeObserver.js';
+export * from './hooks/useStaticValue/useStaticValue.js';
 export * from './hooks/useToggle/useToggle.js';
 export * from './hooks/useUnmount/useUnmount.js';
 export * from './utils/arrayRef/arrayRef.js';
