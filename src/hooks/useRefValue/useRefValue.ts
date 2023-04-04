@@ -3,7 +3,7 @@ import { type RefObject, useRef } from 'react';
 /**
  * Keeps a ref up to date with a changing value.
  *
- * Normal values are captured in scopes, while refs are not. Therefore a changing value in a callback 
+ * Normal values are captured in scopes, while refs are not. Therefore a changing value in a callback
  * requires the use of a ref.
  *
  * @param value The value to keep in the ref.
