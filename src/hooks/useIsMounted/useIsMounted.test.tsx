@@ -34,7 +34,7 @@ describe('useIsMounted', () => {
 
       useEffect(() => {
         spy(isMounted.current);
-      }, []);
+      }, [isMounted]);
 
       // special setup to capture this value _before_ the useEffect is executed and the ref is set
       return isMounted.current;
