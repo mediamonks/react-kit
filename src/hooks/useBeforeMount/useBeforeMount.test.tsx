@@ -1,6 +1,7 @@
 import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useMount } from '../useMount/useMount.js';
 import { useBeforeMount } from './useBeforeMount.js';
 
 describe('useBeforeMount', () => {
@@ -53,6 +54,25 @@ describe('useBeforeMount', () => {
 
     await Promise.resolve();
     rerender();
+    expect(spy).toBeCalledTimes(1);
+
+    await Promise.resolve();
+    rerender();
+    expect(spy).toBeCalledTimes(1);
+  });
+
+  it('should only execute once when setState is called during useMount', async () => {
+    const spy = jest.fn();
+    const { rerender } = renderHook(() => {
+      // eslint-disable-next-line react/hook-use-state
+      const [, setState] = useState(false);
+
+      useBeforeMount(spy);
+
+      useMount(() => {
+        setState(true);
+      });
+    });
     expect(spy).toBeCalledTimes(1);
 
     await Promise.resolve();

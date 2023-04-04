@@ -1,4 +1,5 @@
-import { useIsMounted } from '../useIsMounted/useIsMounted.js';
+import { useRef } from 'react';
+import { useMount } from '../useMount/useMount.js';
 
 /**
  * Executes a callback during the initial render, before mounting, but not during subsequent
@@ -11,8 +12,13 @@ import { useIsMounted } from '../useIsMounted/useIsMounted.js';
  * during subsequent renders.
  */
 export function useBeforeMount(callback: () => void): void {
-  const isMounted = useIsMounted();
-  if (!isMounted.current) {
+  const isBeforeMount = useRef(true);
+
+  if (isBeforeMount.current) {
     callback();
   }
+
+  useMount(() => {
+    isBeforeMount.current = false;
+  });
 }
