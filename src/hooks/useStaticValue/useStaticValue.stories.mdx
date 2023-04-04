@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useStaticValue" />
+
+# useStaticValue
+
+Keep track of a value that is initialized once and then never changes. This is useful for values
+that are expensive to calculate, but only need to be calculated once, or for values that would
+create a new reference every time.
+
+This behavior is similar to `useState`, but the value is never updated.
+
+This is a better alternative to a `useMemo` without any dependencies.
+
+## Reference
+
+```ts
+function useStaticValue<T>(initializeFunction: () => T): T;
+```
+
+### Parameters
+
+* `initializeFunction` - Similar to `useState`, this function will be called to initialize the value.
+  It will only be called once.
+
+### Returns
+
+* The value returned by `initializeFunction`, which will always be the same.
+
+## Usage
+
+```tsx
+function DemoComponent() {
+  const value = useStaticValue(() => ['foo', 'bar']);
+
+  console.log('value', value);
+
+  return null;
+}
+```
