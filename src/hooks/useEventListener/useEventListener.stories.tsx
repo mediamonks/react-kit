@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-no-literals */
 import type { StoryObj } from '@storybook/react';
 import { useState, type ReactElement } from 'react';
-import { useDocument } from '../useDocument/useDocument.js';
 import { useEventListener } from './useEventListener.js';
 
 export default {
@@ -11,9 +10,7 @@ export default {
 function DemoComponent(): ReactElement {
   const [text, setText] = useState<ReadonlyArray<string>>([]);
 
-  const document = useDocument();
-
-  useEventListener(document, 'focusin', (event) => {
+  useEventListener(globalThis.document, 'focusin', (event) => {
     // eslint-disable-next-line no-console
     setText((previous) => [
       ...previous,
