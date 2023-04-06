@@ -4,8 +4,8 @@ import { Meta } from '@storybook/blocks';
 
 # useAnimationLoop
 
-useAnimationLoop hook is a wrapper around requestAnimationFrame method. This hook will execute a
-callback function every next frame.
+`useAnimationLoop` hook is a wrapper around requestAnimationFrame function. This hook will execute
+the passed callback function every next frame.
 
 ## Reference
 
@@ -16,7 +16,7 @@ function useAnimationLoop(callback: (delta: number) => void, enabled = false): v
 ### Parameters
 
 - `callback` - function accepts `delta` parameter which represents time passed since last
-  invocation; - `callback` function will be called on every animation frame
+  invocation;
 - `enabled` - boolean which is used to play and pause the requestAnimationFrame
 
 ### Returns
