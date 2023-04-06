@@ -1,28 +1,40 @@
 /* eslint-disable react/no-multi-comp */
-import { act, fireEvent, render } from '@testing-library/react';
-import { type ReactElement, useRef } from 'react';
+import { act, fireEvent, renderHook } from '@testing-library/react';
+import { useRef } from 'react';
 import { useMediaDuration } from './useMediaDuration.js';
 
 describe('useMediaDuration', () => {
-  it('should return media duration once the video is loaded', async () => {
-    let mediaDuration = Number.NaN;
-    function TestComponent(): ReactElement {
-      const ref = useRef<HTMLVideoElement>(null);
-      mediaDuration = useMediaDuration(ref);
+  it('should return media duration when the video is already loaded', async () => {
+    const video = document.createElement('video');
+    Object.defineProperty(video, 'duration', {
+      writable: true,
+      value: 10,
+    });
 
-      return (
-        <video data-testid="test" ref={ref} src="https://www.w3schools.com/html/mov_bbb.mp4">
-          <track kind="captions" />
-        </video>
-      );
-    }
-    const result = render(<TestComponent />);
-    const video = await result.findByTestId('test');
+    const { result } = renderHook(() => {
+      const ref = useRef<HTMLVideoElement>(video);
+      const mediaDuration = useMediaDuration(ref);
+      return mediaDuration;
+    });
+
+    expect(result.current).toBe(10);
+  });
+
+  it('should return media duration once the video is loaded', async () => {
+    const video = document.createElement('video');
+
+    const { result } = renderHook(() => {
+      const ref = useRef<HTMLVideoElement>(video);
+      const mediaDuration = useMediaDuration(ref);
+      return mediaDuration;
+    });
+
+    expect(result.current).toBeNaN();
     Object.defineProperty(video, 'duration', {
       writable: true,
       value: 10,
     });
     await act(async () => fireEvent.durationChange(video));
-    expect(mediaDuration).toBe(10);
+    expect(result.current).toBe(10);
   });
 });
