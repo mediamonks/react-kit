@@ -10,10 +10,10 @@ export default {
 
 function DemoComponent(): ReactElement {
   const [currentTimestamp, setCurrentTimestamp] = useState(Date.now);
-  const [state, toggle] = useToggle(true);
+  const [isRunning, toggleIsRunning] = useToggle(true);
   useAnimationLoop(() => {
     setCurrentTimestamp(Date.now);
-  }, state);
+  }, isRunning);
 
   return (
     <div>
@@ -30,7 +30,7 @@ function DemoComponent(): ReactElement {
             type="button"
             // eslint-disable-next-line react/jsx-handler-names, react/jsx-no-bind
             onClick={(): void => {
-              toggle();
+              toggleIsRunning();
             }}
           >
             Toggle animation loop
