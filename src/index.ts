@@ -8,6 +8,7 @@ export * from './hooks/useHasFocus/useHasFocus.js';
 export * from './hooks/useIsMounted/useIsMounted.js';
 export * from './hooks/useIsMountedState/useIsMountedState.js';
 export * from './hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
+export * from './hooks/useMediaDuration/useMediaDuration.js';
 export * from './hooks/useMediaQuery/useMediaQuery.js';
 export * from './hooks/useMount/useMount.js';
 export * from './hooks/useRefs/useRefs.js';
