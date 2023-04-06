@@ -1,0 +1,61 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useAnimationLoop" />
+
+# useAnimationLoop
+
+useAnimationLoop hook is a wrapper around requestAnimationFrame method. This hook will execute a
+callback function every next frame.
+
+## Reference
+
+```ts
+function useAnimationLoop(callback: (delta: number) => void, enabled = false): void;
+```
+
+### Parameters
+
+- `callback` - function accepts `delta` parameter which represents time passed since last
+  invocation; - `callback` function will be called on every animation frame
+- `enabled` - boolean which is used to play and pause the requestAnimationFrame
+
+### Returns
+
+- `void`
+
+## Usage
+
+```tsx
+function DemoComponent(): ReactElement {
+  const [currentTimestamp, setCurrentTimestamp] = useState(Date.now);
+  const [state, toggle] = useToggle(true);
+  useAnimationLoop(() => {
+    setCurrentTimestamp(Date.now);
+  }, state);
+
+  return (
+    <div>
+      <div className="alert alert-primary">
+        <h4 className="alert-heading">Instructions!</h4>
+        <p className="mb-0">Click on the button to toggle the animation loop</p>
+      </div>
+      <div className="card border-dark" data-ref="test-area">
+        <div className="card-header">Test Area</div>
+        <div className="card-body">
+          <p>{currentTimestamp}</p>
+
+          <button
+            type="button"
+            // eslint-disable-next-line react/jsx-handler-names, react/jsx-no-bind
+            onClick={(): void => {
+              toggle();
+            }}
+          >
+            Toggle animation loop
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+```
