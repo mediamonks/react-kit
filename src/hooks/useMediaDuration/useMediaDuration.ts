@@ -4,10 +4,7 @@ import { type MutableRefObject, useCallback, useEffect, useState } from 'react';
  * Retrieves the duration of the audio / video file in seconds.
  */
 export function useMediaDuration(
-  mediaElementRef: MutableRefObject<Pick<
-    HTMLAudioElement,
-    'addEventListener' | 'removeEventListener' | 'duration'
-  > | null>,
+  mediaElementRef: MutableRefObject<HTMLMediaElement | null>,
 ): number {
   const [mediaDuration, setMediaDuration] = useState<number>(Number.NaN);
 

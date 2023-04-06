@@ -1,17 +1,23 @@
 /* eslint-disable react/jsx-no-literals */
 import type { StoryObj } from '@storybook/react';
-import { type ReactElement, useRef } from 'react';
+import type { ReactElement } from 'react';
+import { useRefs } from '../useRefs/useRefs.js';
+import type { MutableRefs } from '../useRefs/useRefs.types.js';
 import { useMediaDuration } from './useMediaDuration.js';
 
 export default {
   title: 'hooks/useMediaDuration',
 };
 
+export type DemoComponentRefs = MutableRefs<{
+  video: HTMLVideoElement;
+  audio: HTMLAudioElement;
+}>;
+
 function DemoComponent(): ReactElement {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const audioRef = useRef<HTMLAudioElement>(null);
-  const videoDuration = useMediaDuration(videoRef);
-  const audioDuration = useMediaDuration(audioRef);
+  const refs = useRefs<DemoComponentRefs>();
+  const videoDuration = useMediaDuration(refs.video);
+  const audioDuration = useMediaDuration(refs.audio);
 
   return (
     <div>
@@ -28,7 +34,7 @@ function DemoComponent(): ReactElement {
               videoDuration,
             )}sec`}</span>
           </div>
-          <video controls ref={videoRef} src="https://www.w3schools.com/html/mov_bbb.mp4">
+          <video controls ref={refs.video} src="https://www.w3schools.com/html/mov_bbb.mp4">
             <track kind="captions" />
           </video>
         </div>
@@ -39,7 +45,7 @@ function DemoComponent(): ReactElement {
               audioDuration,
             )}sec`}</span>
           </div>
-          <audio controls ref={audioRef} src="https://www.w3schools.com/html/horse.mp3">
+          <audio controls ref={refs.audio} src="https://www.w3schools.com/html/horse.mp3">
             <track kind="captions" />
           </audio>
         </div>
