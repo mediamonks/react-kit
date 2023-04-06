@@ -10,31 +10,42 @@ removed when the component unmounts.
 ## Reference
 
 ```ts
-export function useEventListener<T extends EventTarget, K extends keyof EventMap>(
-  target: T | undefined,
-  event: K,
-  listener: (this: EventTarget, event: EventMap[K]) => void,
-  options?: boolean | EventListenerOptions,
+function useEventListener<T extends EventTarget>(
+  targetOption: RefObject<T> | T | null | undefined,
+  type: string,
+  listener: EventListener,
+  options?: boolean | AddEventListenerOptions,
 ): void;
 ```
 
 ## Usage
 
-## Server-size rendering
+Using a RefObject to attach an event to a DOM element.
+
+```tsx
+function MyComponent() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEventListener(ref, 'click', (event) => {
+    ...
+  });
+
+  return <div ref={ref}>...</div>;
+}
+```
+
+### Server-size rendering
 
 The hook doesn't throw errors when the target is undefined to support server-side rendering.
 
 ```tsx
-useEventListener(typeof document === 'undefined' ? undefined : document, 'focusin', (event) => {
+useEventListener(globalThis.document, 'focusin', (event) => {
   ...
 });
 ```
 
 ```tsx
-useEventListener(typeof window === 'undefined' ? undefined : window, 'resize', (event) => {
+useEventListener(globalThis.window, 'resize', (event) => {
   ...
 });
 ```
-
-Adding events to the `window` and `document` happens often. The `useWindowEventListener` and
-`useDocumentEventListener` hooks are available for convenience.

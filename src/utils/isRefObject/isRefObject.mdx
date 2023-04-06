@@ -1,0 +1,25 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="utils/isRefObject" />
+
+# isRefObject
+
+Checks if the target is a RefObject.
+
+## Reference
+
+```ts
+function isRefObject(target: unknown): target is RefObject<unknown>;
+```
+
+### Returns
+
+Boolean indicating if the target is a RefObject.
+
+## Usage
+
+```ts
+isRefObject({ current: 'foo' }); // true
+isRefObject('bar'); // false
+isRefObject(null); // false
+```

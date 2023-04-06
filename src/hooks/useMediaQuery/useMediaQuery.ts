@@ -50,7 +50,9 @@ export function useMediaQuery(mediaQueryVariableName: MediaQueries, defaultValue
   }, [defaultValue, mediaQueryList?.matches, mediaQueryVariableName]);
 
   useEventListener(mediaQueryList, 'change', (event) => {
-    setMatches(event.matches);
+    if (event instanceof MediaQueryListEvent) {
+      setMatches(event.matches);
+    }
   });
 
   return matches ?? defaultValue;

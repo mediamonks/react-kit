@@ -1,0 +1,43 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useRefValue" />
+
+# useRefValue
+
+Keeps a ref up to date with a changing value.
+
+Normal values are captured in scopes, while refs are not. This means that if you want to use a
+changing value in a callback, you need to use a ref.
+
+## Reference
+
+```ts
+function useRefValue<T>(value: T): RefObject<T>;
+```
+
+### Parameters
+
+* `value` – The value to keep in the ref.
+
+### Returns
+
+* `RefObject` - A ref object that is updated with the value.
+
+## Usage
+
+```tsx
+function DemoComponent({ foo }) {
+  const ref = useRefValue(foo);
+
+  const onClick = useCallback(() => {
+    // always contains the latest value of foo
+    console.log(ref.current);
+  });
+
+  return (
+    <div onClick={onClick}>
+      Click me
+    </div>
+  );
+}
+```

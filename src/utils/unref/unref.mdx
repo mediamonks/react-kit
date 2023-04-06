@@ -1,0 +1,53 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="utils/unref" />
+
+# unref
+
+This module contains utilities for working with ref objects.
+
+## `Unreffable<T>`
+
+Type for a value that is optionally wrapped in a RefObject type. This is useful for cases where a
+value may be passed as either a plain value or a RefObject containing the value.
+
+### Example usage
+
+```ts
+type MyType = Unreffable<string>;
+
+const plainValue = 'foo' satisfies MyType; // plain value
+const refObjectValue = { current: 'bar' } satisfies MyType; // RefObject containing value
+```
+
+## `Unref<T extends Unreffable<unknown>>`
+
+Type to get the value of an `Unreffable` object. If the input type is a `RefObject<T>`, it returns
+the type `T`. Otherwise, it returns the input type itself.
+
+### Example usage
+
+```ts
+type MyPlainType = Unref<string>; // string
+type MyRefObject = Unref<RefObject<string>>; // string
+```
+
+## `unref<T>(target: Unreffable<T>): T | null`
+
+This function allows you to get the current value of a ref object, or the value as is.
+
+- `target` - The target value, which may be a RefObject or a plain value
+
+### Returns
+
+The current value of the ref object, or the input value if it is not a ref object.
+
+### Example usage
+
+```ts
+const myRefObject = { current: 'foo' };
+unref(myRefObject); // 'foo'
+
+const myValue = 'bar';
+unref(myValue); // 'bar'
+```
