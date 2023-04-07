@@ -46,7 +46,7 @@ describe('useAnimationLoop', () => {
     );
 
     expect(spy).toBeCalledTimes(0);
-    waitFor(() => {
+    await waitFor(() => {
       expect(spy).toBeCalled();
     });
   });
@@ -68,15 +68,16 @@ describe('useAnimationLoop', () => {
       },
     );
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(spyFirstRender).toBeCalled();
       expect(spySecondRender).toBeCalledTimes(0);
     });
 
     rerender({ callback: spySecondRender, enabled: true });
-    waitFor(() => {
+    const amountOfCalls = spyFirstRender.mock.calls.length;
+    await waitFor(() => {
+      expect(spyFirstRender).toBeCalledTimes(amountOfCalls);
       expect(spySecondRender).toBeCalled();
-      expect(spyFirstRender).toBeCalledTimes(0);
     });
   });
 
