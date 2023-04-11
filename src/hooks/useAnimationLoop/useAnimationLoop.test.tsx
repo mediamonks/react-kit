@@ -17,14 +17,12 @@ describe('useAnimationLoop', () => {
       },
       {
         initialProps: {
-          callback: () => {
-            spy();
-          },
+          callback: spy,
         },
       },
     );
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(spy).toBeCalledTimes(0);
     });
   });
@@ -37,9 +35,7 @@ describe('useAnimationLoop', () => {
       },
       {
         initialProps: {
-          callback: () => {
-            spy();
-          },
+          callback: spy,
           enabled: true,
         },
       },
@@ -60,9 +56,7 @@ describe('useAnimationLoop', () => {
       },
       {
         initialProps: {
-          callback: () => {
-            spyFirstRender();
-          },
+          callback: spyFirstRender,
           enabled: true,
         },
       },
@@ -89,9 +83,7 @@ describe('useAnimationLoop', () => {
       },
       {
         initialProps: {
-          callback: () => {
-            spy();
-          },
+          callback: spy,
           enabled: true,
         },
       },
