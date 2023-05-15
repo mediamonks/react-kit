@@ -12,6 +12,7 @@ export * from './hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
 export * from './hooks/useMediaDuration/useMediaDuration.js';
 export * from './hooks/useMediaQuery/useMediaQuery.js';
 export * from './hooks/useMount/useMount.js';
+export * from './hooks/useMutationObserver/useMutationObserver.js';
 export * from './hooks/useRafCallback/useRafCallback.js';
 export * from './hooks/useRefValue/useRefValue.js';
 export * from './hooks/useRefs/useRefs.js';
@@ -25,6 +26,8 @@ export * from './hooks/useStaticValue/useStaticValue.js';
 export * from './hooks/useToggle/useToggle.js';
 export * from './hooks/useUnmount/useUnmount.js';
 export * from './utils/arrayRef/arrayRef.js';
+export * from './utils/createMicrotask/createMicrotask.js';
 export * from './utils/createTimeout/createTimeout.js';
 export * from './utils/isRefObject/isRefObject.js';
 export * from './utils/unref/unref.js';
+

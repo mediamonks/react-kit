@@ -1,0 +1,38 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useMutationObserver" />
+
+# useMutationObserver
+
+This hook allows you to add a `MutationObserver` to an element and remove it when the component
+unmounts.
+
+## Reference
+
+```ts
+function useMutationObserver(
+  target: Unreffable<Element | null>,
+  callback: MutationCallback,
+  options: MutationObserverInit,
+): void;
+```
+
+## Usage
+
+```tsx
+function MyComponent(): ReactElement {
+  const ref = useRef<HTMLUListElement>(null);
+
+  useMutationObserver(
+    ref,
+    () => {
+      console.log('Children of decendants of ref are changed!');
+    },
+    {
+      childList: true,
+      subtree: true,
+    },
+  );
+
+  return <div ref={ref}>...</div>;
+```

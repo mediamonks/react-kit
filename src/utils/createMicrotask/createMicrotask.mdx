@@ -1,0 +1,35 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="utils/createMicrotask" />
+
+# createMicrotask
+
+Creates a promise that resolves at the end of the current Task.
+
+## Reference
+
+```ts
+createMicrotask(): Promise<void>
+```
+
+### Returns
+
+`Promise<void>` that resolves at the end of the current Task.
+
+## Usage
+
+Using `async/await`
+
+```ts
+await createMicrotask();
+
+console.log("I'm logged at the end of the current Task");
+```
+
+Using `Promise.then`
+
+```ts
+createMicrotask().then(() => {
+  console.log("I'm logged at the end of the current Task");
+});
+```
