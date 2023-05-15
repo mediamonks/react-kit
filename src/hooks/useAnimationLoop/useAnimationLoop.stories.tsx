@@ -9,10 +9,16 @@ export default {
 };
 
 function DemoComponent(): ReactElement {
-  const [currentTimestamp, setCurrentTimestamp] = useState(Date.now);
+  const [delta, setDelta] = useState(0);
+  const [currentTimestamp, setCurrentTimestamp] = useState(0);
+
   const [isRunning, toggleIsRunning] = useToggle(true);
+
   useAnimationLoop(() => {
-    setCurrentTimestamp(Date.now);
+    const timestamp = Date.now();
+
+    setDelta(timestamp - currentTimestamp);
+    setCurrentTimestamp(timestamp);
   }, isRunning);
 
   return (
@@ -24,7 +30,8 @@ function DemoComponent(): ReactElement {
       <div className="card border-dark" data-ref="test-area">
         <div className="card-header">Test Area</div>
         <div className="card-body">
-          <p>{currentTimestamp}</p>
+          <p>Current time: {currentTimestamp}</p>
+          <p>Delta: {delta}</p>
 
           <button
             type="button"

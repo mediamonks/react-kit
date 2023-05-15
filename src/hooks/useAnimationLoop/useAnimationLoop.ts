@@ -13,14 +13,17 @@ export function useAnimationLoop(callback: (delta: number) => void, enabled = fa
   const lastTimeRef = useRef(0);
   const callbackRef = useRefValue(callback);
 
-  const tick = useCallback((time: number): void => {
-    const delta = time - lastTimeRef.current;
-    lastTimeRef.current = time;
+  const tick = useCallback(
+    (time: number): void => {
+      const delta = time - lastTimeRef.current;
+      lastTimeRef.current = time;
 
-    callbackRef.current?.(delta);
+      callbackRef.current?.(delta);
 
-    animationFrameRef.current = requestAnimationFrame(tick);
-  }, []);
+      animationFrameRef.current = requestAnimationFrame(tick);
+    },
+    [callbackRef],
+  );
 
   const play = useCallback(() => {
     lastTimeRef.current = performance.now();
