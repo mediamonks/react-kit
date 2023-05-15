@@ -24,8 +24,8 @@ describe('ensuredForwardRef', () => {
 
     let ref1: HTMLDivElement | null = null;
 
-    const ref1Function = jest.fn((_ref: HTMLDivElement | null) => {
-      ref1 = _ref;
+    const ref1Function = jest.fn((ref: HTMLDivElement | null) => {
+      ref1 = ref;
     });
 
     // First render
@@ -34,8 +34,8 @@ describe('ensuredForwardRef', () => {
 
     let ref2: HTMLDivElement | null = null;
 
-    const ref2Function = jest.fn((_ref: HTMLDivElement | null) => {
-      ref2 = _ref;
+    const ref2Function = jest.fn((ref: HTMLDivElement | null) => {
+      ref2 = ref;
     });
 
     // New instance with key update
@@ -49,6 +49,7 @@ describe('ensuredForwardRef', () => {
   });
 
   it('should update ref when no ref object/ref function is provided', () => {
+    // eslint-disable-next-line no-underscore-dangle
     let _ref: MutableRefObject<HTMLDivElement | null> = createRef();
 
     const Component = ensuredForwardRef<HTMLDivElement>((_, ref) => {
@@ -63,6 +64,7 @@ describe('ensuredForwardRef', () => {
   });
 
   it('should not break when passing undefined as a ref', () => {
+    // eslint-disable-next-line no-underscore-dangle
     let _ref: MutableRefObject<HTMLDivElement | null> = createRef();
 
     const Component = ensuredForwardRef<HTMLDivElement>((_, ref) => {

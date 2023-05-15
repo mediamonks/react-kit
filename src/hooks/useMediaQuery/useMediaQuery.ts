@@ -43,10 +43,10 @@ export function useMediaQuery(mediaQueryVariableName: MediaQueries, defaultValue
   const [matches, setMatches] = useState<boolean | undefined>(defaultValue);
 
   useEffect(() => {
-    const _mediaQueryList = getMediaQueryList(mediaQueryVariableName);
+    const newMediaQueryList = getMediaQueryList(mediaQueryVariableName);
 
-    setMediaQueryList(_mediaQueryList);
-    setMatches(_mediaQueryList?.matches);
+    setMediaQueryList(newMediaQueryList);
+    setMatches(newMediaQueryList?.matches);
   }, [defaultValue, mediaQueryList?.matches, mediaQueryVariableName]);
 
   useEventListener(mediaQueryList, 'change', (event) => {
