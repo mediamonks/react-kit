@@ -1,24 +1,34 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import type { StoryObj } from '@storybook/react';
-import { type ReactElement, useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useResizeObserver } from './useResizeObserver.js';
 
 export default {
   title: 'hooks/useResizeObserver',
 };
 
-function DemoComponent(): ReactElement {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useResizeObserver(ref, () => {
-    // eslint-disable-next-line no-console
-    console.log('Element resized');
-  });
-
-  return <div ref={ref}></div>;
-}
-
-export const Demo: StoryObj = {
+export const UsingRefObject: StoryObj = {
   render() {
-    return <DemoComponent />;
+    const ref = useRef<HTMLDivElement>(null);
+
+    useResizeObserver(ref, () => {
+      // eslint-disable-next-line no-console
+      console.log('Element resized');
+    });
+
+    return <div ref={ref}></div>;
+  },
+};
+
+export const UsingState: StoryObj = {
+  render() {
+    const [element, setElement] = useState<HTMLDivElement | null>(null);
+
+    useResizeObserver(element, () => {
+      // eslint-disable-next-line no-console
+      console.log('Element resized');
+    });
+
+    return <div ref={setElement}></div>;
   },
 };

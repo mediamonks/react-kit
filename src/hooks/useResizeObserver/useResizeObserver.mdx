@@ -4,16 +4,21 @@ import { Meta } from '@storybook/blocks';
 
 # useResizeObserver
 
-This hook allows you to add a ResizeObserver for an element and remove it when the component
+This hook allows you to add a `ResizeObserver` to an element and remove it when the component
 unmounts.
 
 ## Reference
 
 ```ts
-function useResizeObserver(ref: RefObject<Element>, callback: ResizeObserverCallback): void;
+function useResizeObserver(
+  target: Unreffable<Element | null>,
+  callback: ResizeObserverCallback,
+): void;
 ```
 
 ## Usage
+
+Using the `useResizeObserver` hook using a RefObject:
 
 ```tsx
 function DemoComponent() {
@@ -24,5 +29,20 @@ function DemoComponent() {
   });
 
   return <div ref={ref}></div>;
+}
+```
+
+Using the `useResizeObserver` hook using state:
+
+```tsx
+function DemoComponent() {
+  const [element, setElement] = useState<HTMLDivElement | null>(null);
+
+  useResizeObserver(element, () => {
+    // eslint-disable-next-line no-console
+    console.log('Element resized');
+  });
+
+  return <div ref={setElement}></div>;
 }
 ```
