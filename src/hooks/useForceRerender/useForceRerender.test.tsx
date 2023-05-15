@@ -1,5 +1,5 @@
-import { jest } from '@jest/globals';
 import { act, renderHook } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 import { useForceRerender } from './useForceRerender.js';
 
 describe('useForceRerender', () => {
@@ -16,7 +16,7 @@ describe('useForceRerender', () => {
   });
 
   it('should force a rerender', async () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
     const {
       result: { current: forceRerender },
     } = renderHook(() => {

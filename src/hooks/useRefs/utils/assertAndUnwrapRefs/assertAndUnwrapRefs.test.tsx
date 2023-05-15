@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 import { useRefs } from '../../useRefs.js';
 import type { MutableRefs } from '../../useRefs.types.js';
 import { assertAndUnwrapRefs } from './assertAndUnwrapRefs.js';

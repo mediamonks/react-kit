@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react';
+import { describe, it } from 'vitest';
 import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect.js';
 
 describe('useIsomorphicLayoutEffect', () => {

@@ -1,4 +1,5 @@
 import { createRef, type RefObject } from 'react';
+import { describe, expect, it } from 'vitest';
 import { arrayRef } from './arrayRef.js';
 
 describe('arrayRef', () => {

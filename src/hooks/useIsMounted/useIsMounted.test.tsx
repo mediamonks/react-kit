@@ -1,6 +1,6 @@
-import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react';
 import { useEffect } from 'react';
+import { describe, expect, it, vi } from 'vitest';
 import { useUnmount } from '../useUnmount/useUnmount.js';
 import { useIsMounted } from './useIsMounted.js';
 
@@ -24,7 +24,7 @@ describe('useIsMounted', () => {
   });
 
   it('should return false on first useEffect execution, before mounting', async () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
 
     const {
       result: { current: isMounted },
@@ -62,7 +62,7 @@ describe('useIsMounted', () => {
   });
 
   it('should be false during cleanup of the unmount', async () => {
-    const duringCleanupSpy = jest.fn();
+    const duringCleanupSpy = vi.fn();
     const { rerender, unmount } = renderHook(() => {
       const isMounted = useIsMounted();
 
@@ -78,7 +78,7 @@ describe('useIsMounted', () => {
   });
 
   it('should be true during cleanup of in between renders', async () => {
-    const duringCleanupSpy = jest.fn();
+    const duringCleanupSpy = vi.fn();
     const { rerender, unmount } = renderHook(() => {
       const isMounted = useIsMounted();
 

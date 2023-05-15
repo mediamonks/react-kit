@@ -1,6 +1,6 @@
-import { jest } from '@jest/globals';
 import { render } from '@testing-library/react';
 import { createRef, type MutableRefObject } from 'react';
+import { describe, expect, it, vi } from 'vitest';
 import { ensuredForwardRef } from './ensuredForwardRef.js';
 
 describe('ensuredForwardRef', () => {
@@ -24,7 +24,7 @@ describe('ensuredForwardRef', () => {
 
     let ref1: HTMLDivElement | null = null;
 
-    const ref1Function = jest.fn((_ref: HTMLDivElement | null) => {
+    const ref1Function = vi.fn((_ref: HTMLDivElement | null) => {
       ref1 = _ref;
     });
 
@@ -34,8 +34,8 @@ describe('ensuredForwardRef', () => {
 
     let ref2: HTMLDivElement | null = null;
 
-    const ref2Function = jest.fn((_ref: HTMLDivElement | null) => {
-      ref2 = _ref;
+    const ref2Function = vi.fn((ref: HTMLDivElement | null) => {
+      ref2 = ref;
     });
 
     // New instance with key update
@@ -49,24 +49,24 @@ describe('ensuredForwardRef', () => {
   });
 
   it('should update ref when no ref object/ref function is provided', () => {
-    let _ref: MutableRefObject<HTMLDivElement | null> = createRef();
+    let ref1: MutableRefObject<HTMLDivElement | null> = createRef();
 
     const Component = ensuredForwardRef<HTMLDivElement>((_, ref) => {
-      _ref = ref;
+      ref1 = ref;
 
       return <div ref={ref} data-testid="test" />;
     });
 
     const result = render(<Component />);
 
-    expect(_ref.current).toEqual(result.getByTestId('test'));
+    expect(ref1.current).toEqual(result.getByTestId('test'));
   });
 
   it('should not break when passing undefined as a ref', () => {
-    let _ref: MutableRefObject<HTMLDivElement | null> = createRef();
+    let ref1: MutableRefObject<HTMLDivElement | null> = createRef();
 
     const Component = ensuredForwardRef<HTMLDivElement>((_, ref) => {
-      _ref = ref;
+      ref1 = ref;
 
       return <div ref={ref} data-testid="test" />;
     });
@@ -75,6 +75,6 @@ describe('ensuredForwardRef', () => {
     // when the ensuredForwardRef is called. So this test doesn't do much.
     const result = render(<Component ref={undefined} />);
 
-    expect(_ref.current).toEqual(result.getByTestId('test'));
+    expect(ref1.current).toEqual(result.getByTestId('test'));
   });
 });

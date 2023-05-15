@@ -1,5 +1,5 @@
-import { jest } from '@jest/globals';
 import { act, renderHook } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 import { useIsMountedState } from './useIsMountedState.js';
 
 describe('useIsMountedState', () => {
@@ -10,7 +10,7 @@ describe('useIsMountedState', () => {
   });
 
   it('should update after rendering', async () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
 
     const {
       result: { current: isMounted },

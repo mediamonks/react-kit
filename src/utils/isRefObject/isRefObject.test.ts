@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { isRefObject } from './isRefObject.js';
 
 describe('isRefObject', () => {

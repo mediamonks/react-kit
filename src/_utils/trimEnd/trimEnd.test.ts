@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals';
+import { describe, expect, it, vi } from 'vitest';
 import { trimEnd } from './trimEnd.js';
 
 describe('trimEnd', () => {
@@ -20,7 +20,7 @@ describe('trimEnd', () => {
 
   it('should not end up in a loop when trimming undefined in empty array', async () => {
     const array: Array<unknown> = [];
-    const arraySpy = jest.spyOn(array, 'pop');
+    const arraySpy = vi.spyOn(array, 'pop');
 
     // Try to trimEnd of empty array
     trimEnd(array);

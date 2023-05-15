@@ -1,6 +1,7 @@
 /* eslint-disable react/no-multi-comp */
 import { act, fireEvent, renderHook } from '@testing-library/react';
 import { useRef } from 'react';
+import { describe, expect, it } from 'vitest';
 import { useMediaDuration } from './useMediaDuration.js';
 
 describe('useMediaDuration', () => {
