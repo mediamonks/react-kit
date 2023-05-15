@@ -4,38 +4,32 @@ import { Meta } from '@storybook/blocks';
 
 # useMediaQuery
 
-Hook that returns a boolean indicating whether the media query matches.
+Hook that returns true when the media query matches.
 
-## Augmenting the MediaQuery type
-
-The `MediaQuery` type is used for the `mediaQueryVariableName` parameter of `useMediaQuery`.
-
-Augment the `MediaQuery` interface to add the names for the CSS variables that describe media
-queries in your project.
-
-```tsx
-declare module '@mediamonks/react-hooks' {
-  interface MediaQuery {
-    '--min-width-480': never;
-    '--min-width-820': never;
-    '--min-width-768': never;
-    '--min-width-1024': never;
-  }
-}
-```
 
 ## Reference
 
 ```ts
-function useMediaQuery(mediaQueryVariableName: keyof MediaQuery, defaultValue = false): boolean;
+function useMediaQuery(mediaQueryOrVariableName: string, defaultValue = false): boolean;
 ```
 
 ## Usage
 
+Define the media query in your CSS variables.
+
+```css
+:root {
+  --min-width-480: (min-width: 480px);
+}
+```
+
+Use the hook in your component using the CSS variable or a custom media query.
+
 ```tsx
 function DemoComponent() {
-  const isMinWidth428px = useMediaQuery('--min-width-428', true);
+  const isMinWidth480pxUsingVar = useMediaQuery('--min-width-480');
+  const isMinWidth480pxUsingQuery = useMediaQuery('(min-width: 480px)');
 
-  return <div></div>;
+  return <div>{isMinWidth480pxUsingVar && isMinWidth480pxUsingQuery ? 'large' : 'small'}</div>;
 }
 ```
