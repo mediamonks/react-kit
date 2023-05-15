@@ -9,11 +9,12 @@ describe('useAnimationLoop', () => {
     });
   });
 
-  it('should not execute the callback function when enabled is not passed', async () => {
+  it('should not execute the callback function when enabled is set to false', async () => {
     const spy = jest.fn();
+
     renderHook(
       ({ callback }) => {
-        useAnimationLoop(callback);
+        useAnimationLoop(callback, false);
       },
       {
         initialProps: {
@@ -29,35 +30,34 @@ describe('useAnimationLoop', () => {
 
   it('should execute the callback function when useAnimationLoop is enabled', async () => {
     const spy = jest.fn();
+
     renderHook(
-      ({ callback, enabled }) => {
-        useAnimationLoop(callback, enabled);
+      ({ callback }) => {
+        useAnimationLoop(callback);
       },
       {
         initialProps: {
           callback: spy,
-          enabled: true,
         },
       },
     );
 
-    expect(spy).toBeCalledTimes(0);
     await waitFor(() => {
       expect(spy).toBeCalled();
     });
   });
 
-  it('should execute another callback function when it is passed to useAnimationLoop and not execute previously passed callback function', async () => {
+  it('should not execute previous callback function when callback function is updated', async () => {
     const spyFirstRender = jest.fn();
     const spySecondRender = jest.fn();
+
     const { rerender } = renderHook(
-      ({ callback, enabled }) => {
-        useAnimationLoop(callback, enabled);
+      ({ callback }) => {
+        useAnimationLoop(callback);
       },
       {
         initialProps: {
           callback: spyFirstRender,
-          enabled: true,
         },
       },
     );
@@ -67,16 +67,18 @@ describe('useAnimationLoop', () => {
       expect(spySecondRender).toBeCalledTimes(0);
     });
 
-    rerender({ callback: spySecondRender, enabled: true });
+    rerender({ callback: spySecondRender });
     const amountOfCalls = spyFirstRender.mock.calls.length;
+
     await waitFor(() => {
       expect(spyFirstRender).toBeCalledTimes(amountOfCalls);
       expect(spySecondRender).toBeCalled();
     });
   });
 
-  it('should execute the callback function when useAnimationLoop is enabled on the first render and should not execute the callback function when useAnimationLoop is disabled on the second render', async () => {
+  it('should execute the callback function when useAnimationLoop is enabled and should not execute the callback function when useAnimationLoop is disabled', async () => {
     const spy = jest.fn();
+
     const { rerender } = renderHook(
       ({ callback, enabled }) => {
         useAnimationLoop(callback, enabled);
@@ -89,13 +91,16 @@ describe('useAnimationLoop', () => {
       },
     );
 
-    waitFor(() => {
+    await waitFor(() => {
       expect(spy).toBeCalled();
     });
 
     rerender({ callback: spy, enabled: false });
-    waitFor(() => {
-      expect(spy).toBeCalledTimes(0);
+
+    const amountOfCalls = spy.mock.calls.length;
+
+    await waitFor(() => {
+      expect(spy).toBeCalledTimes(amountOfCalls);
     });
   });
 });

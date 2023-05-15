@@ -8,37 +8,27 @@ import { useRefValue } from '../useRefValue/useRefValue.js';
  * @param callback - callback function with @param delta which represents time passed since last invocation
  * @param enabled - boolean which is used to play and pause the requestAnimationFrame
  */
-export function useAnimationLoop(callback: (delta: number) => void, enabled = false): void {
+export function useAnimationLoop(callback: FrameRequestCallback, enabled = true): void {
   const animationFrameRef = useRef(0);
-  const lastTimeRef = useRef(0);
   const callbackRef = useRefValue(callback);
 
-  const tick = useCallback(
-    (time: number): void => {
-      const delta = time - lastTimeRef.current;
-      lastTimeRef.current = time;
-
-      callbackRef.current?.(delta);
-
+  const tick = useCallback<FrameRequestCallback>(
+    (time) => {
+      callbackRef.current?.(time);
       animationFrameRef.current = requestAnimationFrame(tick);
     },
     [callbackRef],
   );
 
-  const play = useCallback(() => {
-    lastTimeRef.current = performance.now();
-    requestAnimationFrame(tick);
-  }, [tick]);
-
-  const pause = useCallback(() => {
-    cancelAnimationFrame(animationFrameRef.current);
-  }, []);
-
   useEffect(() => {
     if (enabled) {
-      play();
+      requestAnimationFrame(tick);
+    } else {
+      cancelAnimationFrame(animationFrameRef.current);
     }
 
-    return pause;
-  }, [enabled, pause, play]);
+    return () => {
+      cancelAnimationFrame(animationFrameRef.current);
+    };
+  }, [enabled, tick]);
 }
