@@ -1,0 +1,56 @@
+import { Meta } from '@storybook/blocks';
+import { useRef } from 'react';
+import { useClickedOutside } from './useClickedOutside';
+
+<Meta title="hooks/useClickedOutside" />
+
+# useClickedOutside
+
+This hook registers a click event listener on the document that triggers a callback function when
+the click event occurs outside of the specified element.
+
+## Reference
+
+```ts
+function useClickedOutside(
+  target: Unreffable<Element>,
+  listener: (mouseEvent: MouseEvent) => void,
+  options?: EventListenerOptions,
+): void;
+```
+
+## Example Usage
+
+Using the `useClickedOutside` hook with a RefObject:
+
+```jsx
+import { useRef } from 'react';
+import { useClickedOutside } from './useClickedOutside';
+
+function MyComponent() {
+  const ref = useRef(null);
+
+  useClickedOutside(ref, () => {
+    console.log('Clicked outside!');
+  });
+
+  return <div ref={ref}>Click outside of this element to trigger the callback.</div>;
+}
+```
+
+Using the `useClickedOutside` hook with an element from state:
+
+```jsx
+import { useRef } from 'react';
+import { useClickedOutside } from './useClickedOutside';
+
+function MyComponent() {
+  const [element, setElement] = useState<HTMLDivElement>();
+
+  useClickedOutside(element, () => {
+    console.log('Clicked outside!');
+  });
+
+  return <div ref={element}>Click outside of this element to trigger the callback.</div>;
+}
+```
