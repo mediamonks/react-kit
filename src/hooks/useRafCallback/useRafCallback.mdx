@@ -1,0 +1,35 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useRafCallback" />
+
+# useRafCallback
+
+The `useRafCallback` hook returns a function that will be called on the next animation frame. This
+is useful for performing non-blocking updates to the DOM or other state.
+
+Any pending animation frames will be cancelled when the component that is using the hook is
+unmounted.
+
+## Reference
+
+```ts
+function useRafCallback(callback: FrameRequestCallback): () => number;
+```
+
+## Usage
+
+```tsx
+function MyComponent(): ReactElement {
+  const [time, setTime] = useState(0);
+  const onUpdate = useRafCallback(setTime);
+
+  return (
+    <>
+      <p>Value: {time}</p>
+      <button type="button" onClick={onUpdate}>
+        Update time
+      </button>
+    </>
+  );
+}
+```
