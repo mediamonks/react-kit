@@ -1,0 +1,55 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useClientSideValue" />
+
+# useClientSideValue
+
+Hook that returns the value returned by a callback function that is only called on client-side.
+
+## Reference
+
+```ts
+function useClientSideValue<T extends () => unknown>(callback: T): ReturnType<T> | null;
+```
+
+## Usage
+
+Use this hook when an API is not available on the server or may return a different result on the
+server to avoid hydration mismatches.
+
+Common use cases:
+
+- Date APIs
+- Intl APIs
+
+```tsx
+type MyComponentProps = {
+  serverTime: Date;
+};
+
+function MyComponent({ serverTime }): ReactElement {
+  const now = useClientSideValue(Date.now, serverTime);
+
+  return <>{now ?? 'n/a'}</>;
+}
+```
+
+```tsx
+type MyComponentProps = {
+  bytes: number;
+};
+
+function MyComponent({ bytes }: MyComponentProps): ReactElement {
+  const numberFormat = useClientSideValue(
+    () =>
+      new Intl.NumberFormat(process.env.LOCALE, {
+        notation: 'compact',
+        style: 'unit',
+        unit: 'byte',
+        unitDisplay: 'narrow',
+      }),
+  );
+
+  return <>{numberFormat?.format(bytes) ?? bytes}</>;
+}
+```

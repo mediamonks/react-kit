@@ -2,6 +2,7 @@
 export * from './components/AutoFill/AutoFill.js';
 export * from './hocs/ensuredForwardRef/ensuredForwardRef.js';
 export * from './hooks/useBeforeMount/useBeforeMount.js';
+export * from './hooks/useClientSideValue/useClientSideValue.js';
 export * from './hooks/useEventListener/useEventListener.js';
 export * from './hooks/useForceRerender/useForceRerender.js';
 export * from './hooks/useHasFocus/useHasFocus.js';
