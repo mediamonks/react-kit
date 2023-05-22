@@ -5,5 +5,14 @@
     "declarationDir": "./dist"
   },
   "include": ["./src/**/*"],
-  "exclude": ["./src/**/*.test.ts", "./src/**/*.test.tsx"]
+  "exclude": [
+    "**/*.component.ts",
+    "**/*.component.tsx",
+    "**/*.playwright.ts",
+    "**/*.playwright.tsx",
+    "**/*.stories.ts",
+    "**/*.stories.tsx",
+    "**/*.test.ts",
+    "**/*.test.tsx"
+  ]
 }

@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest';
 import { useHasFocus } from './useHasFocus.js';
 
 describe('useHasFocus', () => {
-  it('should not crash', async () => {
+  it('should not crash', () => {
     function TestComponent(): ReactElement {
       const ref = useRef<HTMLDivElement>(null);
       const hasFocus = useHasFocus(ref);
@@ -19,7 +19,7 @@ describe('useHasFocus', () => {
     expect(document.contains(result.queryByTestId('focus'))).not.toBeTruthy();
   });
 
-  it('should update when element has focus within', async () => {
+  it('should update when element has focus within', () => {
     function TestComponent(): ReactElement {
       const ref = useRef<HTMLButtonElement>(null);
       const hasFocus = useHasFocus(ref, ':focus');
@@ -37,7 +37,7 @@ describe('useHasFocus', () => {
 
     const result = render(<TestComponent />);
 
-    await act(() => {
+    act(() => {
       result.getByTestId('button').focus();
     });
 

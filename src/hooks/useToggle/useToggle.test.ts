@@ -21,40 +21,40 @@ describe('useToggle', () => {
     expect(result2.current[0]).toEqual(false);
   });
 
-  it('should switch the value when calling toggle', async () => {
+  it('should switch the value when calling toggle', () => {
     const { result } = renderHook(useToggle, {
       initialProps: false,
     });
     expect(result.current[0]).toEqual(false);
 
-    await act(() => {
+    act(() => {
       result.current[1]();
     });
     expect(result.current[0]).toEqual(true);
 
-    await act(() => {
+    act(() => {
       result.current[1]();
     });
     expect(result.current[0]).toEqual(false);
   });
 
-  it('should set the value explicitly', async () => {
+  it('should set the value explicitly', () => {
     const { result } = renderHook(useToggle, {
       initialProps: false,
     });
     expect(result.current[0]).toEqual(false);
 
-    await act(() => {
+    act(() => {
       result.current[1](false);
     });
     expect(result.current[0]).toEqual(false);
 
-    await act(() => {
+    act(() => {
       result.current[1](true);
     });
     expect(result.current[0]).toEqual(true);
 
-    await act(() => {
+    act(() => {
       result.current[1](true);
     });
     expect(result.current[0]).toEqual(true);
