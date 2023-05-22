@@ -30,7 +30,7 @@ describe('useForceRerender', () => {
 
     expect(spy).toBeCalledTimes(1);
 
-    await act(() => {
+    act(() => {
       forceRerender();
     });
 
