@@ -1,4 +1,5 @@
 import { act, renderHook } from '@testing-library/react';
+import { describe, expect, it } from 'vitest';
 import { useRegisterRef } from './useRegisterRef.js';
 
 describe('useRegisterRef', () => {

@@ -2,6 +2,7 @@
 /* eslint-disable react/no-multi-comp */
 import { act, render } from '@testing-library/react';
 import { useRef, type ReactElement } from 'react';
+import { describe, expect, it } from 'vitest';
 import { useHasFocus } from './useHasFocus.js';
 
 describe('useHasFocus', () => {
@@ -15,7 +16,7 @@ describe('useHasFocus', () => {
 
     const result = render(<TestComponent />);
 
-    expect(result.queryByTestId('focus')).not.toBeInTheDocument();
+    expect(document.contains(result.queryByTestId('focus'))).not.toBeTruthy();
   });
 
   it('should update when element has focus within', () => {
@@ -40,6 +41,6 @@ describe('useHasFocus', () => {
       result.getByTestId('button').focus();
     });
 
-    expect(result.queryByTestId('focus')).toBeInTheDocument();
+    expect(document.contains(result.queryByTestId('focus'))).toBeTruthy();
   });
 });

@@ -1,5 +1,5 @@
-import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 import { useMount } from './useMount.js';
 
 describe('useMount', () => {
@@ -11,7 +11,7 @@ describe('useMount', () => {
   });
 
   it('should not run on re-renders', async () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
     const { rerender, unmount } = renderHook(useMount, {
       initialProps: () => spy(),
     });

@@ -1,12 +1,12 @@
 /* eslint-disable react/no-multi-comp */
-import { jest } from '@jest/globals';
 import { render } from '@testing-library/react';
 import { createRef, useEffect, useState, type ReactElement } from 'react';
+import { describe, expect, it, vi } from 'vitest';
 import { useEventListener } from './useEventListener.js';
 
 describe('useEventListener', () => {
   it('Should listen to event attached to element from RefObject', () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
     const ref = createRef<HTMLDivElement>();
 
     function Test(): ReactElement {
@@ -23,7 +23,7 @@ describe('useEventListener', () => {
   });
 
   it('Should listen to event attached to element from state', async () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
     let exposedRef: HTMLDivElement | null = null;
 
     function Test(): ReactElement {

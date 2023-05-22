@@ -1,3 +1,4 @@
+import { describe, expect, it } from 'vitest';
 import { createTimeout } from './createTimeout.js';
 
 describe('createTimeout', () => {

@@ -1,6 +1,6 @@
-import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react';
 import { useEffect, useState } from 'react';
+import { describe, expect, it, vi } from 'vitest';
 import { useMount } from '../useMount/useMount.js';
 import { useBeforeMount } from './useBeforeMount.js';
 
@@ -13,7 +13,7 @@ describe('useBeforeMount', () => {
   });
 
   it('should execute a callback on first render', async () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
     renderHook(() => {
       useBeforeMount(spy);
     });
@@ -21,9 +21,9 @@ describe('useBeforeMount', () => {
   });
 
   it('should execute during synchronous render, before mount', async () => {
-    const beforeMount = jest.fn();
-    const inlineSpy = jest.fn();
-    const mountedSpy = jest.fn();
+    const beforeMount = vi.fn();
+    const inlineSpy = vi.fn();
+    const mountedSpy = vi.fn();
     renderHook(() => {
       useEffect(() => {
         mountedSpy();
@@ -46,7 +46,7 @@ describe('useBeforeMount', () => {
   });
 
   it('should not execute a callback on re-renders', async () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
     const { rerender } = renderHook(() => {
       useBeforeMount(spy);
     });
@@ -62,7 +62,7 @@ describe('useBeforeMount', () => {
   });
 
   it('should only execute once when setState is called during useMount', async () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
     const { rerender } = renderHook(() => {
       // eslint-disable-next-line react/hook-use-state
       const [, setState] = useState(false);
