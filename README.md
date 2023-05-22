@@ -115,7 +115,7 @@ const { result, rerender, unmount } = renderHook(useToggle, {
 // inspect the response of the hook
 console.log(result.current);
 
-await act(() => {
+act(() => {
   // interact with your hook
   result.current[1]();
 });

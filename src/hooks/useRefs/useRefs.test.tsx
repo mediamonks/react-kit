@@ -10,7 +10,7 @@ type TestRefs = MutableRefs<{
 }>;
 
 describe('useRefs', () => {
-  it('should not crash', async () => {
+  it('should not crash', () => {
     renderHook(() => {
       useRefs();
     });
@@ -24,10 +24,10 @@ describe('useRefs', () => {
     });
   });
 
-  it('should be able to register a ref', async () => {
+  it('should be able to register a ref', () => {
     const { result } = renderHook(() => useRefs<TestRefs>());
 
-    await act(() => {
+    act(() => {
       result.current.number1.current = 1;
       result.current.number2.current = 2;
     });
@@ -38,16 +38,16 @@ describe('useRefs', () => {
     });
   });
 
-  it('should be able to set a ref to null', async () => {
+  it('should be able to set a ref to null', () => {
     const { result } = renderHook(() => useRefs<TestRefs>());
 
-    await act(() => {
+    act(() => {
       result.current.number1.current = 1;
     });
 
     expect(result.current.number1.current).toEqual(1);
 
-    await act(() => {
+    act(() => {
       result.current.number1.current = null;
     });
 
