@@ -6,16 +6,15 @@ import { useMount } from '../useMount/useMount.js';
  *
  * @example
  * function MyComponent() {
- *   const value = useClientSideValue(Date.now);
+ *   const value = useClientSideValue(Date.now, null);
  *
- *   return <div>{value ?? 'Fallback value'}</div>;
+ *   return <div>{value ?? 'n/a'}</div>;
  * }
  */
-export function useClientSideValue<T extends () => unknown>(callback: T): ReturnType<T> | null {
-  const [value, setValue] = useState<ReturnType<T> | null>(null);
+export function useClientSideValue<T>(callback: () => T, initialValue?: T): typeof initialValue {
+  const [value, setValue] = useState(initialValue);
 
   useMount(() => {
-    // @ts-expect-error - we don't know what the callback returns
     setValue(callback);
   });
 

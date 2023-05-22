@@ -23,15 +23,23 @@ Common use cases:
 - Intl APIs
 
 ```tsx
-function MyComponent(): ReactElement {
-  const now = useClientSideValue(Date.now);
+type MyComponentProps = {
+  serverTime: Date;
+};
 
-  return <>{now ?? 0}</>;
+function MyComponent({ serverTime }): ReactElement {
+  const now = useClientSideValue(Date.now, serverTime);
+
+  return <>{now ?? 'n/a'}</>;
 }
 ```
 
 ```tsx
-function MyComponent(): ReactElement {
+type MyComponentProps = {
+  bytes: number;
+};
+
+function MyComponent({ bytes }: MyComponentProps): ReactElement {
   const numberFormat = useClientSideValue(
     () =>
       new Intl.NumberFormat(process.env.LOCALE, {
@@ -42,6 +50,6 @@ function MyComponent(): ReactElement {
       }),
   );
 
-  return <>{numberFormat?.format(1024) ?? value}</>;
+  return <>{numberFormat?.format(bytes) ?? bytes}</>;
 }
 ```
