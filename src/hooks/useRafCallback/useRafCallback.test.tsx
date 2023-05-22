@@ -1,15 +1,15 @@
-import { jest } from '@jest/globals';
 import { renderHook } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 import { useRafCallback } from './useRafCallback.js';
 
 describe('useRafCallback', () => {
   it('should not crash', async () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
     renderHook(() => useRafCallback(spy));
   });
 
   it('should return a function', async () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
     renderHook(() => useRafCallback(spy));
     const {
       result: { current: callback },
@@ -19,7 +19,7 @@ describe('useRafCallback', () => {
   });
 
   it('should call callback once during animation frame', async () => {
-    const spy = jest.fn();
+    const spy = vi.fn();
 
     const {
       result: { current: callback },
