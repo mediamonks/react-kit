@@ -28,7 +28,9 @@
     "clean": "npm-run-all clean:*",
     "clean:test": "shx rm -rf coverage .nyc_output",
     "clean:npm": "shx rm -rf dist",
-    "lint:eslint": "eslint --ext .js,.jsx,.ts,.tsx ./src",
+    "lint": "npm-run-all lint:*",
+    "lint:eslint": "eslint --ext .js,.jsx,.cjs,.ts,.tsx ./src",
+    "lint:prettier": "prettier . --check",
     "test": "vitest ./src/",
     "check-types": "tsc --project tsconfig.json --noEmit --noUnusedLocals",
     "storybook": "sb dev -p 6006",
@@ -41,15 +43,37 @@
   },
   "prettier": "@mediamonks/prettier-config",
   "eslintConfig": {
-    "extends": [
-      "@mediamonks/eslint-config",
-      "@mediamonks/eslint-config-react",
-      "@mediamonks/eslint-config-typescript",
-      "@mediamonks/eslint-config-typescript-react"
-    ],
-    "parserOptions": {
-      "project": "./tsconfig.json"
-    }
+    "overrides": [
+      {
+        "files": [
+          "*.ts",
+          "*.tsx"
+        ],
+        "extends": [
+          "@mediamonks/eslint-config",
+          "@mediamonks/eslint-config-react",
+          "@mediamonks/eslint-config-typescript",
+          "@mediamonks/eslint-config-typescript-react"
+        ],
+        "parserOptions": {
+          "project": "./tsconfig.json"
+        }
+      },
+      {
+        "files": [
+          "*.cjs",
+          "*.js",
+          "*.jsx",
+          "*.mjs"
+        ],
+        "extends": [
+          "@mediamonks/eslint-config"
+        ],
+        "parserOptions": {
+          "ecmaVersion": "latest"
+        }
+      }
+    ]
   },
   "devDependencies": {
     "@mediamonks/eslint-config": "^2.0.6",
@@ -89,8 +113,5 @@
     "@types/lodash-es": "^4.17.6",
     "@vitest/expect": "^0.31.0",
     "lodash-es": "^4.17.21"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,md,json}": "prettier --write"
   }
 }

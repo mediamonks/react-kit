@@ -17,11 +17,11 @@ function useRefValue<T>(value: T): RefObject<T>;
 
 ### Parameters
 
-* `value` – The value to keep in the ref.
+- `value` – The value to keep in the ref.
 
 ### Returns
 
-* `RefObject` - A ref object that is updated with the value.
+- `RefObject` - A ref object that is updated with the value.
 
 ## Usage
 
@@ -34,10 +34,6 @@ function DemoComponent({ foo }) {
     console.log(ref.current);
   });
 
-  return (
-    <div onClick={onClick}>
-      Click me
-    </div>
-  );
+  return <div onClick={onClick}>Click me</div>;
 }
 ```
