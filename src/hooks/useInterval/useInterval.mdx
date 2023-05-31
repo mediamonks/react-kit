@@ -1,0 +1,70 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useInterval" />
+
+# `useInterval`
+
+The `useInterval` hook is a custom React hook that allows you to repeatedly call a function with a
+specified delay. It is useful for creating animations, timers, and other time-based effects in your
+React component.
+
+> Please note that browser timers may not be completely accurate. The delay between intervals that
+> you specify is the minimum amount of time that will pass before the callback function is called
+> again, but it may not be exactly that amount of time.
+
+## Reference
+
+```tsx
+function useInterval(callback: () => void, ms?: number, enabled = true): void;
+```
+
+The `enabled` parameter in the `useInterval` hook determines whether the interval should be enabled
+or not. If `enabled` is set to true (which is the default value), the interval will be set up and
+the callback function will be called repeatedly at the specified `delay`. If `enabled` is set to
+false, the interval will not be set up and the callback function will not be called. Any pending
+intervals are cleared when `enabled` is set to false.
+
+## Using the `useInterval` hook
+
+In the following example the `useInterval` hook is used to increment the count state variable every
+second. The `setCount` function is called on each interval to update the state and re-render the
+component.
+
+```tsx
+function MyComponent() {
+  const [count, setCount] = useState(0);
+
+  useInterval(() => {
+    // This counter works because a new closure is created every time the state is updated
+    setCount(count + 1);
+  }, 1000);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+    </div>
+  );
+}
+```
+
+### Creating a accurate timer
+
+In the following example the `useInterval` hook is used to increment the count state variable every
+second. A start date is stored in a ref so that the count can be calculated accurately.
+
+```tsx
+function MyComponent() {
+  const startTimeRef = useRef(Date.now());
+  const [count, setCount] = useState(0);
+
+  useInterval(() => {
+    setCount(Math.floor(startTimeRef.current - Date.now() / 1000));
+  }, 1000);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+    </div>
+  );
+}
+```
