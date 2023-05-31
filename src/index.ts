@@ -13,6 +13,7 @@ export * from './hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
 export * from './hooks/useMediaDuration/useMediaDuration.js';
 export * from './hooks/useMediaQuery/useMediaQuery.js';
 export * from './hooks/useMount/useMount.js';
+export * from './hooks/useMutationObserver/useMutationObserver.js';
 export * from './hooks/useRafCallback/useRafCallback.js';
 export * from './hooks/useRefValue/useRefValue.js';
 export * from './hooks/useRefs/useRefs.js';
