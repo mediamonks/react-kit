@@ -34,7 +34,7 @@ export const ReliableTimer = {
     const [count, setCount] = useState(0);
 
     useInterval(() => {
-      setCount(Math.floor(startTimeRef.current - Date.now() / 1000));
+      setCount(Math.floor((Date.now() - startTimeRef.current) / 1000));
     }, 1000);
 
     return (

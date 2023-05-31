@@ -47,7 +47,7 @@ function MyComponent() {
 }
 ```
 
-### Creating a accurate timer
+### Creating an accurate timer
 
 In the following example the `useInterval` hook is used to increment the count state variable every
 second. A start date is stored in a ref so that the count can be calculated accurately.
@@ -58,7 +58,7 @@ function MyComponent() {
   const [count, setCount] = useState(0);
 
   useInterval(() => {
-    setCount(Math.floor(startTimeRef.current - Date.now() / 1000));
+    setCount(Math.floor((Date.now() - startTimeRef.current) / 1000));
   }, 1000);
 
   return (
