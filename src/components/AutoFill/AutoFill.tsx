@@ -1,7 +1,7 @@
 import {
   Children,
-  cloneElement,
   Fragment,
+  cloneElement,
   isValidElement,
   useCallback,
   useEffect,
@@ -10,6 +10,8 @@ import {
   type ReactElement,
   type RefCallback,
 } from 'react';
+import { useEventListener } from '../../hooks/useEventListener/useEventListener.js';
+import { useRafCallback } from '../../index.js';
 import { arrayRef } from '../../utils/arrayRef/arrayRef.js';
 
 type AutoFillChildrenProps = {
@@ -28,7 +30,6 @@ type AutoFillProps = {
  */
 export function AutoFill({ children, axis = 'x' }: AutoFillProps): ReactElement {
   const childrenRef = useRef<Array<unknown> | null>([]);
-
   const [repeatCount, setRepeatCount] = useState(0);
 
   const updateRepeatCount = useCallback(() => {
@@ -49,22 +50,7 @@ export function AutoFill({ children, axis = 'x' }: AutoFillProps): ReactElement 
   }, [axis]);
 
   useEffect(updateRepeatCount, [updateRepeatCount, children]);
-
-  useEffect(() => {
-    let raf = 0;
-
-    function callback(): void {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(updateRepeatCount);
-    }
-
-    window.addEventListener('resize', callback);
-
-    return () => {
-      cancelAnimationFrame(raf);
-      window.removeEventListener('resize', callback);
-    };
-  }, [updateRepeatCount]);
+  useEventListener(globalThis.window, 'resize', useRafCallback(updateRepeatCount));
 
   return (
     <>

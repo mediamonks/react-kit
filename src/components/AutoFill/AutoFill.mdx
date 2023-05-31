@@ -1,4 +1,5 @@
-import { Meta } from '@storybook/blocks';
+import { Canvas, Meta } from '@storybook/blocks';
+import * as stories from './AutoFill.stories';
 
 <Meta title="components/AutoFill" />
 
@@ -17,9 +18,9 @@ interface AutoFillProps {
 function AutoFill(props: AutoFillProps): ReactElement;
 ```
 
-## Usage
+## AutoFill for X axis
 
-AutoFill for X axis:
+Fills components horizontally.
 
 ```tsx
 function DemoComponent() {
@@ -35,7 +36,13 @@ function DemoComponent() {
 }
 ```
 
-AutoFill for Y axis:
+### Demo
+
+<Canvas of={stories.Horizontal} />
+
+## AutoFill for Y axis
+
+Fills components vertically.
 
 ```tsx
 function DemoComponent() {
@@ -50,3 +57,7 @@ function DemoComponent() {
   );
 }
 ```
+
+### Demo
+
+<Canvas of={stories.Vertical} />
