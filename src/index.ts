@@ -26,8 +26,6 @@ export * from './hooks/useStaticValue/useStaticValue.js';
 export * from './hooks/useToggle/useToggle.js';
 export * from './hooks/useUnmount/useUnmount.js';
 export * from './utils/arrayRef/arrayRef.js';
-export * from './utils/createMicrotask/createMicrotask.js';
 export * from './utils/createTimeout/createTimeout.js';
 export * from './utils/isRefObject/isRefObject.js';
 export * from './utils/unref/unref.js';
-
