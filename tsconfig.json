@@ -7,6 +7,8 @@
     "module": "NodeNext" /* Specify module code generation: 'none', 'commonjs', 'amd', 'system', 'umd', 'es2015', 'es2020', or 'ESNext'. */,
     "lib": ["DOM", "ESNext"] /* Specify library files to be included in the compilation. */,
 
+    "allowJs": true,
+
     /* Strict Type-Checking Options */
     "strict": true /* Enable all strict type-checking options. */,
 
@@ -20,5 +22,5 @@
     "outDir": "./dist",
     "jsx": "react-jsx"
   },
-  "include": ["./**/*.ts", "./**/*.tsx"]
+  "include": ["**/*"]
 }

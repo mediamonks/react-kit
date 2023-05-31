@@ -13,9 +13,9 @@ accordingly.
   unmounted
 
 > Note that during the cleanup phase, the component is technically still mounted, even though the
-ref object is updated to `false`. This is because the cleanup phase is executed before the
-component is technically unmounted. However, since the logic during cleanup and after unmount is
-often the same, this is not a problem.
+> ref object is updated to `false`. This is because the cleanup phase is executed before the
+> component is technically unmounted. However, since the logic during cleanup and after unmount is
+> often the same, this is not a problem.
 
 The initial `false` state before the component is mounted can be useful to conditionally execute
 some logic or render something. However, this hook will not cause a re-render, so it's best to use
@@ -23,8 +23,8 @@ alternative hooks mentioned below if that is required.
 
 The `false` state during and after the cleanup phase is useful for preventing memory leaks and
 preventing state updates after the component is unmounted. This is often the case when using
-`useEffect` with an async function, and the async function is still running after the component
-is unmounted.
+`useEffect` with an async function, and the async function is still running after the component is
+unmounted.
 
 The state is set to `true` using a `queueMicrotask` callback, so it will be updated after all the
 initial `useEffect` callbacks have been executed.
@@ -33,15 +33,14 @@ If the component uses a setState directly from a `useMount`, the component will 
 mount phase, and the isMounted value will still be `false`.
 
 > If code needs to be executed before mount and is more isolated as a side effect, use the
-`useBeforeMount` hook instead.
+> `useBeforeMount` hook instead.
 
 > If the code result is different before and after mount, and should execute again, use the
-`useIsMountedState` hook instead.
+> `useIsMountedState` hook instead.
 
 > If code execution is required after the component is **mounted**, use the `useMount` hook.
 
-> If code execution is required after the component is **unmounted**, use the `useUnmount`
-hook.
+> If code execution is required after the component is **unmounted**, use the `useUnmount` hook.
 
 ## Reference
 
@@ -51,7 +50,7 @@ function useIsMounted(): RefObject<boolean>;
 
 ### Returns
 
-* `RefObject<boolean>` - The current mounting state.
+- `RefObject<boolean>` - The current mounting state.
   - `false` before the component is mounted
   - `true` after the component is mounted
   - `false` during the unmount cleanup phase and after the component is unmounted
@@ -76,12 +75,9 @@ function DemoComponent() {
         // do something with the result
       }
     });
-  })
+  });
 
-  return (
-    <div>
-    </div>
-  );
+  return <div></div>;
 }
 ```
 
@@ -100,12 +96,9 @@ function DemoComponent({ someChangingValue }) {
       } else {
         // this is executed only once, when the component is unmounted
       }
-    }
+    };
   }, [someChangingValue]);
 
-  return (
-    <div>
-    </div>
-  );
+  return <div></div>;
 }
 ```

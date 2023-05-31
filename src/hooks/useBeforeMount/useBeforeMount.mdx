@@ -10,8 +10,8 @@ This is especially useful for initializing objects that are used in code further
 
 It's opposite of `useMount`, which runs asynchronously after the component is mounted.
 
-> To know when a component is rendering for the first time, use the `useIsMounted` hook,
-which returned boolean ref can be used inline in other component code or JSX.
+> To know when a component is rendering for the first time, use the `useIsMounted` hook, which
+> returned boolean ref can be used inline in other component code or JSX.
 
 ## Reference
 
@@ -21,8 +21,8 @@ function useBeforeMount(callback: () => void): void;
 
 ### Parameters
 
-* `callback` - A function to be executed during the initial render, before mounting, but not
-during subsequent renders.
+- `callback` - A function to be executed during the initial render, before mounting, but not during
+  subsequent renders.
 
 ## Usage
 
@@ -32,9 +32,6 @@ function DemoComponent() {
     console.log('I will run before the component is mounted');
   });
 
-  return (
-    <div>
-    </div>
-  );
+  return <div></div>;
 }
 ```
