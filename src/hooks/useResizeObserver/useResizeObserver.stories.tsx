@@ -1,5 +1,5 @@
 import type { StoryObj } from '@storybook/react';
-import { type ReactElement, useRef } from 'react';
+import { type ReactElement, useRef, useState } from 'react';
 import { useResizeObserver } from './useResizeObserver.js';
 
 export default {
@@ -7,14 +7,25 @@ export default {
 };
 
 function DemoComponent(): ReactElement {
-  const ref = useRef<HTMLDivElement>(null);
+  const elementRef = useRef<HTMLDivElement>(null);
+  const [element, setElement] = useState<HTMLDivElement | null>(null);
 
-  useResizeObserver(ref, () => {
+  useResizeObserver(elementRef, () => {
     // eslint-disable-next-line no-console
-    console.log('Element resized');
+    console.log('Element from RefObject resized');
   });
 
-  return <div ref={ref}></div>;
+  useResizeObserver(element, () => {
+    // eslint-disable-next-line no-console
+    console.log('Element from state resized');
+  });
+
+  return (
+    <>
+      <div ref={elementRef}></div>
+      <div ref={setElement}></div>
+    </>
+  );
 }
 
 export const Demo: StoryObj = {

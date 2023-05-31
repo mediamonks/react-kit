@@ -4,19 +4,24 @@ import { Meta } from '@storybook/blocks';
 
 # useResizeObserver
 
-This hook allows you to add a ResizeObserver for an element and remove it when the component
-unmounts.
+The `useResizeObserver` hook is used to observe the size of an HTML element and call a callback
+function when the size changes. It uses the `ResizeObserver` API to observe the element, the target
+is disconnected when the component unmounts.
 
 ## Reference
 
 ```ts
-function useResizeObserver(ref: RefObject<Element>, callback: ResizeObserverCallback): void;
+function useResizeObserver(ref: Unreffable<Element | null>, callback: ResizeObserverCallback): void;
 ```
 
-## Usage
+## Using `useResizeObserver` with a RefObject
+
+In this example, the `useRef` hook is used to create a `RefObject` for the `div` element which is
+initially set to null. The `useResizeObserver` hook is then called with the ref variable and a
+callback function that logs a message to the console when the `div` element is resized.
 
 ```tsx
-function DemoComponent() {
+function MyComponent() {
   const ref = useRef<HTMLDivElement>(null);
 
   useResizeObserver(ref, () => {
@@ -24,5 +29,23 @@ function DemoComponent() {
   });
 
   return <div ref={ref}></div>;
+}
+```
+
+## Using `useResizeObserver` with an element
+
+In this example, the `useState` hook is used to create a state variable element which is initially
+set to null. The `useResizeObserver` hook is then called with the element variable and a callback
+function that logs a message to the console when the `div` element is resized.
+
+```tsx
+function MyComponent() {
+  const [element, setElement] = useState<HTMLDivElement | null>(null);
+
+  useResizeObserver(element, () => {
+    console.log('Element resized');
+  });
+
+  return <div ref={setElement}></div>;
 }
 ```

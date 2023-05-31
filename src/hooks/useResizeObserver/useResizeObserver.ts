@@ -1,24 +1,29 @@
-import { type RefObject, useEffect } from 'react';
+import { useEffect } from 'react';
+import { unref, type Unreffable } from '../../utils/unref/unref.js';
 
 /**
  * This hook allows you to add a ResizeObserver for an element and remove it
  * when the component unmounts.
  *
- * @param ref - The ref to observe
+ * @param target - The target to observe
  * @param callback - The callback to fire when the element resizes
  */
-export function useResizeObserver(ref: RefObject<Element>, callback: ResizeObserverCallback): void {
+export function useResizeObserver(
+  target: Unreffable<Element | null>,
+  callback: ResizeObserverCallback,
+): void {
   useEffect(() => {
-    const resizeObserverInstance = new ResizeObserver(callback);
+    const element = unref(target);
 
-    if (ref.current === null) {
-      throw new Error('`ref.current` is undefined');
+    if (element === null) {
+      return;
     }
 
-    resizeObserverInstance.observe(ref.current);
+    const resizeObserverInstance = new ResizeObserver(callback);
+    resizeObserverInstance.observe(element);
 
     return () => {
       resizeObserverInstance.disconnect();
     };
-  }, [ref, callback]);
+  }, [target, callback]);
 }
