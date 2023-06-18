@@ -112,7 +112,7 @@
   "dependencies": {
     "@psimk/typed-object": "^1.0.4",
     "@types/lodash-es": "^4.17.6",
-    "@vitest/expect": "^0.31.0",
+    "@vitest/expect": "^0.32.2",
     "lodash-es": "^4.17.21"
   }
 }
