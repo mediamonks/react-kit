@@ -51,8 +51,9 @@ jobs:
           git tag $(npm pkg get version | tr -d '"') -m "v$(npm pkg get version | tr -d '"')"
 
       - name: Publish to NPM
-        uses: JS-DevTools/npm-publish@v1
+        uses: JS-DevTools/npm-publish@v2
         with:
           token: ${{ secrets.NPM_TOKEN }}
+          ignore-scripts: false
       - name: Push latest version
         run: git push origin main --follow-tags
