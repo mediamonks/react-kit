@@ -1,5 +1,10 @@
-import { renderHook } from '@testing-library/react'; import {
-{{camelCase hookName}}
-} from './{{camelCase hookName}}.js'; describe('{{camelCase hookName}}', () => { it('should not
-crash', async () => { renderHook(() => { return
-{{camelCase hookName}}(); }); }); });
+import { renderHook } from '@testing-library/react';
+import { {{camelCase hookName}} } from './{{camelCase hookName}}.js';
+
+describe('{{camelCase hookName}}', () => {
+  it('should not crash', async () => {
+    renderHook(() => {
+      return {{camelCase hookName}}();
+    });
+  });
+});
