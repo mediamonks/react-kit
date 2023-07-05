@@ -29,7 +29,7 @@ type DemoComponentRefs = Refs<{
 }>;
 
 function DemoComponent() {
-  const refs = useRef<DemoComponentRefs>();
+  const refs = useRefs<DemoComponentRefs>();
 
   console.log(refs.heading.current); // HTMLHeadingElement | null
   console.log(refs.buttons.current); // Array<HTMLButtonElement | null> | null
