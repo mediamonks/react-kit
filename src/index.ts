@@ -1,4 +1,5 @@
 /* PLOP_ADD_EXPORT */
+export * from './hooks/useIntersectionObserver/useIntersectionObserver.js';
 export * from './components/AutoFill/AutoFill.js';
 export * from './hocs/ensuredForwardRef/ensuredForwardRef.js';
 export * from './hooks/useBeforeMount/useBeforeMount.js';

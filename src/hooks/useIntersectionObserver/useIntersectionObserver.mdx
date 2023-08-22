@@ -1,0 +1,59 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="hooks/useIntersectionObserver" />
+
+# useIntersectionObserver
+
+The Intersection Observer API provides a way to asynchronously observe changes in the intersection
+of a target element with an ancestor element or with a top-level document's viewport.
+
+The hook is a wrapper around the Intersection Observer API, so for full details and reference check
+the [docs](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
+
+## Reference
+
+```ts
+export function useIntersectionObserver(
+  target: Unreffable<Element | null>,
+  callback: IntersectionObserverCallback,
+  options?: IntersectionObserverInit,
+): void;
+```
+
+### Parameters
+
+- `target` The element (or reference to element) to observe.
+
+- `callback: (entries: IntersectionObserverEntry[], observer: IntersectionObserver): void;` The
+  callback that gets executed when an intersection change is observed. Note that the entries will
+  never contain more than one entry (since the observer in the hook observes only one target).
+- `options: { root?: Element | Document | null; rootMargin?: string; threshold?: number | number[]; }`
+  Lets you control the circumstances under which the observer's callback is invoked. See the
+  [reference](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#creating_an_intersection_observer)
+  for details.
+
+### Returns
+
+`void`
+
+## Usage
+
+```tsx
+function Component() {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useIntersectionObserver(ref, (entries) => {
+    entries.forEach((entry) => {
+      //   entry.boundingClientRect
+      //   entry.intersectionRatio
+      //   entry.intersectionRect
+      //   entry.isIntersecting
+      //   entry.rootBounds
+      //   entry.target
+      //   entry.time
+    });
+  });
+
+  return <div ref={ref}></div>;
+}
+```
