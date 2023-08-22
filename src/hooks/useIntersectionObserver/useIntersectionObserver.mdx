@@ -14,7 +14,7 @@ the [docs](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observe
 
 ```ts
 export function useIntersectionObserver(
-  target: Unreffable<Element | null>,
+  targetOrTargets: Unreffable<Element | null> | Array<Unreffable<Element | null>>,
   callback: IntersectionObserverCallback,
   options?: IntersectionObserverInit,
 ): void;
@@ -22,11 +22,10 @@ export function useIntersectionObserver(
 
 ### Parameters
 
-- `target` The element (or reference to element) to observe.
+- `targetOrTargets` The element or array of elements to observe. Also accepts refs to elements.
 
 - `callback: (entries: IntersectionObserverEntry[], observer: IntersectionObserver): void;` The
-  callback that gets executed when an intersection change is observed. Note that the entries will
-  never contain more than one entry (since the observer in the hook observes only one target).
+  callback that gets executed when an intersection change is observed.
 - `options: { root?: Element | Document | null; rootMargin?: string; threshold?: number | number[]; }`
   Lets you control the circumstances under which the observer's callback is invoked. See the
   [reference](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#creating_an_intersection_observer)
