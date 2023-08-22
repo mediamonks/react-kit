@@ -20,7 +20,7 @@ function DemoComponent(): ReactElement {
     <>
       <p>
         Scroll down in green element, red is currently{' '}
-        <strong>{isRedVisible ? '' : 'NOT'} VISIBLE</strong>
+        <strong>{!isRedVisible && 'NOT '}VISIBLE</strong>
       </p>
       <div ref={containerRef} style={{ height: 100, overflow: 'scroll', backgroundColor: 'green' }}>
         <div ref={targetRef} style={{ height: 100, marginTop: 200, backgroundColor: 'red' }}></div>
