@@ -1,5 +1,7 @@
 import { useEffect } from 'react';
 import { unref, type Unreffable } from '../../utils/unref/unref.js';
+import { useClientSideValue } from '../useClientSideValue/useClientSideValue.js';
+import { useRefValue } from '../useRefValue/useRefValue.js';
 
 /**
  * This hook creates an IntersectionObserver and uses it to observe
@@ -13,25 +15,59 @@ import { unref, type Unreffable } from '../../utils/unref/unref.js';
  * @param options - Optional options object
  */
 
+type Dependencies = Array<
+  | IntersectionObserverCallback
+  | IntersectionObserverInit
+  | Array<Unreffable<Element | null>>
+  | Unreffable<Element | null>
+  | undefined
+>;
+
 export function useIntersectionObserver(
-  targetOrTargets: Unreffable<Element | null> | Array<Unreffable<Element | null>>,
+  targetOrTargets: Array<Unreffable<Element | null>> | Unreffable<Element> | null,
   callback: IntersectionObserverCallback,
   options?: IntersectionObserverInit,
 ): void {
+  const callbackRef = useRefValue(callback);
+  const intersectionObserverInstance = useClientSideValue(
+    () =>
+      new IntersectionObserver(
+        (entries, observer) => callbackRef.current?.(entries, observer),
+        options,
+      ),
+  );
+
+  const dependencies: Dependencies = [callback, options, intersectionObserverInstance];
+  const isMultipleTargets = Array.isArray(targetOrTargets);
+
+  if (isMultipleTargets) {
+    dependencies.push(...targetOrTargets);
+  } else {
+    dependencies.push(targetOrTargets);
+  }
+
   useEffect(() => {
-    const elements = (Array.isArray(targetOrTargets) ? targetOrTargets : [targetOrTargets]).map(
-      (target) => unref(target),
+    const elements = (isMultipleTargets ? targetOrTargets : [targetOrTargets]).map(
+      (target) => target,
     );
 
-    const intersectionObserverInstance = new IntersectionObserver(callback, options);
     for (const element of elements) {
-      if (element) {
-        intersectionObserverInstance.observe(element);
+      const unreffedElement = unref(element);
+
+      if (unreffedElement) {
+        intersectionObserverInstance?.observe(unreffedElement);
       }
     }
 
     return () => {
-      intersectionObserverInstance.disconnect();
+      for (const element of elements) {
+        const unreffedElement = unref(element);
+
+        if (unreffedElement) {
+          intersectionObserverInstance?.unobserve(unreffedElement);
+        }
+      }
     };
-  }, [callback, options, targetOrTargets]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, dependencies);
 }

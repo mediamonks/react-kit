@@ -9,21 +9,35 @@ export default {
 };
 
 function DemoComponent(): ReactElement {
-  const [isRedVisible, setIsRedVisible] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [visibleColors, setVisibleColors] = useState<Array<string>>([]);
+
   const targetRef = useRef<HTMLDivElement>(null);
-  useIntersectionObserver(targetRef, ([entry]) => {
-    setIsRedVisible(entry.isIntersecting);
+  const secondTargetRef = useRef<HTMLDivElement>(null);
+  const thirdTargetRef = useRef<HTMLDivElement>(null);
+
+  useIntersectionObserver([targetRef, secondTargetRef, thirdTargetRef], ([entry]) => {
+    const target = entry.target as HTMLElement;
+    const targetColor = target.style.backgroundColor;
+
+    if (entry.isIntersecting && !visibleColors.includes(targetColor)) {
+      setVisibleColors([...visibleColors, targetColor]);
+    }
+
+    if (!entry.isIntersecting && visibleColors.includes(targetColor)) {
+      const referencedColors = [...visibleColors];
+      referencedColors.splice(referencedColors.indexOf(targetColor), 1);
+
+      setVisibleColors(referencedColors);
+    }
   });
 
   return (
     <>
-      <p>
-        Scroll down in green element, red is currently{' '}
-        <strong>{!isRedVisible && 'NOT '}VISIBLE</strong>
-      </p>
-      <div ref={containerRef} style={{ height: 100, overflow: 'scroll', backgroundColor: 'green' }}>
-        <div ref={targetRef} style={{ height: 100, marginTop: 200, backgroundColor: 'red' }}></div>
+      <p>Currently these colors are visible: {visibleColors.join(', ')}</p>
+      <div style={{ height: 100, overflow: 'scroll' }}>
+        <div ref={targetRef} style={{ height: 100, backgroundColor: 'red' }}></div>
+        <div ref={secondTargetRef} style={{ height: 100, backgroundColor: 'blue' }}></div>
+        <div ref={thirdTargetRef} style={{ height: 100, backgroundColor: 'green' }}></div>
       </div>
     </>
   );
