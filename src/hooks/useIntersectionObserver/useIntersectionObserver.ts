@@ -1,5 +1,5 @@
-import { useEffect } from 'react';
-import { unref, type Unreffable } from '../../utils/unref/unref.js';
+import { useEffect, type RefObject } from 'react';
+import { unref } from '../../utils/unref/unref.js';
 import { useClientSideValue } from '../useClientSideValue/useClientSideValue.js';
 import { useRefValue } from '../useRefValue/useRefValue.js';
 
@@ -14,17 +14,8 @@ import { useRefValue } from '../useRefValue/useRefValue.js';
  * @param callback - The callback to fire when the element resizes
  * @param options - Optional options object
  */
-
-type Dependencies = Array<
-  | IntersectionObserverCallback
-  | IntersectionObserverInit
-  | Array<Unreffable<Element | null>>
-  | Unreffable<Element | null>
-  | undefined
->;
-
 export function useIntersectionObserver(
-  targetOrTargets: Array<Unreffable<Element | null>> | Unreffable<Element> | null,
+  targetOrTargets: RefObject<Element | ReadonlyArray<Element | null> | null>,
   callback: IntersectionObserverCallback,
   options?: IntersectionObserverInit,
 ): void {
@@ -37,37 +28,27 @@ export function useIntersectionObserver(
       ),
   );
 
-  const dependencies: Dependencies = [callback, options, intersectionObserverInstance];
-  const isMultipleTargets = Array.isArray(targetOrTargets);
-
-  if (isMultipleTargets) {
-    dependencies.push(...targetOrTargets);
-  } else {
-    dependencies.push(targetOrTargets);
-  }
-
   useEffect(() => {
-    const elements = (isMultipleTargets ? targetOrTargets : [targetOrTargets]).map(
-      (target) => target,
-    );
+    const targets = Array.isArray(targetOrTargets.current)
+      ? targetOrTargets.current
+      : [targetOrTargets.current];
 
-    for (const element of elements) {
-      const unreffedElement = unref(element);
+    for (const target of targets) {
+      const element = unref(target);
 
-      if (unreffedElement) {
-        intersectionObserverInstance?.observe(unreffedElement);
+      if (element) {
+        intersectionObserverInstance?.observe(element);
       }
     }
 
     return () => {
-      for (const element of elements) {
-        const unreffedElement = unref(element);
+      for (const target of targets) {
+        const element = unref(target);
 
-        if (unreffedElement) {
-          intersectionObserverInstance?.unobserve(unreffedElement);
+        if (element) {
+          intersectionObserverInstance?.unobserve(element);
         }
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, dependencies);
+  }, [intersectionObserverInstance, targetOrTargets]);
 }

@@ -1,4 +1,5 @@
-import { Meta } from '@storybook/blocks';
+import { Meta, Canvas } from '@storybook/blocks';
+import * as stories from './useIntersectionObserver.stories';
 
 <Meta title="hooks/useIntersectionObserver" />
 
@@ -14,7 +15,7 @@ the [docs](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observe
 
 ```ts
 export function useIntersectionObserver(
-  targetOrTargets: Unreffable<Element | null> | Array<Unreffable<Element | null>>,
+  targetOrTargets: RefObject<Element | ReadonlyArray<Element | null> | null>,
   callback: IntersectionObserverCallback,
   options?: IntersectionObserverInit,
 ): void;
@@ -22,8 +23,7 @@ export function useIntersectionObserver(
 
 ### Parameters
 
-- `targetOrTargets` The element or array of elements to observe. Also accepts refs to elements.
-
+- `targetOrTargets` The element or array of elements to observe.
 - `callback: (entries: IntersectionObserverEntry[], observer: IntersectionObserver): void;` The
   callback that gets executed when an intersection change is observed.
 - `options: { root?: Element | Document | null; rootMargin?: string; threshold?: number | number[]; }`
@@ -31,28 +31,49 @@ export function useIntersectionObserver(
   [reference](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#creating_an_intersection_observer)
   for details.
 
-### Returns
-
-`void`
-
 ## Usage
+
+### With a single ref element
+
+The simpelest use case is to pass a single ref to the hook.
 
 ```tsx
 function Component() {
-  const ref = useRef<HTMLDivElement>(null);
+  const targetRef = useRef<HTMLDivElement>(null);
 
-  useIntersectionObserver(ref, (entries) => {
-    entries.forEach((entry) => {
-      //   entry.boundingClientRect
-      //   entry.intersectionRatio
-      //   entry.intersectionRect
-      //   entry.isIntersecting
-      //   entry.rootBounds
-      //   entry.target
-      //   entry.time
-    });
+  useIntersectionObserver(targetRef, (entries) => {
+    for (const entry of entries) {
+      //
+    }
   });
 
-  return <div ref={ref}></div>;
+  return <div ref={targetRef}></div>;
 }
 ```
+
+### With a ref array
+
+Ref arrays are also supported
+
+```tsx
+function Component() {
+  const targetRefs = useRef<Array<HTMLDivElement | null>>([]);
+
+  useIntersectionObserver(targetRefs, (entries) => {
+    for (const entry of entries) {
+      //
+    }
+  });
+
+  return (
+    <>
+      <div ref={arrayRef(targetRefs, 0)}></div>
+      <div ref={arrayRef(targetRefs, 1)}></div>
+    </>
+  );
+}
+```
+
+## Demo
+
+<Canvas of={stories.WithRefs} />
