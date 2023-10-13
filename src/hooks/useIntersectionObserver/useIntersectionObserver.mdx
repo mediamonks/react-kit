@@ -1,0 +1,79 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as stories from './useIntersectionObserver.stories';
+
+<Meta title="hooks/useIntersectionObserver" />
+
+# useIntersectionObserver
+
+The Intersection Observer API provides a way to asynchronously observe changes in the intersection
+of a target element with an ancestor element or with a top-level document's viewport.
+
+The hook is a wrapper around the Intersection Observer API, so for full details and reference check
+the [docs](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API).
+
+## Reference
+
+```ts
+export function useIntersectionObserver(
+  targetOrTargets: RefObject<Element | ReadonlyArray<Element | null> | null>,
+  callback: IntersectionObserverCallback,
+  options?: IntersectionObserverInit,
+): void;
+```
+
+### Parameters
+
+- `targetOrTargets` The element or array of elements to observe.
+- `callback: (entries: IntersectionObserverEntry[], observer: IntersectionObserver): void;` The
+  callback that gets executed when an intersection change is observed.
+- `options: { root?: Element | Document | null; rootMargin?: string; threshold?: number | number[]; }`
+  Lets you control the circumstances under which the observer's callback is invoked. See the
+  [reference](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#creating_an_intersection_observer)
+  for details.
+
+## Usage
+
+### With a single ref element
+
+The simpelest use case is to pass a single ref to the hook.
+
+```tsx
+function Component() {
+  const targetRef = useRef<HTMLDivElement>(null);
+
+  useIntersectionObserver(targetRef, (entries) => {
+    for (const entry of entries) {
+      //
+    }
+  });
+
+  return <div ref={targetRef}></div>;
+}
+```
+
+### With a ref array
+
+Ref arrays are also supported
+
+```tsx
+function Component() {
+  const targetRefs = useRef<Array<HTMLDivElement | null>>([]);
+
+  useIntersectionObserver(targetRefs, (entries) => {
+    for (const entry of entries) {
+      //
+    }
+  });
+
+  return (
+    <>
+      <div ref={arrayRef(targetRefs, 0)}></div>
+      <div ref={arrayRef(targetRefs, 1)}></div>
+    </>
+  );
+}
+```
+
+## Demo
+
+<Canvas of={stories.WithRefs} />
