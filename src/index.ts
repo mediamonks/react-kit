@@ -22,6 +22,7 @@ export * from './hooks/useRefs/useRefs.types.js';
 export * from './hooks/useRefs/utils/assertAndUnwrapRefs/assertAndUnwrapRefs.js';
 export * from './hooks/useRefs/utils/unwrapRefs/unwrapRefs.js';
 export * from './hooks/useRefs/utils/unwrapRefs/unwrapRefs.types.js';
+export * from './hooks/useRefs/utils/validateAndUnwrapRefs/validateAndUnwrapRefs.js';
 export * from './hooks/useRegisterRef/useRegisterRef.js';
 export * from './hooks/useResizeObserver/useResizeObserver.js';
 export * from './hooks/useStaticValue/useStaticValue.js';
