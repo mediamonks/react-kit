@@ -28,11 +28,13 @@ function DemoComponent() {
   const refs = useRefs<DemoComponentRefs>();
 
   const onClick = useCallback(() => {
-    const [isValid, { heading, buttons }] = validateAndUnwrapRefs(refs);
+    const [isValid, refs] = validateAndUnwrapRefs(refs);
 
     if (isValid) {
       return;
     }
+
+    const { heading, buttons } = refs;
 
     console.log(heading); // HTMLHeadingElement
     console.log(buttons); // Array<HTMLButtonElement | null>
