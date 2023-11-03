@@ -9,9 +9,9 @@ import { useEventListener } from '../useEventListener/useEventListener.js';
  * describe media queries in your project.
  *
  * @example
- * import '@mediamonks/react-hooks';
+ * import '@mediamonks/react-kit';
  *
- * declare module '@mediamonks/react-hooks' {
+ * declare module '@mediamonks/react-kit' {
  *   interface MediaQueryVariables {
  *     '--media-query-name': never;
  *   }

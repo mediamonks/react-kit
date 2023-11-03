@@ -1,12 +1,14 @@
 {
-  "name": "@mediamonks/react-hooks",
+  "name": "@mediamonks/react-kit",
   "version": "1.4.0",
-  "description": "A collection of React hooks we use at Media.Monks",
+  "description": "A collection of React hooks, components, utilities that we use at Media.Monks",
   "keywords": [
     "react",
+    "components",
+    "typescript",
     "hooks"
   ],
-  "repository": "git@github.com:mediamonks/react-hooks.git",
+  "repository": "git@github.com:mediamonks/react-kit.git",
   "author": "frontend.monks",
   "license": "MIT",
   "types": "./dist/index.d.ts",
@@ -35,7 +37,7 @@
     "test": "vitest ./src/",
     "check-types": "tsc --project tsconfig.json --noEmit --noUnusedLocals",
     "storybook": "storybook dev -p 6006",
-    "storybook:build": "storybook build -o ./.docs/react-hooks",
+    "storybook:build": "storybook build -o ./.docs/react-kit",
     "storybook:deploy": "./deploy-docs.sh",
     "prepublishOnly": "npm run build",
     "plop": "plop",

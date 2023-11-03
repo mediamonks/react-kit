@@ -37,7 +37,7 @@ jobs:
       - name: Create artifact
         uses: actions/upload-pages-artifact@v1
         with:
-          path: .docs/react-hooks/
+          path: .docs/react-kit/
 
   deploy:
     needs: build
