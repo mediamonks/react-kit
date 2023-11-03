@@ -1,11 +1,15 @@
 /* eslint-disable react/jsx-no-literals */
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import type { ReactElement } from 'react';
 import { useMediaQuery } from './useMediaQuery.js';
 
-export default {
-  title: 'hooks/useMediaQuery',
-};
+const meta = {
+  title: 'Hooks / useMediaQuery',
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 const css = `
   :root {
@@ -32,7 +36,7 @@ function DemoComponent(): ReactElement {
   );
 }
 
-export const Demo: StoryObj = {
+export const Demo: Story = {
   render() {
     return <DemoComponent />;
   },

@@ -1,13 +1,17 @@
 /* eslint-disable react-hooks/rules-of-hooks, react/jsx-no-literals */
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import { useRafCallback } from './useRafCallback.js';
 
-export default {
-  title: 'hooks/useRafCallback',
-};
+const meta = {
+  title: 'Hooks / useRafCallback',
+} satisfies Meta;
 
-export const Demo: StoryObj = {
+export default meta;
+
+type Story = StoryObj<typeof meta>;
+
+export const Demo: Story = {
   render() {
     const [time, setTime] = useState(0);
     const onUpdate = useRafCallback(setTime);

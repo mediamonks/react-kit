@@ -7,7 +7,7 @@ import { arrayRef } from '../../index.js';
 import { useIntersectionObserver } from './useIntersectionObserver.js';
 
 const meta = {
-  title: 'hooks/useIntersectionObserver',
+  title: 'Hooks / useIntersectionObserver',
 } satisfies Meta;
 
 export default meta;

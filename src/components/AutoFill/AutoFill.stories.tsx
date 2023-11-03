@@ -1,10 +1,9 @@
-/* eslint-disable react/jsx-no-literals, react/no-multi-comp */
+/* eslint-disable react/jsx-no-literals */
 import { type Meta, type StoryObj } from '@storybook/react';
-import type { ReactElement } from 'react';
 import { AutoFill } from './AutoFill.js';
 
 const meta = {
-  title: 'components/AutoFill',
+  title: 'Components / AutoFill',
   component: AutoFill,
 } satisfies Meta;
 
@@ -12,8 +11,8 @@ type Story = StoryObj<typeof meta>;
 
 export default meta;
 
-export const Horizontal = {
-  render(): ReactElement {
+export const Horizontal: Story = {
+  render() {
     return (
       <div
         style={{
@@ -59,10 +58,10 @@ export const Horizontal = {
   args: {
     children: <div />,
   },
-} satisfies Story;
+};
 
-export const Vertical = {
-  render(): ReactElement {
+export const Vertical: Story = {
+  render() {
     return (
       <div
         style={{
@@ -95,4 +94,4 @@ export const Vertical = {
   args: {
     children: <div />,
   },
-} satisfies Story;
+};

@@ -1,10 +1,14 @@
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { type ReactElement, useRef, useState } from 'react';
 import { useResizeObserver } from './useResizeObserver.js';
 
-export default {
-  title: 'hooks/useResizeObserver',
-};
+const meta = {
+  title: 'Hooks / useResizeObserver',
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 function DemoComponent(): ReactElement {
   const elementRef = useRef<HTMLDivElement>(null);
@@ -28,7 +32,7 @@ function DemoComponent(): ReactElement {
   );
 }
 
-export const Demo: StoryObj = {
+export const Demo: Story = {
   render() {
     return <DemoComponent />;
   },

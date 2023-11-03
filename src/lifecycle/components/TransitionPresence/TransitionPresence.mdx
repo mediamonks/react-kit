@@ -1,0 +1,67 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as stories from './TransitionPresence.stories';
+
+<Meta title="Components / TransitionPresence" of={stories} />
+
+# TransitionPresence
+
+`<TransitionPresence />` is a component that allows you to defer the unmount lifecycle of a
+component.
+
+The callback function used in `useBeforeUnmount` in components that are rendered in the context of
+`<TransitionPresence />` will be called just before a component is unmounted. The promises that are
+created using the callback are awaited before unmounting a component. New children are rendered
+after old children are unmounted.
+
+The most common use-case for `<TransitionPresence />` is animations, but it's not limited to this
+use case.
+
+## Props
+
+### Children
+
+`<TransitionPresence />` accepts a single child, use a `Fragment` when you want to render multiple
+components on the root level. New children are rendered when the component type for the children
+(`<p />` to `<div />`) change, or when the key of the children changes (`<p key="one" />` to
+`null`).
+
+### onPreviousChildrenUnmounting
+
+The `onPreviousChildrenUnmounting` is called before the unmounting starts.
+
+```tsx
+onPreviousChildrenUnmounting?: () => void;
+
+<TransitionPresence onPreviousChildrenUnmounting={() => console.log('onPreviousChildrenUnmounting')}>
+```
+
+### onPreviousChildrenUnmounted
+
+The `onPreviousChildrenUnmounted` is called when the unmounting of previous children is done, the
+next children are not rendered yet at this point.
+
+```tsx
+onPreviousChildrenUnmounted?: () => void;
+
+<TransitionPresence onPreviousChildrenUnmounted={() => console.log('onPreviousChildrenUnmounted')}>
+```
+
+### onChildrenMounted
+
+The `onChildrenMounted` is called when the new children are mounted.
+
+```tsx
+onChildrenMounted?: () => void;
+
+<TransitionPresence onChildrenMounted={() => console.log('onChildrenMounted')}>
+```
+
+## Demo
+
+### Basic
+
+<Canvas of={stories.Demo} />
+
+### Click to hide
+
+<Canvas of={stories.DemoClickToHide} />

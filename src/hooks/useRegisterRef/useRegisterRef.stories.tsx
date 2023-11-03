@@ -1,12 +1,16 @@
 /* eslint-disable react/jsx-no-bind, react/no-multi-comp, react/jsx-no-literals */
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { shuffle } from 'lodash-es';
 import { useState, type ReactElement } from 'react';
 import { useRegisterRef } from './useRegisterRef.js';
 
-export default {
-  title: 'hooks/useRegisterRef',
-};
+const meta = {
+  title: 'Hooks / useRegisterRef',
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 type Refs = {
   item1: HTMLDivElement | null;
@@ -131,7 +135,7 @@ function DemoComponent(): ReactElement {
   );
 }
 
-export const Demo: StoryObj = {
+export const Demo: Story = {
   name: 'Demo',
   render() {
     return <DemoComponent />;

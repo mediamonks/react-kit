@@ -1,10 +1,14 @@
 /* eslint-disable react/jsx-no-literals,react/jsx-handler-names */
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { useForceRerender } from './useForceRerender.js';
 
-export default {
-  title: 'hooks/lifecycle/useForceRerender',
-};
+const meta = {
+  title: 'Hooks / useForceRerender',
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 function DemoComponent(): JSX.Element {
   const forceRerender = useForceRerender();
@@ -28,7 +32,7 @@ function DemoComponent(): JSX.Element {
   );
 }
 
-export const Demo: StoryObj = {
+export const Demo: Story = {
   render() {
     return <DemoComponent />;
   },

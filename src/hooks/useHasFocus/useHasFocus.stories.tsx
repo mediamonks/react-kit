@@ -1,11 +1,15 @@
 /* eslint-disable react/jsx-no-literals */
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { useEffect, useRef, useState, type ReactElement } from 'react';
 import { useHasFocus } from './useHasFocus.js';
 
-export default {
-  title: 'hooks/useHasFocus',
-};
+const meta = {
+  title: 'Hooks / useHasFocus',
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 function DemoComponent(): ReactElement {
   const ref = useRef<HTMLButtonElement>(null);
@@ -37,7 +41,7 @@ function DemoComponent(): ReactElement {
   );
 }
 
-export const Demo: StoryObj = {
+export const Demo: Story = {
   render() {
     return <DemoComponent />;
   },

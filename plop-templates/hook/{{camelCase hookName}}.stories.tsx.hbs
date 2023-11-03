@@ -1,10 +1,12 @@
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import type { ReactElement } from 'react';
 import { {{camelCase hookName}} } from './{{camelCase hookName}}.js';
 
-export default {
-  title: 'hooks/{{camelCase hookName}}',
-};
+const meta = {
+  title: 'Hooks / {{camelCase hookName}}',
+} satisfies Meta;
+
+type Story = StoryObj<typeof meta>;
 
 function DemoComponent(): ReactElement {
   {{camelCase hookName}}();
@@ -28,7 +30,7 @@ function DemoComponent(): ReactElement {
   );
 }
 
-export const Demo: StoryObj = {
+export const Demo: Story = {
   render() {
     return <DemoComponent />;
   }

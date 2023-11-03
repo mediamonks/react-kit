@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useMount } from '../useMount/useMount.js';
+import { useMount } from '../../lifecycle/hooks/useMount/useMount.js';
 
 /**
  * Hook that returns the value returned by a callback function that is only called on client-side.
