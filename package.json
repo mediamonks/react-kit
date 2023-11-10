@@ -101,7 +101,7 @@
     "@types/react": "^18.0.25",
     "@vitejs/plugin-react": "^4.0.0",
     "concurrently": "^8.2.2",
-    "eslint": "^8.28.0",
+    "eslint": "^8.53.0",
     "http-server": "^14.1.1",
     "husky": "^8.0.0",
     "jsdom": "^22.0.0",
