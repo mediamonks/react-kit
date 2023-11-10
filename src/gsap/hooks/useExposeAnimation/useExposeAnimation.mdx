@@ -1,0 +1,63 @@
+import { Meta } from '@storybook/blocks';
+import { UseExposeAnimation } from './useExposeAnimation.stories';
+
+<Meta title="hooks/useExposeAnimation" />
+
+# useExposeAnimation
+
+The `useExposeAnimation` hook is used to expose an animation in the global animation Map for a given
+reference (not necessarily an HTMLElement).
+
+## Using a ref
+
+```tsx
+const UseExposeAnimation = (): ReactElement => {
+  const ref = useRef<HTMLDivElement>(null);
+
+  const animation = useAnimation(() => gsap.from({ value: 0 }, { value: 1 }), []);
+  useExposeAnimation(animation, ref);
+
+  useEffect(() => {
+    console.log(getAnimation(ref.current));
+  }, []);
+
+  return <div ref={ref} />;
+};
+```
+
+## Using a forward ref
+
+```tsx
+import { ensuredForwardRef } from '@mediamonks/react-hooks';
+
+const UseExposeAnimationForwardRef = ensuredForwardRef<HTMLDivElement, unknown>(
+  (_, ref): ReactElement => {
+    const animation = useAnimation(() => gsap.from({ value: 0 }, { value: 1 }), []);
+    useExposeAnimation(animation, ref);
+
+    useEffect(() => {
+      console.log(getAnimation(ref.current));
+    }, []);
+
+    return <div ref={ref} />;
+  },
+);
+```
+
+## Using a value as reference
+
+```tsx
+const value = Symbol("myRef")
+
+const UseExposeAnimationAnyValue = (): ReactElement => {
+  const ref = useRef(value);
+
+  const animation = useAnimation(() => gsap.from({ value: 0 }, { value: 1 }), []);
+  useExposeAnimation(animation, ref);
+
+  useEffect(() => {
+    console.log(getAnimation(value));
+  }, []);
+
+  ...
+```

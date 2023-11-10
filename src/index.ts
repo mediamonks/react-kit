@@ -1,5 +1,13 @@
 /* PLOP_ADD_EXPORT */
 export * from './components/AutoFill/AutoFill.js';
+export * from './gsap/components/SplitTextWrapper/SplitTextWrapper.js';
+export * from './gsap/hooks/useAnimation/useAnimation.js';
+export * from './gsap/hooks/useExposeAnimation/useExposeAnimation.js';
+export * from './gsap/hooks/useExposedAnimation/useExposedAnimation.js';
+export * from './gsap/hooks/useExposedAnimations/useExposedAnimations.js';
+export * from './gsap/hooks/useFlip/useFlip.js';
+export * from './gsap/hooks/useScrollAnimation/useScrollAnimation.js';
+export * from './gsap/utils/getAnimation/getAnimation.js';
 export * from './hocs/ensuredForwardRef/ensuredForwardRef.js';
 export * from './hooks/useClientSideValue/useClientSideValue.js';
 export * from './hooks/useEventListener/useEventListener.js';
@@ -18,7 +26,6 @@ export * from './hooks/useRefs/utils/assertAndUnwrapRefs/assertAndUnwrapRefs.js'
 export * from './hooks/useRefs/utils/unwrapRefs/unwrapRefs.js';
 export * from './hooks/useRefs/utils/unwrapRefs/unwrapRefs.types.js';
 export * from './hooks/useRefs/utils/validateAndUnwrapRefs/validateAndUnwrapRefs.js';
-export * from './hooks/useRegisterRef/useRegisterRef.js';
 export * from './hooks/useResizeObserver/useResizeObserver.js';
 export * from './hooks/useStaticValue/useStaticValue.js';
 export * from './hooks/useToggle/useToggle.js';
