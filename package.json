@@ -90,7 +90,7 @@
     "@storybook/addon-interactions": "^7.5.2",
     "@storybook/addon-links": "^7.5.2",
     "@storybook/blocks": "^7.5.2",
-    "@storybook/cli": "^7.5.2",
+    "@storybook/cli": "^7.5.3",
     "@storybook/jest": "^0.2.3",
     "@storybook/react": "^7.5.2",
     "@storybook/react-vite": "^7.5.2",
