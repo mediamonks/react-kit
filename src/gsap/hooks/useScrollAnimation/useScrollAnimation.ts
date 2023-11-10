@@ -14,7 +14,7 @@ if (typeof window !== 'undefined') {
  * when the global animations map is updated.
  *
  * Note: do not scrub a React component's root because React won't know what element to
- * unmount when the component with a pinned animation is must removed from the vDOM.
+ * unmount when the component with a pinned animation is removed from the vDOM.
  */
 export function useScrollAnimation<T extends gsap.core.Animation>(
   callback: () => T | undefined,

@@ -4,7 +4,7 @@ import { useCallback, useRef, type ReactElement } from 'react';
 import { useAnimation } from './useAnimation.js';
 
 export default {
-  title: 'hooks/useAnimation',
+  title: 'GSAP / Hooks / useAnimation',
   component: Timeline,
 };
 

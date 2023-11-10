@@ -8,7 +8,7 @@ import { useAnimation } from '../useAnimation/useAnimation.js';
 import { useExposeAnimation } from '../useExposeAnimation/useExposeAnimation.js';
 
 const meta = {
-  title: 'hooks/useExposeAnimation',
+  title: 'GSAP / Hooks / useExposeAnimation',
 } satisfies Meta;
 
 export default meta;

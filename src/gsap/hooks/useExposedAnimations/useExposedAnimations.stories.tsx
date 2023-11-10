@@ -9,7 +9,7 @@ import { useScrollAnimation } from '../useScrollAnimation/useScrollAnimation.js'
 import { useExposedAnimations } from './useExposedAnimations.js';
 
 export default {
-  title: 'hooks/useExposedAnimations',
+  title: 'GSAP / Hooks / useExposedAnimations',
 };
 
 // Forces a re-render, useful to test for unwanted side-effects

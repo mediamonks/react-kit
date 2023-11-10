@@ -7,7 +7,7 @@ import { TransitionPresence } from '../../components/TransitionPresence/Transiti
 import { useBeforeUnmount } from './useBeforeUnmount.js';
 
 const meta = {
-  title: 'Lifecycle / hooks / useBeforeUnmount',
+  title: 'Lifecycle / Hooks / useBeforeUnmount',
 } satisfies Meta;
 
 export default meta;

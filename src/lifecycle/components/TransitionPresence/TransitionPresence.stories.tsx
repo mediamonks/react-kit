@@ -7,7 +7,7 @@ import { useBeforeUnmount } from '../../hooks/useBeforeUnmount/useBeforeUnmount.
 import { TransitionPresence } from './TransitionPresence.js';
 
 const meta = {
-  title: 'Lifecycle / components / TransitionPresence',
+  title: 'Lifecycle / Components / TransitionPresence',
 } satisfies Meta;
 
 export default meta;
@@ -42,7 +42,7 @@ function Child({ background, onClick }: ChildProps): ReactElement {
       return;
     }
 
-    const animation = ref.current.animate([{ opacity: 1 }, { opacity: 0 }], {
+    const animation = ref.current.animate([{ opacity: 0 }], {
       duration: 500,
       fill: 'forwards',
     });

@@ -8,7 +8,7 @@ import { useAnimation } from '../../hooks/useAnimation/useAnimation.js';
 import { SplitTextWrapper } from './SplitTextWrapper.js';
 
 const meta = {
-  title: 'components/SplitTextWrapper',
+  title: 'GSAP / Components / SplitTextWrapper',
   component: SplitTextWrapper,
 } as Meta;
 

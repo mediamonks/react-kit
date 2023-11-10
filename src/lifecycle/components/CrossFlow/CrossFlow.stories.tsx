@@ -1,11 +1,11 @@
 /* eslint-disable react/no-multi-comp, react/jsx-no-literals, react-hooks/rules-of-hooks */
 import type { Meta, StoryObj } from '@storybook/react';
-import { Fragment, useRef, useState, type ReactElement } from 'react';
+import { Fragment, useLayoutEffect, useRef, useState, type ReactElement } from 'react';
 import { useBeforeUnmount } from '../../hooks/useBeforeUnmount/useBeforeUnmount.js';
 import { CrossFlow } from './CrossFlow.js';
 
 const meta = {
-  title: 'Lifecycle / components/CrossFlow',
+  title: 'Lifecycle / Components/CrossFlow',
   argTypes: {
     children: {
       description: 'ReactElement | null',
@@ -31,13 +31,28 @@ type ChildProps = {
 function Child({ background, onClick, duration = 1000 }: ChildProps): ReactElement {
   const ref = useRef<HTMLButtonElement>(null);
 
+  useLayoutEffect(() => {
+    if (!ref.current) {
+      return;
+    }
+
+    const animation = ref.current.animate([{ opacity: 0 }, { opacity: 1 }], {
+      duration,
+      fill: 'forwards',
+    });
+
+    return () => {
+      animation.cancel();
+    };
+  }, [duration]);
+
   // show visible animation during "before unmount" lifecycle
   useBeforeUnmount(async (abortSignal) => {
     if (!ref.current) {
       return;
     }
 
-    const animation = ref.current.animate([{ opacity: 1 }, { opacity: 0 }], {
+    const animation = ref.current.animate([{ opacity: 0 }], {
       duration,
       fill: 'forwards',
     });

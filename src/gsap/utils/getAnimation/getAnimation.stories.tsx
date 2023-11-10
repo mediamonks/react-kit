@@ -7,7 +7,7 @@ import { useExposeAnimation } from '../../hooks/useExposeAnimation/useExposeAnim
 import { getAnimation } from './getAnimation.js';
 
 export default {
-  title: 'hooks/getAnimation',
+  title: 'GSAP / Hooks / getAnimation',
 };
 
 const Child = ensuredForwardRef<HTMLDivElement, unknown>((_, ref): ReactElement => {

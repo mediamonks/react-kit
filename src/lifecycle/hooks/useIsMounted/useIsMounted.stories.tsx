@@ -6,7 +6,7 @@ import { useIsMountedState } from '../useIsMountedState/useIsMountedState.js';
 import { useIsMounted } from './useIsMounted.js';
 
 const meta = {
-  title: 'Lifecycle / hooks / useIsMounted',
+  title: 'Lifecycle / Hooks / useIsMounted',
 } satisfies Meta;
 
 export default meta;

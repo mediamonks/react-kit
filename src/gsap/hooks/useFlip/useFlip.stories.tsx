@@ -6,7 +6,7 @@ import { useToggle } from '../../../hooks/useToggle/useToggle.js';
 import { useFlip } from './useFlip.js';
 
 const meta = {
-  title: 'hooks/useFlip',
+  title: 'GSAP / Hooks / useFlip',
 } as Meta;
 
 export default meta;

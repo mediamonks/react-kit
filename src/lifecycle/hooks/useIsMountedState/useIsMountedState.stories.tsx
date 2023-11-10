@@ -5,7 +5,7 @@ import { useForceRerender } from '../../../hooks/useForceRerender/useForceRerend
 import { useIsMountedState } from './useIsMountedState.js';
 
 const meta = {
-  title: 'Lifecycle / hooks / useIsMountedState',
+  title: 'Lifecycle / Hooks / useIsMountedState',
 } satisfies Meta;
 
 export default meta;

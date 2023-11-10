@@ -4,7 +4,7 @@ import { useRef, type ReactElement } from 'react';
 import { useScrollAnimation } from './useScrollAnimation.js';
 
 export default {
-  title: 'hooks/useScrollAnimation',
+  title: 'GSAP / Hooks / useScrollAnimation',
   parameters: {
     layout: 'fullscreen',
   },
