@@ -8,8 +8,6 @@
   "exclude": [
     "**/*.component.ts",
     "**/*.component.tsx",
-    "**/*.playwright.ts",
-    "**/*.playwright.tsx",
     "**/*.stories.ts",
     "**/*.stories.tsx",
     "**/*.test.ts",
