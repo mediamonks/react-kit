@@ -4,7 +4,7 @@ import { useRef, useState, type ReactElement } from 'react';
 import { useInterval } from './useInterval.js';
 
 const meta = {
-  title: 'hooks/useInterval',
+  title: 'Hooks / useInterval',
 } satisfies Meta;
 
 type Story = StoryObj<typeof meta>;

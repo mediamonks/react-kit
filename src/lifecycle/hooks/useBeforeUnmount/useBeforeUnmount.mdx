@@ -1,0 +1,78 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as transitionPrescenseStories from '../../components/TransitionPresence/TransitionPresence.stories';
+
+<Meta title="Lifecycle / hooks / useBeforeUnmount" />
+
+# useBeforeUnmount
+
+The `useBeforeUnmount` hook accepts a function that will be called before the component is
+unmounted. The callback function is awaited, it defers the unmounting of the component until the
+function is resolved when it is wrapped in a `TransitionPresence` or `CrossFlow` context.
+
+```tsx
+function useBeforeUnmount(
+  callback: (abortSignal: AbortSignal) => PromiseLike<unknown> | void,
+): void;
+```
+
+## Waiting for an animation before unmounting
+
+A common use case for the `useBeforeUnmount` hook is to create an out transition that defers the
+unmounting of the component until the transition is complete.
+
+<Canvas of={transitionPrescenseStories.Demo} />
+
+The out transition in the demo is created using the Animation API.
+
+```tsx
+useBeforeUnmount(async () => {
+  if (!ref.current) {
+    return;
+  }
+
+  const animation = ref.current.animate([{ opacity: 1 }, { opacity: 0 }], {
+    duration: 500,
+    fill: 'forwards',
+  });
+
+  return animation.finished;
+});
+```
+
+## How to deal with forced unmounting
+
+A component instance can be prematurely unmounted in two situations. First, when the
+`TransitionPresence` context is unmounted. Second, when a new direct child is rendered in
+`TransitionPresence` before the callback of the previous child has resolved. To handle this
+situation, you can use the `AbortSignal` to cancel any running actions.
+
+### Cancelling an animation
+
+```tsx
+useBeforeUnmount(async (abortSignal) => {
+  if (!ref.current) {
+    return;
+  }
+
+  const animation = ref.current.animate([{ opacity: 1 }, { opacity: 0 }], {
+    duration: 500,
+    fill: 'forwards',
+  });
+
+  abortSignal.addEventListener('abort', () => {
+    animation.cancel();
+  });
+
+  await animation.finished;
+});
+```
+
+### Cancelling a request
+
+```tsx
+useBeforeUnmount(async (abortSignal) => {
+  await fetch('https://example.com/', {
+    signal: abortSignal,
+  });
+});
+```

@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useRefValue } from '../useRefValue/useRefValue.js';
+import { useRefValue } from '../../../hooks/useRefValue/useRefValue.js';
 
 /**
  * React lifecycle hook that calls a function after the component is unmounted.

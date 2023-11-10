@@ -1,19 +1,14 @@
 /* PLOP_ADD_EXPORT */
 export * from './components/AutoFill/AutoFill.js';
 export * from './hocs/ensuredForwardRef/ensuredForwardRef.js';
-export * from './hooks/useBeforeMount/useBeforeMount.js';
 export * from './hooks/useClientSideValue/useClientSideValue.js';
 export * from './hooks/useEventListener/useEventListener.js';
 export * from './hooks/useForceRerender/useForceRerender.js';
 export * from './hooks/useHasFocus/useHasFocus.js';
 export * from './hooks/useIntersectionObserver/useIntersectionObserver.js';
 export * from './hooks/useInterval/useInterval.js';
-export * from './hooks/useIsMounted/useIsMounted.js';
-export * from './hooks/useIsMountedState/useIsMountedState.js';
-export * from './hooks/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
 export * from './hooks/useMediaDuration/useMediaDuration.js';
 export * from './hooks/useMediaQuery/useMediaQuery.js';
-export * from './hooks/useMount/useMount.js';
 export * from './hooks/useMutationObserver/useMutationObserver.js';
 export * from './hooks/useRafCallback/useRafCallback.js';
 export * from './hooks/useRefValue/useRefValue.js';
@@ -27,8 +22,22 @@ export * from './hooks/useRegisterRef/useRegisterRef.js';
 export * from './hooks/useResizeObserver/useResizeObserver.js';
 export * from './hooks/useStaticValue/useStaticValue.js';
 export * from './hooks/useToggle/useToggle.js';
-export * from './hooks/useUnmount/useUnmount.js';
+export * from './lifecycle/hooks/useBeforeMount/useBeforeMount.js';
+export * from './lifecycle/hooks/useIsMounted/useIsMounted.js';
+export * from './lifecycle/hooks/useIsMountedState/useIsMountedState.js';
+export * from './lifecycle/hooks/useMount/useMount.js';
+export * from './lifecycle/hooks/useUnmount/useUnmount.js';
+export * from './nextjs/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
 export * from './utils/arrayRef/arrayRef.js';
 export * from './utils/createTimeout/createTimeout.js';
 export * from './utils/isRefObject/isRefObject.js';
 export * from './utils/unref/unref.js';
+
+// Custom exports for external use only
+export { CrossFlow } from './lifecycle/components/CrossFlow/CrossFlow.js';
+export { TransitionPresenceContext } from './lifecycle/components/TransitionPresence/TransitionPresence.context.js';
+export { TransitionPresence } from './lifecycle/components/TransitionPresence/TransitionPresence.js';
+export {
+  useBeforeUnmount,
+  type BeforeUnmountCallback,
+} from './lifecycle/hooks/useBeforeUnmount/useBeforeUnmount.js';

@@ -1,6 +1,6 @@
 import { useCallback, useRef } from 'react';
+import { useUnmount } from '../../lifecycle/hooks/useUnmount/useUnmount.js';
 import { useRefValue } from '../useRefValue/useRefValue.js';
-import { useUnmount } from '../useUnmount/useUnmount.js';
 
 /**
  * Hook that returns a function that will be called on the next animation frame.

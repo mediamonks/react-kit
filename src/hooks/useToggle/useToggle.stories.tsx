@@ -1,11 +1,15 @@
 /* eslint-disable react/jsx-no-bind, react/no-multi-comp, react/jsx-no-literals */
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import type { ReactElement } from 'react';
 import { useToggle } from './useToggle.js';
 
-export default {
-  title: 'hooks/useToggle',
-};
+const meta = {
+  title: 'Hooks / useToggle',
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 type DemoComponentProps = {
   initialValue?: boolean;
@@ -58,7 +62,7 @@ function DemoComponent({ initialValue = false }: DemoComponentProps): ReactEleme
   );
 }
 
-export const Demo: StoryObj = {
+export const Demo: Story = {
   name: 'Demo',
   render(_arguments: DemoComponentProps) {
     return <DemoComponent {..._arguments} />;

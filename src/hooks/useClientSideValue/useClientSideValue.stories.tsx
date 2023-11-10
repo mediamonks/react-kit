@@ -1,11 +1,15 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/jsx-no-literals */
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { useClientSideValue } from './useClientSideValue.js';
 
-export default {
-  title: 'hooks/useClientSideValue',
-};
+const meta = {
+  title: 'Hooks / useClientSideValue',
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 const note = (
   <div className="alert alert-secondary">
@@ -17,7 +21,7 @@ const note = (
   </div>
 );
 
-export const Demo: StoryObj = {
+export const Demo: Story = {
   render() {
     const value = useClientSideValue(Date.now, 0);
 
@@ -33,7 +37,7 @@ export const Demo: StoryObj = {
   },
 };
 
-export const Nullable: StoryObj = {
+export const Nullable: Story = {
   render() {
     const value = useClientSideValue<number | null>(Date.now, null);
 

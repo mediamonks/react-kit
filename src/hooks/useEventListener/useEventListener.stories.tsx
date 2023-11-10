@@ -1,11 +1,15 @@
 /* eslint-disable react/jsx-no-literals */
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { useState, type ReactElement } from 'react';
 import { useEventListener } from './useEventListener.js';
 
-export default {
-  title: 'hooks/useEventListener',
-};
+const meta = {
+  title: 'Hooks / useEventListener',
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 function DemoComponent(): ReactElement {
   const [text, setText] = useState<ReadonlyArray<string>>([]);
@@ -40,7 +44,7 @@ function DemoComponent(): ReactElement {
   );
 }
 
-export const Demo: StoryObj = {
+export const Demo: Story = {
   render() {
     return <DemoComponent />;
   },

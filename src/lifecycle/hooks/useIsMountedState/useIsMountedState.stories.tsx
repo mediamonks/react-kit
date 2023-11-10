@@ -1,12 +1,16 @@
 /* eslint-disable react/jsx-no-literals,react/jsx-handler-names,no-console */
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { useEffect } from 'react';
-import { useForceRerender } from '../useForceRerender/useForceRerender.js';
+import { useForceRerender } from '../../../hooks/useForceRerender/useForceRerender.js';
 import { useIsMountedState } from './useIsMountedState.js';
 
-export default {
-  title: 'hooks/lifecycle/useIsMountedState',
-};
+const meta = {
+  title: 'Lifecycle / hooks / useIsMountedState',
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 function DemoComponent(): JSX.Element {
   const forceRerender = useForceRerender();
@@ -42,7 +46,7 @@ function DemoComponent(): JSX.Element {
   );
 }
 
-export const Demo: StoryObj = {
+export const Demo: Story = {
   render() {
     return <DemoComponent />;
   },

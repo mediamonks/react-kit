@@ -1,11 +1,15 @@
 /* eslint-disable react/jsx-no-literals */
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 import { type ReactElement, useRef, useState, useCallback } from 'react';
 import { useMutationObserver } from './useMutationObserver.js';
 
-export default {
-  title: 'hooks/useMutationObserver',
-};
+const meta = {
+  title: 'Hooks / useMutationObserver',
+} satisfies Meta;
+
+export default meta;
+
+type Story = StoryObj<typeof meta>;
 
 function DemoComponent(): ReactElement {
   const [count, setCount] = useState(0);
@@ -58,7 +62,7 @@ function DemoComponent(): ReactElement {
   );
 }
 
-export const Demo: StoryObj = {
+export const Demo: Story = {
   render() {
     return <DemoComponent />;
   },
