@@ -1,6 +1,6 @@
 {
   "name": "@mediamonks/react-kit",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "A collection of React hooks, components, utilities that we use at Media.Monks",
   "keywords": [
     "react",
