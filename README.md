@@ -1,7 +1,7 @@
-[![npm version](https://img.shields.io/npm/v/@mediamonks/react-hooks)](https://www.npmjs.com/package/@mediamonks/react-hooks)
-[![npm downloads](https://img.shields.io/npm/dm/@mediamonks/react-hooks)](https://www.npmjs.com/package/@mediamonks/react-hooks)
+[![npm version](https://img.shields.io/npm/v/@mediamonks/react-kit)](https://www.npmjs.com/package/@mediamonks/react-kit)
+[![npm downloads](https://img.shields.io/npm/dm/@mediamonks/react-kit)](https://www.npmjs.com/package/@mediamonks/react-kit)
 
-# @mediamonks/react-hooks
+# @mediamonks/react-kit
 
 Collection of commonly used React hooks.
 
@@ -9,10 +9,10 @@ Collection of commonly used React hooks.
 
 ### Installing
 
-Add `@mediamonks/react-hooks` to your project:
+Add `@mediamonks/react-kit` to your project:
 
 ```sh
-npm i @mediamonks/react-hooks
+npm i @mediamonks/react-kit
 ```
 
 ### Example
@@ -20,7 +20,7 @@ npm i @mediamonks/react-hooks
 Use a hook inside a component:
 
 ```tsx
-import { useToggle } from '@mediamonks/react-hooks';
+import { useToggle } from '@mediamonks/react-kit';
 
 function DemoComponent() {
   const [state, toggle] = useToggle(false);
@@ -36,7 +36,7 @@ function DemoComponent() {
 
 ## Docs
 
-[https://mediamonks.github.io/react-hooks/](https://mediamonks.github.io/react-hooks/)
+[https://mediamonks.github.io/react-kit/](https://mediamonks.github.io/react-kit/)
 
 ## Development
 
