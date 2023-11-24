@@ -10,6 +10,8 @@ export * from './gsap/hooks/useScrollAnimation/useScrollAnimation.js';
 export * from './gsap/utils/getAnimation/getAnimation.js';
 export * from './hocs/ensuredForwardRef/ensuredForwardRef.js';
 export * from './hooks/useClientSideValue/useClientSideValue.js';
+export * from './hooks/useContentRect/useContentRect.js';
+export * from './hooks/useContentRectState/useContentRectState.js';
 export * from './hooks/useEventListener/useEventListener.js';
 export * from './hooks/useForceRerender/useForceRerender.js';
 export * from './hooks/useHasFocus/useHasFocus.js';
