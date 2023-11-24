@@ -10,20 +10,20 @@ import { unref, type Unreffable } from '../../utils/unref/unref.js';
  */
 export function useResizeObserver(
   target: Unreffable<Element | null>,
-  callback: ResizeObserverCallback,
+  callback?: ResizeObserverCallback | undefined,
 ): void {
   useEffect(() => {
     const element = unref(target);
 
-    if (element === null) {
+    if (element === null || callback === undefined) {
       return;
     }
 
-    const resizeObserverInstance = new ResizeObserver(callback);
-    resizeObserverInstance.observe(element);
+    const resizeObserver = new ResizeObserver(callback);
+    resizeObserver.observe(element);
 
     return () => {
-      resizeObserverInstance.disconnect();
+      resizeObserver.disconnect();
     };
   }, [target, callback]);
 }
