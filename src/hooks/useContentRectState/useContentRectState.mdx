@@ -1,0 +1,43 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Hooks / useContentRectState" />
+
+# useContentRectState
+
+The `useContentRectState` hook is used to get the size of an HTML element, the `DOMRect` is stored
+in a state variable. It uses the `ResizeObserver` API to observe the element `DOMRect`, the target
+is disconnected when the component unmounts.
+
+## Reference
+
+```ts
+function useContentRectState(ref: Unreffable<Element | null>): RefObject<DOMRectReadOnly>;
+```
+
+## Using `useContentRectState` with a RefObject
+
+In this example, the `useRef` hook is used to create a `RefObject` for the `div` element which is
+initially set to null. The `useContentRectState` hook is then called with the ref variable.
+
+```tsx
+function MyComponent() {
+  const ref = useRef<HTMLDivElement>(null);
+  const contentRect = useContentRectState(ref);
+
+  return <div ref={ref}></div>;
+}
+```
+
+## Using `useContentRectState` with an element
+
+In this example, the `useState` hook is used to create a state variable element which is initially
+set to null. The `useContentRectState` hook is then called with the element variable.
+
+```tsx
+function MyComponent() {
+  const [element, setElement] = useState<HTMLDivElement | null>(null);
+  const contentRect = useContentRectState(element);
+
+  return <div ref={setElement}></div>;
+}
+```
