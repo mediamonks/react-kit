@@ -1,0 +1,83 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Types / PolymorphicComponentProps" />
+
+# PolymorphicComponentProps
+
+A collection of generic types to help build strongly typed Polymorphic Components, consistently.
+
+`PolymorphicComponentProps` takes care of combining your Component's unique prop types with those of
+any HTML element or React Component you happen to be assigning to your Polymorphic Component. As an
+extra precaution, a check is performed to omit any "default" prop type from the chosen element that
+might conflict with one of the same name in your Component.
+
+## Usage
+
+```tsx
+type FooComponentProps<T extends ElementType> = PolymorphicComponentProps<
+  T,
+  { barProp: string | undefined }
+>;
+
+type FooComponent = <T extends ElementType>(props: FooComponentProps<T>) => ReactElement | null;
+
+export const Foo: FooComponent = <T extends ElementType>({
+  as: Component = 'div',
+  children,
+  ...otherProps
+}: FooComponentProps<T>) => {
+  return <Component {...otherProps}>{children}</Component>;
+};
+```
+
+The type `FooComponentProps` consists of `T` and any custom prop types you require for
+`<FooComponent />` (in this example, `barProp`). The types for `T` are derived from the element in
+the `as` prop:
+
+```tsx
+<FooComponent as="a" href="https://media.monks.com" barProp="baz">
+  This is a proper link
+</FooComponent>
+
+<FooComponent as="h1">
+  Foo as a heading: anything goes.
+</FooComponent>
+```
+
+So while two examples use the same FooComponent, their `FooComponent` types are not the same. They
+are derived from the types from their respective `<a />` and `<h1 />` elements.
+
+```tsx
+<FooComponent as="button" href="https://example.com">
+  This button will throw an error
+</FooComponent>
+
+<FooComponent as="button" onClick={() => console.log("Clicked")}>
+  This button is okay
+</FooComponent>
+```
+
+### Using Refs
+
+A Polymorphic Component with Refs can be typed with `PolymorphicComponentPropsWithRef` and
+`PolymorphicRef`:
+
+```tsx
+type FooComponentProps<T extends ElementType> = PolymorphicComponentPropsWithRef<
+  T,
+  { barProp: string | undefined }
+>;
+
+type FooComponent = <T extends ElementType>(props: FooComponentProps<T>) => ReactElement | null;
+
+export const Foo: FooComponent = <T extends ElementType>(
+  { as: Component = 'div', children, ...otherProps }: FooComponentProps<T>,
+  ref?: PolymorphicRef<T>,
+) => {
+  return (
+    <Component {...otherProps} ref={ref}>
+      {children}
+    </Component>
+  );
+};
+```
