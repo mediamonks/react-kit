@@ -19,7 +19,7 @@ type FooComponentProps<T extends ElementType> = PolymorphicComponentProps<
   { barProp: string | undefined }
 >;
 
-type FooComponent = <T extends ElementType>(props: FooComponentProps<T>) => ReactElement | null;
+type FooComponent = <T extends ElementType>(props: FooComponentProps<T>) => ReactNode | null;
 
 export const Foo: FooComponent = <T extends ElementType>({
   as: Component = 'div',
@@ -68,16 +68,18 @@ type FooComponentProps<T extends ElementType> = PolymorphicComponentPropsWithRef
   { barProp: string | undefined }
 >;
 
-type FooComponent = <T extends ElementType>(props: FooComponentProps<T>) => ReactElement | null;
+type FooComponent = <T extends ElementType>(props: FooComponentProps<T>) => ReactNode | null;
 
-export const Foo: FooComponent = <T extends ElementType>(
-  { as: Component = 'div', children, ...otherProps }: FooComponentProps<T>,
-  ref?: PolymorphicRef<T>,
-) => {
-  return (
-    <Component {...otherProps} ref={ref}>
-      {children}
-    </Component>
-  );
-};
+export const Foo: FooComponent = forwardRef(
+  <T extends ElementType>(
+    { as: Component = 'div', children, ...otherProps }: FooComponentProps<T>,
+    ref?: PolymorphicRef<T>,
+  ) => {
+    return (
+      <Component {...otherProps} ref={ref}>
+        {children}
+      </Component>
+    );
+  },
+);
 ```
