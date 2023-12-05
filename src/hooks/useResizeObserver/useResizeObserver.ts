@@ -7,10 +7,12 @@ import { unref, type Unreffable } from '../../utils/unref/unref.js';
  *
  * @param target - The target to observe
  * @param callback - The callback to fire when the element resizes
+ * @param options - The ResizeObserverOptions for the observed element
  */
 export function useResizeObserver(
   target: Unreffable<Element | null>,
   callback?: ResizeObserverCallback | undefined,
+  options?: ResizeObserverOptions,
 ): void {
   useEffect(() => {
     const element = unref(target);
@@ -20,10 +22,11 @@ export function useResizeObserver(
     }
 
     const resizeObserver = new ResizeObserver(callback);
-    resizeObserver.observe(element);
+    resizeObserver.observe(element, options);
 
     return () => {
       resizeObserver.disconnect();
     };
-  }, [target, callback]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [target, callback, ...Object.values(options ?? {})]);
 }

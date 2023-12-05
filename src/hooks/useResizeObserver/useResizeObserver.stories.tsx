@@ -35,7 +35,7 @@ export const Demo: Story = {
 
     return (
       <>
-        <h4>Resize the window to update the width of the elements</h4>
+        <h4>Resize the window to update</h4>
         <div ref={elementRef} style={{ outline: '1px solid red', marginBlock: 20 }}>
           Enabled: {enabled.toString()};<br />
           Width: {elementRefWidth};
@@ -53,6 +53,48 @@ export const Demo: Story = {
         >
           Toggle enabled
         </button>
+      </>
+    );
+  },
+};
+
+export const Options: Story = {
+  render() {
+    // Element 1
+    const elementRef1 = useRef<HTMLDivElement>(null);
+    const [elementWidth1, setElementWidth1] = useState(Number.NaN);
+
+    const onResizeElement1 = useCallback((entries: Array<ResizeObserverEntry>) => {
+      setElementWidth1(entries.at(0)?.borderBoxSize.at(0)?.inlineSize ?? Number.NaN);
+    }, []);
+
+    useResizeObserver(elementRef1, onResizeElement1, {
+      box: 'border-box',
+    });
+
+    // Element 2
+    const elementRef2 = useRef<HTMLDivElement>(null);
+    const [elementWidth2, setElementWidth2] = useState<number>(Number.NaN);
+
+    const onResizeElement2 = useCallback((entries: Array<ResizeObserverEntry>) => {
+      setElementWidth2(entries.at(0)?.contentBoxSize.at(0)?.inlineSize ?? Number.NaN);
+    }, []);
+
+    useResizeObserver(elementRef2, onResizeElement2, {
+      box: 'content-box',
+    });
+
+    return (
+      <>
+        <h4>Resize the window to update</h4>
+        <div ref={elementRef1} style={{ outline: '1px solid red', marginBlock: 20, padding: 20 }}>
+          <pre>border-box</pre>
+          Width: {elementWidth1};
+        </div>
+        <div ref={elementRef2} style={{ outline: '1px solid red', marginBlock: 20, padding: 20 }}>
+          <pre>content-box</pre>
+          Width: {elementWidth2};
+        </div>
       </>
     );
   },
