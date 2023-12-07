@@ -1,15 +1,15 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ReactElement } from 'react';
-import { {{camelCase hookName}} } from './{{camelCase hookName}}.js';
+import { {{camelCase fileName}} } from './{{camelCase fileName}}.js';
 
 const meta = {
-  title: 'Hooks / {{camelCase hookName}}',
+  title: 'Hooks / {{camelCase fileName}}',
 } satisfies Meta;
 
 type Story = StoryObj<typeof meta>;
 
 function DemoComponent(): ReactElement {
-  {{camelCase hookName}}();
+  {{camelCase fileName}}();
 
   return (
     <div>

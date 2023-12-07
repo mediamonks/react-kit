@@ -57,7 +57,8 @@ Run `npm run storybook` to preview your stories and documentation.
 
 ### Steps for adding a new Hook:
 
-Run the `plop` script and enter your hook name starting with `use`.
+Run the `plop` script and choose if you want to add a hook or util. When choosing `hook`, your hook
+name starting with `use`.
 
 ```shell
 npm run plop
