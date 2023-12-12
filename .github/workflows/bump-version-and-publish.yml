@@ -1,72 +1,32 @@
 # NOTE: taken from https://github.com/MylesBorins/node-osc/blob/main/.github/workflows/bump-version.yml
 
-name: Bump version, Tag & Publish
-
+name: Publish package to npmjs
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Semver type of new version'
-        required: true
-        type: choice
-        options:
-          - major
-          - minor
-          - patch
-          - prerelease
-      prereleaseid:
-        description: 'Prerelease id (rc)'
-        required: false
-        default: ''
-
+  release:
+    types: [created]
 jobs:
   bump-version:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       id-token: write
-
     steps:
       - name: Check out source
         uses: actions/checkout@v3
-        with:
-          ssh-key: ${{secrets.DEPLOY_KEY}}
-
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20.x'
-
-      - name: Install dependencies
+          registry-url: 'https://registry.npmjs.org'
+      - name: Install dependencies and build
         env:
           GSAP_TOKEN: ${{ secrets.GSAP_TOKEN }}
         run: |
           npm config set //npm.greensock.com/:_authToken=$GSAP_TOKEN
           npm config set @gsap:registry=https://npm.greensock.com
           npm ci
-
-      - name: Install dependencies
-        run: |
           npm run build
-
-      - name: Setup Git
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-
-      - name: Bump Version
-        run: |
-          npm version ${{ github.event.inputs.version }} --no-git-tag-version --preid ${{ github.event.inputs.prereleaseid }}
-          git add .
-          git commit -m "v$(npm pkg get version | tr -d '"')"
-          git tag $(npm pkg get version | tr -d '"') -m "v$(npm pkg get version | tr -d '"')"
-
-      - name: Publish to NPM
-        uses: JS-DevTools/npm-publish@v3
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          provenance: true
-          ignore-scripts: false
-
-      - name: Push latest version
-        run: git push origin main --follow-tags
+      - name: Publish
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
