@@ -1,6 +1,6 @@
 {
   "name": "@mediamonks/react-kit",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A collection of React hooks, components, utilities that we use at Media.Monks",
   "keywords": [
     "react",
@@ -8,7 +8,10 @@
     "typescript",
     "hooks"
   ],
-  "repository": "git@github.com:mediamonks/react-kit.git",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/mediamonks/react-kit.git"
+  },
   "author": "frontend.monks",
   "license": "MIT",
   "types": "./dist/index.d.ts",

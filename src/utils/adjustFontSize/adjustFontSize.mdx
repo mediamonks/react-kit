@@ -1,0 +1,37 @@
+import { Meta, Canvas, Story } from '@storybook/blocks';
+import { adjustFontSize } from './adjustFontSize';
+
+<Meta title="utils/adjustFontSize" />
+
+# adjustFontSize
+
+Adjusts the font size of an HTML element to fit within its parent container.
+
+## Reference
+
+```ts
+function adjustFontSize(
+  element: HTMLElement,
+  minFontSize = 13,
+  maxFontSize = 113,
+  axis?: 'x' | 'y',
+) => void;
+```
+
+## Parameters
+
+- `element`: The HTML element whose font size needs to be adjusted.
+- `minFontSize`: The minimum font size in pixels. Default is 13 (minimal accessible font size).
+- `maxFontSize`: The maximum font size in pixels.
+- `axis`: The axis along which the font size should be adjusted. Can be 'x' or 'y'. Default is
+  undefined (both axes).
+
+## Usage
+
+```ts
+const element = document.createElement('div');
+element.textContent = 'Hello, world!';
+document.body.appendChild(element);
+
+adjustFontSize(element);
+```

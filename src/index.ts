@@ -1,4 +1,5 @@
 /* PLOP_ADD_EXPORT */
+export * from './components/AutoAdjustFontSize/AutoAdjustFontSize.js';
 export * from './components/AutoFill/AutoFill.js';
 export * from './gsap/components/SplitTextWrapper/SplitTextWrapper.js';
 export * from './gsap/hooks/useAnimation/useAnimation.js';
@@ -37,6 +38,7 @@ export * from './lifecycle/hooks/useIsMountedState/useIsMountedState.js';
 export * from './lifecycle/hooks/useMount/useMount.js';
 export * from './lifecycle/hooks/useUnmount/useUnmount.js';
 export * from './nextjs/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
+export * from './utils/adjustFontSize/adjustFontSize.js';
 export * from './utils/arrayRef/arrayRef.js';
 export * from './utils/createTimeout/createTimeout.js';
 export * from './utils/isRefObject/isRefObject.js';
