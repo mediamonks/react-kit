@@ -3,7 +3,9 @@ import Flip from 'gsap/Flip';
 import { useEffect, useRef, type MutableRefObject } from 'react';
 import { unref, type Unreffable } from '../../../utils/unref/unref.js';
 
-gsap.registerPlugin(Flip);
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(Flip);
+}
 
 export function useFlip(
   ref: Unreffable<HTMLElement | null>,
