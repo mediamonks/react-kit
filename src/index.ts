@@ -1,4 +1,5 @@
 /* PLOP_ADD_EXPORT */
+export * from './components/AutoAdjustFontSize/AutoAdjustFontSize.js';
 export * from './components/AutoFill/AutoFill.js';
 export * from './gsap/components/SplitTextWrapper/SplitTextWrapper.js';
 export * from './gsap/hooks/useAnimation/useAnimation.js';
@@ -10,6 +11,8 @@ export * from './gsap/hooks/useScrollAnimation/useScrollAnimation.js';
 export * from './gsap/utils/getAnimation/getAnimation.js';
 export * from './hocs/ensuredForwardRef/ensuredForwardRef.js';
 export * from './hooks/useClientSideValue/useClientSideValue.js';
+export * from './hooks/useContentRect/useContentRect.js';
+export * from './hooks/useContentRectState/useContentRectState.js';
 export * from './hooks/useEventListener/useEventListener.js';
 export * from './hooks/useForceRerender/useForceRerender.js';
 export * from './hooks/useHasFocus/useHasFocus.js';
@@ -36,6 +39,7 @@ export * from './lifecycle/hooks/useMount/useMount.js';
 export * from './lifecycle/hooks/useUnmount/useUnmount.js';
 export * from './nextjs/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
 export * from './types/PolymorphicComponentProps/PolymorphicComponentProps.js';
+export * from './utils/adjustFontSize/adjustFontSize.js';
 export * from './utils/arrayRef/arrayRef.js';
 export * from './utils/createTimeout/createTimeout.js';
 export * from './utils/isRefObject/isRefObject.js';
