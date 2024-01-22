@@ -35,26 +35,26 @@ The type `FooComponentProps` consists of `T` and any custom prop types you requi
 the `as` prop:
 
 ```tsx
-<FooComponent as="a" href="https://media.monks.com" barProp="baz">
+<Foo as="a" href="https://media.monks.com" barProp="baz">
   This is a proper link
-</FooComponent>
+</Foo>
 
-<FooComponent as="h1">
+<Foo as="h1">
   Foo as a heading: anything goes.
-</FooComponent>
+</Foo>
 ```
 
 So while two examples use the same FooComponent, their `FooComponent` types are not the same. They
 are derived from the types from their respective `<a />` and `<h1 />` elements.
 
 ```tsx
-<FooComponent as="button" href="https://example.com">
+<Foo as="button" href="https://example.com">
   This button will throw an error
-</FooComponent>
+</Foo>
 
-<FooComponent as="button" onClick={() => console.log("Clicked")}>
+<Foo as="button" onClick={() => console.log("Clicked")}>
   This button is okay
-</FooComponent>
+</Foo>
 ```
 
 ### Using Refs
