@@ -1,0 +1,64 @@
+import { Canvas, Meta } from '@storybook/blocks';
+import * as stories from './InfiniteAutoFill.stories';
+
+<Meta title="Components / InfiniteAutoFill" />
+
+# InfiniteAutoFill
+
+Uses the AutoFill to repeat children to fill the parent element in given axis. In addition to that
+it adds the children one more time to the end of the list. This can be useful for example marquee's.
+
+## Reference
+
+```ts
+interface InfiniteAutoFillProps {
+  children: ReadonlyArray<ReactNode>;
+  axis?: 'x' | 'y'; // Default: 'x'
+}
+
+function InfiniteAutoFill(props: InfiniteAutoFillProps): ReactElement;
+```
+
+## InfiniteAutoFill for X axis
+
+Fills components horizontally + one extra.
+
+```tsx
+function DemoComponent() {
+  return (
+    <div style={{ width: 1000, display: 'grid', outline: '1px solid black' }}>
+      <InfiniteAutoFill>
+        <div style={{ padding: 15 }}>
+          <div style={{ width: 50, outline: '1px solid red' }}>Child</div>
+        </div>
+      </InfiniteAutoFill>
+    </div>
+  );
+}
+```
+
+### Demo
+
+<Canvas of={stories.Horizontal} />
+
+## InfiniteAutoFill for Y axis
+
+Fills components vertically + one extra.
+
+```tsx
+function DemoComponent() {
+  return (
+    <div style={{ height: 1000, outline: '1px solid black' }}>
+      <InfiniteAutoFill>
+        <div style={{ padding: 15 }}>
+          <div style={{ width: 50, outline: '1px solid red' }}>Child</div>
+        </div>
+      </InfiniteAutoFill>
+    </div>
+  );
+}
+```
+
+### Demo
+
+<Canvas of={stories.Vertical} />
