@@ -12,6 +12,7 @@ Repeats children to fill the parent element in given axis.
 ```ts
 interface AutoFillProps {
   children: ReadonlyArray<ReactNode>;
+  additionalCloneCount?: number; // Default: 0
   axis?: 'x' | 'y'; // Default: 'x'
 }
 

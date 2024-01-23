@@ -22,13 +22,18 @@ type AutoFillProps = {
   children:
     | ReactElement<AutoFillChildrenProps>
     | ReadonlyArray<ReactElement<AutoFillChildrenProps>>;
+  additionalCloneCount?: number;
   axis?: 'x' | 'y';
 };
 
 /**
  * Repeats children to fill the parent element in given axis.
  */
-export function AutoFill({ children, axis = 'x' }: AutoFillProps): ReactElement {
+export function AutoFill({
+  children,
+  additionalCloneCount = 0,
+  axis = 'x',
+}: AutoFillProps): ReactElement {
   const childrenRef = useRef<Array<unknown> | null>([]);
   const [repeatCount, setRepeatCount] = useState(0);
 
@@ -43,11 +48,15 @@ export function AutoFill({ children, axis = 'x' }: AutoFillProps): ReactElement 
     const { clientWidth: parentClientWidth, clientHeight: parentClientHeight } = parentElement;
 
     if (axis === 'x') {
-      setRepeatCount(Math.ceil(parentClientWidth / (offsetLeft + clientWidth)));
+      setRepeatCount(
+        Math.ceil(parentClientWidth / (offsetLeft + clientWidth)) + additionalCloneCount,
+      );
     } else {
-      setRepeatCount(Math.ceil(parentClientHeight / (offsetTop + clientHeight)));
+      setRepeatCount(
+        Math.ceil(parentClientHeight / (offsetTop + clientHeight)) + additionalCloneCount,
+      );
     }
-  }, [axis]);
+  }, [additionalCloneCount, axis]);
 
   useEffect(updateRepeatCount, [updateRepeatCount, children]);
   useEventListener(globalThis.window, 'resize', useRafCallback(updateRepeatCount));
