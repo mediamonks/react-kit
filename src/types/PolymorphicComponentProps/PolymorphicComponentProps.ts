@@ -5,12 +5,12 @@ import type {
   PropsWithChildren,
 } from 'react';
 
-/*
+/**
  * AsProp is a type based on the supplied as prop.
  */
 type AsProp<Types extends ElementType> = { as?: Types };
 
-/*
+/**
  * MergeAndOverride is a type that omits type keys from BaseTypes that are also present in OverrideProps.
  */
 type MergeAndOverride<BaseTypes, OverrideProps> = Omit<BaseTypes, keyof OverrideProps> &
