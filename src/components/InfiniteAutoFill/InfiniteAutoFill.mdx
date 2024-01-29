@@ -6,7 +6,8 @@ import * as stories from './InfiniteAutoFill.stories';
 # InfiniteAutoFill
 
 Uses the AutoFill to repeat children to fill the parent element in given axis. In addition to that
-it adds the children one more time to the end of the list. This can be useful for example marquee's.
+it adds the children one more time to the end of the list. This can be useful for example marquees
+or infinite carousels.
 
 ## Reference
 
@@ -49,7 +50,7 @@ Fills components vertically + one extra.
 function DemoComponent() {
   return (
     <div style={{ height: 1000, outline: '1px solid black' }}>
-      <InfiniteAutoFill>
+      <InfiniteAutoFill axis="y">
         <div style={{ padding: 15 }}>
           <div style={{ width: 50, outline: '1px solid red' }}>Child</div>
         </div>

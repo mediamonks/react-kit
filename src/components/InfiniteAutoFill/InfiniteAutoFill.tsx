@@ -1,21 +1,12 @@
-import { type ReactElement, type RefCallback } from 'react';
+import { type ComponentProps, type ReactElement } from 'react';
 import { AutoFill } from '../../index.js';
 
-type InfiniteAutoFillChildrenProps = {
-  ref: RefCallback<unknown>;
-};
-
-type InfiniteAutoFillProps = {
-  children:
-    | ReactElement<InfiniteAutoFillChildrenProps>
-    | ReadonlyArray<ReactElement<InfiniteAutoFillChildrenProps>>;
-  axis?: 'x' | 'y';
-};
+type InfiniteAutoFillProps = ComponentProps<typeof AutoFill>;
 
 /**
  * Repeats children to fill the parent element in given axis.
  */
-export function InfiniteAutoFill({ children, axis = 'x' }: InfiniteAutoFillProps): ReactElement {
+export function InfiniteAutoFill({ children, axis }: InfiniteAutoFillProps): ReactElement {
   return (
     <>
       <AutoFill axis={axis}>{children}</AutoFill>
