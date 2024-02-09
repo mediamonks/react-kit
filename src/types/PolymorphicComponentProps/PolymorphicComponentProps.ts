@@ -6,26 +6,26 @@ import type {
 } from 'react';
 
 /**
- * AsProp is a type based on the supplied as prop.
+ * PropsFromAs is a type based on the supplied as prop.
  */
-type AsProp<Types extends ElementType> = { as?: Types };
+type PropsFromAs<Type extends ElementType> = { as?: Type };
 
 /**
  * MergeAndOverride is a type that omits type keys from BaseTypes that are also present in OverrideProps.
  */
-type MergeAndOverride<BaseTypes, OverrideProps> = Omit<BaseTypes, keyof OverrideProps> &
+type MergeAndOverride<BaseType, OverrideProps> = Omit<BaseType, keyof OverrideProps> &
   OverrideProps;
 
-export type PolymorphicRef<Types extends ElementType> = ComponentPropsWithRef<Types>['ref'];
+export type PolymorphicRef<Type extends ElementType> = ComponentPropsWithRef<Type>['ref'];
 
 export type PolymorphicComponentProps<
-  BaseTypes extends ElementType,
+  BaseType extends ElementType,
   OwnProps = Record<string, never>,
 > = PropsWithChildren<
-  MergeAndOverride<ComponentPropsWithoutRef<BaseTypes>, AsProp<BaseTypes> & OwnProps>
+  MergeAndOverride<ComponentPropsWithoutRef<BaseType>, PropsFromAs<BaseType> & OwnProps>
 >;
 
 export type PolymorphicComponentPropsWithRef<
-  BaseTypes extends ElementType,
+  BaseType extends ElementType,
   OwnProps = Record<string, never>,
-> = PolymorphicComponentProps<BaseTypes, OwnProps> & { ref?: PolymorphicRef<BaseTypes> };
+> = PolymorphicComponentProps<BaseType, OwnProps> & { ref?: PolymorphicRef<BaseType> };
