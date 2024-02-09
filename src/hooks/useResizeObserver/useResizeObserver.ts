@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { unref, type Unreffable } from '../../utils/unref/unref.js';
+import { useRefValue } from '../useRefValue/useRefValue.js';
 
 /**
  * This hook allows you to add a ResizeObserver for an element and remove it
@@ -14,6 +15,8 @@ export function useResizeObserver(
   callback?: ResizeObserverCallback | undefined,
   options?: ResizeObserverOptions,
 ): void {
+  const callbackRef = useRefValue(callback);
+
   useEffect(() => {
     const element = unref(target);
 
@@ -21,12 +24,15 @@ export function useResizeObserver(
       return;
     }
 
-    const resizeObserver = new ResizeObserver(callback);
+    const resizeObserver = new ResizeObserver((..._arguments) => {
+      callbackRef.current?.(..._arguments);
+    });
+
     resizeObserver.observe(element, options);
 
     return () => {
       resizeObserver.disconnect();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [target, callback, ...Object.values(options ?? {})]);
+  }, [target, ...Object.values(options ?? {})]);
 }
