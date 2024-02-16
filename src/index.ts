@@ -38,6 +38,7 @@ export * from './lifecycle/hooks/useIsMountedState/useIsMountedState.js';
 export * from './lifecycle/hooks/useMount/useMount.js';
 export * from './lifecycle/hooks/useUnmount/useUnmount.js';
 export * from './nextjs/useIsomorphicLayoutEffect/useIsomorphicLayoutEffect.js';
+export * from './types/PolymorphicComponentProps/PolymorphicComponentProps.js';
 export * from './utils/adjustFontSize/adjustFontSize.js';
 export * from './utils/arrayRef/arrayRef.js';
 export * from './utils/createTimeout/createTimeout.js';
