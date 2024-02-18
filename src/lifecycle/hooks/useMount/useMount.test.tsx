@@ -5,7 +5,7 @@ import { useMount } from './useMount.js';
 describe('useMount', () => {
   it('should not crash', async () => {
     renderHook(useMount, {
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      // eslint-disable-next-line no-empty-function
       initialProps: () => {},
     });
   });

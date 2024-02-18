@@ -52,56 +52,25 @@
     "prepare": "husky install"
   },
   "prettier": "@mediamonks/prettier-config",
-  "eslintConfig": {
-    "overrides": [
-      {
-        "files": [
-          "*.ts",
-          "*.tsx"
-        ],
-        "extends": [
-          "@mediamonks/eslint-config",
-          "@mediamonks/eslint-config-react",
-          "@mediamonks/eslint-config-typescript",
-          "@mediamonks/eslint-config-typescript-react"
-        ],
-        "parserOptions": {
-          "project": "./tsconfig.json"
-        }
-      },
-      {
-        "files": [
-          "*.cjs",
-          "*.js",
-          "*.jsx",
-          "*.mjs"
-        ],
-        "extends": [
-          "@mediamonks/eslint-config"
-        ],
-        "parserOptions": {
-          "ecmaVersion": "latest"
-        }
-      }
-    ]
-  },
   "devDependencies": {
-    "@mediamonks/eslint-config": "^2.0.6",
-    "@mediamonks/eslint-config-react": "^2.1.11",
-    "@mediamonks/eslint-config-typescript": "^1.0.8",
-    "@mediamonks/eslint-config-typescript-react": "^1.0.10",
+    "@mediamonks/eslint-config": "^2.5.0",
+    "@mediamonks/eslint-config-react": "^2.6.0",
+    "@mediamonks/eslint-config-typescript": "^1.5.1",
+    "@mediamonks/eslint-config-typescript-react": "^1.4.1",
     "@mediamonks/prettier-config": "^1.0.1",
-    "@storybook/addon-essentials": "^7.5.2",
-    "@storybook/addon-interactions": "^7.5.2",
-    "@storybook/addon-links": "^7.5.2",
-    "@storybook/blocks": "^7.5.2",
-    "@storybook/cli": "^7.5.2",
+    "@storybook/addon-essentials": "^7.6.17",
+    "@storybook/addon-interactions": "^7.6.17",
+    "@storybook/addon-links": "^7.6.17",
+    "@storybook/blocks": "^7.6.17",
+    "@storybook/cli": "^7.6.17",
     "@storybook/jest": "^0.2.3",
-    "@storybook/react": "^7.5.2",
-    "@storybook/react-vite": "^7.5.2",
-    "@storybook/test-runner": "^0.13.0",
+    "@storybook/manager-api": "^7.6.17",
+    "@storybook/react": "^7.6.17",
+    "@storybook/react-vite": "^7.6.17",
+    "@storybook/test-runner": "^0.16.0",
     "@storybook/testing-library": "^0.2.2",
-    "@storybook/types": "^7.5.2",
+    "@storybook/theming": "^7.6.17",
+    "@storybook/types": "^7.6.17",
     "@testing-library/react": "^14.0.0",
     "@types/lodash-es": "^4.17.11",
     "@types/react": "^18.0.25",

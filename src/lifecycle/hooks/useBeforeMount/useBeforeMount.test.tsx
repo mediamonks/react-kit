@@ -7,8 +7,10 @@ import { useBeforeMount } from './useBeforeMount.js';
 describe('useBeforeMount', () => {
   it('should not crash', async () => {
     renderHook(() => {
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
-      useBeforeMount(() => {});
+      useBeforeMount(
+        // eslint-disable-next-line no-empty-function
+        () => {},
+      );
     });
   });
 

@@ -5,7 +5,7 @@ import { useUnmount } from './useUnmount.js';
 describe('useUnmount', () => {
   it('should not crash', async () => {
     const { rerender, unmount } = renderHook(useUnmount, {
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      // eslint-disable-next-line no-empty-function
       initialProps: () => {},
     });
     rerender();
