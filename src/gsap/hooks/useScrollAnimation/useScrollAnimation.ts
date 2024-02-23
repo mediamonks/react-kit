@@ -1,4 +1,5 @@
 import gsap from 'gsap';
+// eslint-disable-next-line @typescript-eslint/naming-convention
 import ScrollTrigger from 'gsap/ScrollTrigger';
 import { useEffect, useRef, type RefObject } from 'react';
 import { animations } from '../../animations.js';

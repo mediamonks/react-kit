@@ -5,7 +5,7 @@ import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect.js';
 describe('useIsomorphicLayoutEffect', () => {
   it('should not crash', async () => {
     renderHook(useIsomorphicLayoutEffect, {
-      // eslint-disable-next-line @typescript-eslint/no-empty-function
+      // eslint-disable-next-line no-empty-function
       initialProps: () => {},
     });
   });

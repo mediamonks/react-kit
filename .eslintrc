@@ -1,0 +1,23 @@
+{
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx"],
+      "extends": [
+        "@mediamonks/eslint-config",
+        "@mediamonks/eslint-config-react",
+        "@mediamonks/eslint-config-typescript",
+        "@mediamonks/eslint-config-typescript-react"
+      ],
+      "parserOptions": {
+        "project": "./tsconfig.json"
+      }
+    },
+    {
+      "files": ["*.cjs", "*.js", "*.jsx", "*.mjs"],
+      "extends": ["@mediamonks/eslint-config"],
+      "parserOptions": {
+        "ecmaVersion": "latest"
+      }
+    }
+  ]
+}
