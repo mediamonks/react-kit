@@ -1,0 +1,53 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Hooks / useUpdateEffect" />
+
+# useUpdateEffect
+
+Just a modified version of `useEffect` that is skipping the first render (mount).
+
+## Reference
+
+```ts
+function useUpdateEffect(effect: EffectCallback, deps?: DependencyList): void;
+```
+
+### Parameters
+
+- `effect` – Function to run on updates.
+- `deps` – Dependencies list, as for `useEffect` hook
+
+### Returns
+
+- void
+
+## Usage
+
+```tsx
+function DemoComponent(): ReactElement {
+  const [date, setDate] = useState<number>();
+
+  useEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log('Normal useEffect', date);
+  }, [date]);
+
+  useUpdateEffect(() => {
+    // eslint-disable-next-line no-console
+    console.log('Update useEffect only', date);
+  }, [date]);
+
+  const onClick = useCallback(() => {
+    setDate(Date.now());
+  }, []);
+
+  return (
+    <div>
+      <p>Open your console</p>
+      <button type="button" onClick={onClick}>
+        Update
+      </button>
+    </div>
+  );
+}
+```

@@ -10,6 +10,7 @@ export * from './hooks/useForceRerender/useForceRerender.js';
 export * from './hooks/useHasFocus/useHasFocus.js';
 export * from './hooks/useIntersectionObserver/useIntersectionObserver.js';
 export * from './hooks/useInterval/useInterval.js';
+export * from './hooks/useIsFirstRender/useIsFirstRender.js';
 export * from './hooks/useMediaDuration/useMediaDuration.js';
 export * from './hooks/useMediaQuery/useMediaQuery.js';
 export * from './hooks/useMutationObserver/useMutationObserver.js';
@@ -24,6 +25,7 @@ export * from './hooks/useRefs/utils/validateAndUnwrapRefs/validateAndUnwrapRefs
 export * from './hooks/useResizeObserver/useResizeObserver.js';
 export * from './hooks/useStaticValue/useStaticValue.js';
 export * from './hooks/useToggle/useToggle.js';
+export * from './hooks/useUpdateEffect/useUpdateEffect.js';
 export * from './lifecycle/components/CrossFlow/CrossFlow.js';
 export * from './lifecycle/components/TransitionPresence/TransitionPresence.context.js';
 export * from './lifecycle/components/TransitionPresence/TransitionPresence.js';
