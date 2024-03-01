@@ -29,10 +29,12 @@ export * from './lifecycle/components/TransitionPresence/TransitionPresence.cont
 export * from './lifecycle/components/TransitionPresence/TransitionPresence.js';
 export * from './lifecycle/hooks/useBeforeMount/useBeforeMount.js';
 export * from './lifecycle/hooks/useBeforeUnmount/useBeforeUnmount.js';
+export * from './lifecycle/hooks/useIsFirstRender/useIsFirstRender.js';
 export * from './lifecycle/hooks/useIsMounted/useIsMounted.js';
 export * from './lifecycle/hooks/useIsMountedState/useIsMountedState.js';
 export * from './lifecycle/hooks/useMount/useMount.js';
 export * from './lifecycle/hooks/useUnmount/useUnmount.js';
+export * from './lifecycle/hooks/useUpdateEffect/useUpdateEffect.js';
 export * from './types/PolymorphicComponentProps/PolymorphicComponentProps.js';
 export * from './utils/adjustFontSize/adjustFontSize.js';
 export * from './utils/arrayRef/arrayRef.js';
