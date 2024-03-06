@@ -53,8 +53,8 @@ export function getMediaQueryList(
  */
 export function useMediaQuery(
   mediaQueryOrVariableName: MediaQueryValues,
-  defaultValue = false,
-): boolean {
+  defaultValue?: boolean,
+): boolean | undefined {
   const [mediaQueryList, setMediaQueryList] = useState<MediaQueryList | undefined>(() =>
     getMediaQueryList(mediaQueryOrVariableName),
   );

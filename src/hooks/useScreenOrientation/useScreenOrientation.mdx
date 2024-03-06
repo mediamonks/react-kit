@@ -1,0 +1,30 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Hooks / useScreenOrientation" />
+
+# useScreenOrientation
+
+`useScreenOrientation` is a custom React hook for handling screen orientation changes. It listens
+for window resizing events, determining the screen's current orientation (portrait or landscape).
+This hook is useful for building UIs that adapt based on device orientation, enhancing user
+experience across various devices.
+
+## Reference
+
+```ts
+function useScreenOrientation(): { isLandscape: boolean; isPortait: boolean };
+```
+
+### Returns
+
+- An object with 2 values: isLandscape and isPortrait, both booleans where the later is the opposite
+  of the first.
+
+## Usage
+
+```tsx
+function DemoComponent() {
+  const { isLandscape } = useScreenOrientation();
+  return <div>Orientation: {isLandscape ? 'Landscape' : 'Portrait'}</div>;
+}
+```

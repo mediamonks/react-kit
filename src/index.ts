@@ -22,6 +22,7 @@ export * from './hooks/useRefs/utils/unwrapRefs/unwrapRefs.js';
 export * from './hooks/useRefs/utils/unwrapRefs/unwrapRefs.types.js';
 export * from './hooks/useRefs/utils/validateAndUnwrapRefs/validateAndUnwrapRefs.js';
 export * from './hooks/useResizeObserver/useResizeObserver.js';
+export * from './hooks/useScreenOrientation/useScreenOrientation.js';
 export * from './hooks/useStaticValue/useStaticValue.js';
 export * from './hooks/useToggle/useToggle.js';
 export * from './lifecycle/components/CrossFlow/CrossFlow.js';
