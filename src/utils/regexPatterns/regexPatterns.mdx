@@ -1,0 +1,47 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Hooks / useMediaQuery" />
+
+# Regex Patterns
+
+Regular expressions (regex) are sequences of characters that form a search pattern. They can be used
+to check if a string contains the specified search pattern. This package contains commonly used
+patterns that can be used to check strings.
+
+## Usage
+
+### PascalCase
+
+PascalCase is a naming convention in which the first letter of each word is capitalized. It is often
+used in programming languages for class names and object constructors.
+
+```tsx
+pascalCaseRegex.test('MyComponent'); // Returns true
+pascalCaseRegex.test('MyComponent5'); // Returns true
+pascalCaseRegex.test('MyC0mp0nent'); // Returns true
+pascalCaseRegex.test('My00mponent'); // Returns true
+```
+
+### camelCase
+
+camelCase is another naming convention in which the first letter of each word is capitalized except
+for the first word. It is often used in programming languages for variable and function names.
+
+```ts
+camelCaseRegex.test('camelCaseString'); // Returns true
+camelCaseRegex.test('helloW0rld'); // Returns true
+camelCaseRegex.test('g00M0rning'); // Returns true
+camelCaseRegex.test('happyC0ding'); // Returns true
+```
+
+### kebab-case
+
+kebab-case is a naming convention in which words are separated by hyphens (-). It is often used in
+URL slugs and CSS class names.
+
+```ts
+kebabCaseRegex.test('my-component'); // Returns true
+kebabCaseRegex.test('my-component-5'); // Returns true
+kebabCaseRegex.test('my-c0mp0nent'); // Returns true
+kebabCaseRegex.test('c0ding1sfun'); // Returns true
+```
