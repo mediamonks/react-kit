@@ -76,6 +76,7 @@
     "@vitejs/plugin-react": "^4.0.0",
     "concurrently": "^8.2.2",
     "eslint": "^8.28.0",
+    "gsap": "npm:@gsap/business@3.12.2",
     "http-server": "^14.1.1",
     "husky": "^8.0.0",
     "jsdom": "^22.0.0",
@@ -97,8 +98,5 @@
   },
   "peerDependencies": {
     "react": ">= 17"
-  },
-  "optionalDependencies": {
-    "gsap": "npm:@gsap/business@3.12.2"
   }
 }
