@@ -12,9 +12,22 @@ Hook that returns true when the media query matches.
 function useMediaQuery(mediaQueryOrVariableName: string, defaultValue = false): boolean;
 ```
 
-## Usage
+## Using a media query string
 
-Define the media query in your CSS variables.
+Use the hook in your component using a media query string.
+
+```tsx
+function DemoComponent() {
+  const isMinWidth480px = useMediaQuery('(min-width: 480px)');
+
+  return <div>{isMinWidth480px ? 'large' : 'small'}</div>;
+}
+```
+
+## Using a CSS variable
+
+To use the hook in your component using the CSS variable, define the media query in your CSS
+variables.
 
 ```css
 :root {
@@ -22,13 +35,25 @@ Define the media query in your CSS variables.
 }
 ```
 
-Use the hook in your component using the CSS variable or a custom media query.
+Use the media query variable as the first argument.
 
 ```tsx
 function DemoComponent() {
-  const isMinWidth480pxUsingVar = useMediaQuery('--min-width-480');
-  const isMinWidth480pxUsingQuery = useMediaQuery('(min-width: 480px)');
+  const isMinWidth480px = useMediaQuery('--min-width-480');
 
-  return <div>{isMinWidth480pxUsingVar && isMinWidth480pxUsingQuery ? 'large' : 'small'}</div>;
+  return <div>{isMinWidth480px ? 'large' : 'small'}</div>;
+}
+```
+
+## Server-side rendering
+
+The hook returns the default value when the `matchMedia` API is not available (for example in
+server-side rendering). Set a default value if you get hydration mismatch errors.
+
+```tsx
+function DemoComponent() {
+  const isMinWidth480px = useMediaQuery('(min-width: 480px)', true);
+
+  return <div>{isMinWidth480px ? 'large' : 'small'}</div>;
 }
 ```

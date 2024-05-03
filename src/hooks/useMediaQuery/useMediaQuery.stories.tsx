@@ -19,8 +19,9 @@ const css = `
   }
 `;
 
-function DemoComponent(): ReactElement {
-  const isMinWidth420px = useMediaQuery('--min-width-420');
+type DemoComponentProps = { defaultValue?: boolean };
+function DemoComponent({ defaultValue }: DemoComponentProps): ReactElement {
+  const value = useMediaQuery('--min-width-420', defaultValue);
 
   return (
     <>
@@ -31,8 +32,18 @@ function DemoComponent(): ReactElement {
         <p className="mb-0">Resize the viewport to see the useMediaQuery hook in action.</p>
       </div>
 
+      <code
+        style={{
+          whiteSpace: 'pre',
+        }}
+      >{`:root {
+  --min-width-420: (min-width: 420px);
+}\n\n`}</code>
+
       <div>
-        {isMinWidth420px ? 'Viewport is wider than 420px' : 'Viewport is narrower than 420px'}
+        Default value: {String(defaultValue)}
+        <br />
+        Matches: <span data-testid="value">{String(value)}</span>
       </div>
     </>
   );
@@ -58,7 +69,7 @@ export const Mobile: Story = {
   },
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
-    canvas.getByText('Viewport is narrower than 420px');
+    expect(canvas.getByTestId('value').textContent).toBe('false');
   },
 };
 
@@ -83,7 +94,7 @@ export const Desktop: Story = {
   async play({ canvasElement }) {
     const canvas = within(canvasElement);
 
-    // Using findByText because initial state is different to support SSR
-    expect(await canvas.findByText('Viewport is wider than 420px')).toBeVisible();
+    // Using getByText because initial state is different to support SSR
+    expect(canvas.getByTestId('value').textContent).toBe('true');
   },
 };
