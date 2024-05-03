@@ -7,8 +7,13 @@ import { useResizeObserver } from '../useResizeObserver/useResizeObserver.js';
  * A hook that returns the content rectangle of the target element.
  * The content rectangle is updated whenever the target element is resized.
  */
-export function useContentRectState(target: Unreffable<Element | null>): DOMRectReadOnly | null {
-  const [contentRect, setContentRect] = useState<DOMRectReadOnly | null>(null);
+export function useContentRectState(
+  target: Unreffable<Element | null>,
+  serverSideRendering = false,
+): DOMRectReadOnly | null {
+  const [contentRect, setContentRect] = useState<DOMRectReadOnly | null>(
+    serverSideRendering ? null : unref(target)?.getBoundingClientRect() ?? null,
+  );
   const rafRef = useRef(0);
 
   const onResize = useCallback<ResizeObserverCallback>((entries) => {

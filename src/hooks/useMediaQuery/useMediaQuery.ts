@@ -49,16 +49,18 @@ export function getMediaQueryList(
  * Hook that returns a boolean indicating whether the media query matches.
  *
  * @param mediaQueryOrVariableName - The name of the CSS variable that describes the media query.
- * @param defaultValue - The default value to return if the matchMedia API is not available.
+ * @param defaultValue - The default value to return if the matchMedia API is not available (set a value to make this hook work in SSR mode).
  */
 export function useMediaQuery(
   mediaQueryOrVariableName: MediaQueryValues,
-  defaultValue = false,
-): boolean {
+  defaultValue?: boolean,
+): boolean | undefined {
   const [mediaQueryList, setMediaQueryList] = useState<MediaQueryList | undefined>(() =>
     getMediaQueryList(mediaQueryOrVariableName),
   );
-  const [matches, setMatches] = useState<boolean | undefined>(defaultValue);
+  const [matches, setMatches] = useState<boolean | undefined>(
+    defaultValue === undefined ? mediaQueryList?.matches : defaultValue,
+  );
 
   useEffect(() => {
     const newMediaQueryList = getMediaQueryList(mediaQueryOrVariableName);
