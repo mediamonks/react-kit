@@ -1,36 +1,38 @@
 import { Canvas, Meta } from '@storybook/blocks';
-import * as stories from './AutoFill.stories';
+import * as stories from './InfiniteAutoFill.stories';
 
-<Meta title="Components / AutoFill" />
+<Meta title="Components / InfiniteAutoFill" />
 
-# AutoFill
+# InfiniteAutoFill
 
-Repeats children to fill the parent element in given axis.
+Uses the AutoFill to repeat children to fill the parent element in given axis. In addition to that
+it adds the children one more time to the end of the list. This can be useful for example marquees
+or infinite carousels.
 
 ## Reference
 
 ```ts
-interface AutoFillProps {
+interface InfiniteAutoFillProps {
   children: ReadonlyArray<ReactNode>;
   axis?: 'x' | 'y'; // Default: 'x'
 }
 
-function AutoFill(props: AutoFillProps): ReactElement;
+function InfiniteAutoFill(props: InfiniteAutoFillProps): ReactElement;
 ```
 
-## AutoFill for X axis
+## InfiniteAutoFill for X axis
 
-Fills components horizontally.
+Fills components horizontally + one extra.
 
 ```tsx
 function DemoComponent() {
   return (
     <div style={{ width: 1000, display: 'grid', outline: '1px solid black' }}>
-      <AutoFill>
+      <InfiniteAutoFill>
         <div style={{ padding: 15 }}>
           <div style={{ width: 50, outline: '1px solid red' }}>Child</div>
         </div>
-      </AutoFill>
+      </InfiniteAutoFill>
     </div>
   );
 }
@@ -40,19 +42,19 @@ function DemoComponent() {
 
 <Canvas of={stories.Horizontal} />
 
-## AutoFill for Y axis
+## InfiniteAutoFill for Y axis
 
-Fills components vertically.
+Fills components vertically + one extra.
 
 ```tsx
 function DemoComponent() {
   return (
     <div style={{ height: 1000, outline: '1px solid black' }}>
-      <AutoFill axis="y">
+      <InfiniteAutoFill axis="y">
         <div style={{ padding: 15 }}>
           <div style={{ width: 50, outline: '1px solid red' }}>Child</div>
         </div>
-      </AutoFill>
+      </InfiniteAutoFill>
     </div>
   );
 }
