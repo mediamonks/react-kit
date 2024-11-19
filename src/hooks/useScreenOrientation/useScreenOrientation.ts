@@ -1,7 +1,7 @@
 import { useMediaQuery } from '../useMediaQuery/useMediaQuery.js';
 
 /**
- * This hook observes the orientation of the of the screen.
+ * This hook observes the orientation of the screen.
  *
  * @returns An object with 2 values: isLandscape and isPortrait, both booleans where the later is the opposite of the first.
  */
