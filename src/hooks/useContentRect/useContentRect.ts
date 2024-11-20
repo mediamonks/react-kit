@@ -9,8 +9,11 @@ import { useResizeObserver } from '../useResizeObserver/useResizeObserver.js';
  */
 export function useContentRect(
   target: Unreffable<Element | null>,
+  serverSideRendering = false,
 ): RefObject<DOMRectReadOnly | null> {
-  const contentRectRef = useRef<DOMRectReadOnly | null>(null);
+  const contentRectRef = useRef<DOMRectReadOnly | null>(
+    serverSideRendering ? null : unref(target)?.getBoundingClientRect() ?? null,
+  );
 
   const onResize = useCallback<ResizeObserverCallback>((entries): void => {
     contentRectRef.current = entries.at(0)?.contentRect ?? null;

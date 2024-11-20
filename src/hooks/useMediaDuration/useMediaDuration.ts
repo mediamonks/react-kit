@@ -6,7 +6,9 @@ import { type MutableRefObject, useCallback, useEffect, useState } from 'react';
 export function useMediaDuration(
   mediaElementRef: MutableRefObject<HTMLMediaElement | null>,
 ): number {
-  const [mediaDuration, setMediaDuration] = useState<number>(Number.NaN);
+  const [mediaDuration, setMediaDuration] = useState<number>(
+    mediaElementRef.current?.duration ?? Number.NaN,
+  );
 
   const updateDuration = useCallback(() => {
     setMediaDuration(mediaElementRef.current?.duration ?? Number.NaN);
