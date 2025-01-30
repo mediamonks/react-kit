@@ -28,6 +28,7 @@ jobs:
           npm config set //npm.greensock.com/:_authToken=$GSAP_TOKEN
           npm config set @gsap:registry=https://npm.greensock.com
           npm ci
+          npm install @playwright/test
           npx playwright@next install
           npx playwright@next install-deps
 
