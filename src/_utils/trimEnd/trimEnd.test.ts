@@ -20,6 +20,7 @@ describe('trimEnd', () => {
 
   it('should not end up in a loop when trimming undefined in empty array', async () => {
     const array: Array<unknown> = [];
+    // @ts-expect-error Error comes from odd types from vitest, pop is a valid function on arrays
     const arraySpy = vi.spyOn(array, 'pop');
 
     // Try to trimEnd of empty array
