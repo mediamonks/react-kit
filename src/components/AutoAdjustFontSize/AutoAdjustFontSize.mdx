@@ -2,12 +2,25 @@ import { Meta, Canvas, Story } from '@storybook/addon-docs/blocks';
 import { AutoAdjustFontSize } from './AutoAdjustFontSize';
 import * as stories from './AutoAdjustFontSize.stories';
 
-<Meta title="Components / AutoAdjustFontSize" component={AutoAdjustFontSize} />
+<Meta title="Components / AutoAdjustFontSize" />
 
 # AutoAdjustFontSize
 
 A component that automatically adjusts the font size of its children to fit within its parent
 container.
+
+## Reference
+
+```ts
+interface AutoAdjustFontSizeProps {
+  children: ReactNode;
+  minFontSize?: number;
+  maxFontSize?: number;
+  axis?: 'x' | 'y'; // Default: 'x'
+}
+
+function AutoAdjustFontSize(props: AutoAdjustFontSizeProps): ReactElement;
+```
 
 ## Props
 
@@ -41,10 +54,10 @@ Limit the font adjust to an axis:
 
 ## Demo
 
-<Canvas withToolbar>
-  <Story of={stories.HorizontalStatic} />
+<Canvas withToolbar of={stories.HorizontalStatic}>
+  <Story />
 </Canvas>
 
-<Canvas withToolbar>
-  <Story of={stories.VerticalStatic} />
+<Canvas withToolbar of={stories.VerticalStatic}>
+  <Story />
 </Canvas>
