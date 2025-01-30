@@ -5,6 +5,9 @@ import { useToggle } from './useToggle.js';
 
 const meta = {
   title: 'Hooks / useToggle',
+  args: {
+    initialValue: false,
+  },
 } satisfies Meta;
 
 export default meta;
