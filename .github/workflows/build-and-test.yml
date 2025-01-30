@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Check out source
         uses: actions/checkout@v4
@@ -31,7 +31,7 @@ jobs:
 
       - name: Install playwright
         run: |
-          npx playwright@next install --with-deps --no-shell
+          npx playwright install --with-deps --no-shell
 
       - name: Lint
         run: npm run lint
