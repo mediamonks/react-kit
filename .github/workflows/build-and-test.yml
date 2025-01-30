@@ -19,7 +19,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22.x'
+          node-version: lts/*
 
       - name: Install dependencies
         env:
@@ -28,9 +28,10 @@ jobs:
           npm config set //npm.greensock.com/:_authToken=$GSAP_TOKEN
           npm config set @gsap:registry=https://npm.greensock.com
           npm ci
-          npm install @playwright/test
-          npx playwright@next install
-          npx playwright@next install-deps
+
+      - name: Install playwright
+        run: |
+          npx playwright install --with-deps
 
       - name: Lint
         run: npm run lint
