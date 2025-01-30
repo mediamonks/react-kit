@@ -31,7 +31,7 @@ jobs:
 
       - name: Install playwright
         run: |
-          npx playwright install --with-deps
+          npx playwright install@next --with-deps
 
       - name: Lint
         run: npm run lint
