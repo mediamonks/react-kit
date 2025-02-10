@@ -1,9 +1,9 @@
 import { act, renderHook } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { useRefs } from './useRefs.js';
-import type { MutableRefs } from './useRefs.types.js';
+import type { Refs } from './useRefs.types.js';
 
-type TestRefs = MutableRefs<{
+type TestRefs = Refs<{
   number1: number;
   number2: number;
   array: Array<number | null>;

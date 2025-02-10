@@ -1,13 +1,14 @@
 import gsap from 'gsap';
 import SplitText from 'gsap/SplitText';
 import {
-  type ComponentProps,
-  type ComponentType,
-  type ReactElement,
-  type RefAttributes,
+  type ComponentPropsWithoutRef,
+  type JSX,
+  type JSXElementConstructor,
+  type ReactNode,
+  type RefObject,
 } from 'react';
 import { renderToString } from 'react-dom/server';
-import { ensuredForwardRef } from '../../../hocs/ensuredForwardRef/ensuredForwardRef.js';
+import { useObjectRef } from '../../../hooks/useObjectRef/useObjectRef.js';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(SplitText);
@@ -16,9 +17,14 @@ if (typeof window !== 'undefined') {
 /**
  * Allowed as prop values
  */
-type KnownTarget = Exclude<keyof JSX.IntrinsicElements, symbol | object>;
+type KnownTarget =
+  | keyof JSX.IntrinsicElements
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  | JSXElementConstructor<any>;
 
 type SplitTextWrapperProps<T extends KnownTarget> = {
+  ref: RefObject<SplitText>;
+
   /**
    * The SplitText variables
    * @link https://greensock.com/docs/v3/Plugins/SplitText
@@ -33,56 +39,53 @@ type SplitTextWrapperProps<T extends KnownTarget> = {
    * Split the first element child of the element passed
    */
   splitFirstElementChild?: boolean;
-};
+} & ComponentPropsWithoutRef<T>;
 
-/**
- * Polymorphic component type, necessary to get all the attributes/props for the
- * as prop component
- */
-type SplitTextWrapperComponent = <T extends KnownTarget = 'div'>(
-  props: SplitTextWrapperProps<T> &
-    Omit<ComponentProps<T>, keyof SplitTextWrapperProps<T> | 'ref'> &
-    RefAttributes<SplitText | null>,
-) => ReactElement;
+export function SplitTextWrapper<T extends KnownTarget>({
+  variables = {},
+  as,
+  children,
+  splitFirstElementChild = false,
+  ref,
+  ...props
+}: SplitTextWrapperProps<T>): ReactNode {
+  const objectRef = useObjectRef(ref);
 
-// @ts-expect-error polymorphic type is not compatible with ensuredForwardRef function factory
-export const SplitTextWrapper: SplitTextWrapperComponent = ensuredForwardRef(
-  ({ variables = {}, as, children, splitFirstElementChild = false, ...props }, ref) => {
-    /**
-     * Not using useCallback on purpose so that a new SplitText instance is
-     * created whenever this component rerenders the children
-     */
-    const onRef = async (element: HTMLDivElement): Promise<void> => {
-      if (ref.current && 'isSplit' in ref.current && ref.current.isSplit) {
-        return;
-      }
+  /**
+   * Not using useCallback on purpose so that a new SplitText instance is
+   * created whenever this component rerenders the children
+   */
+  const onRef = (element: HTMLDivElement): void => {
+    if (objectRef.current && 'isSplit' in objectRef.current && objectRef.current.isSplit) {
+      return;
+    }
 
-      if (splitFirstElementChild && element.childElementCount > 1) {
-        // eslint-disable-next-line no-console
-        console.warn(
-          "Split text wrapper should only contain 1 element when 'splitFirstElementChild' is set to true",
-        );
-      }
-      ref.current = new SplitText(
-        splitFirstElementChild ? element.firstElementChild : element,
-        variables,
+    if (splitFirstElementChild && element.childElementCount > 1) {
+      // eslint-disable-next-line no-console
+      console.warn(
+        "Split text wrapper should only contain 1 element when 'splitFirstElementChild' is set to true",
       );
-    };
+    }
 
-    const Component = (as ?? 'div') as unknown as ComponentType<unknown>;
-
-    return (
-      <Component
-        {...props}
-        dangerouslySetInnerHTML={
-          props.dangerouslySetInnerHTML ?? {
-            // eslint-disable-next-line @typescript-eslint/naming-convention, react/jsx-no-useless-fragment
-            __html: renderToString(<>{children}</>),
-          }
-        }
-        // eslint-disable-next-line react/jsx-no-bind
-        ref={onRef}
-      />
+    objectRef.current = new SplitText(
+      splitFirstElementChild ? element.firstElementChild : element,
+      variables,
     );
-  },
-);
+  };
+
+  const Component = as ?? 'div';
+
+  return (
+    <Component
+      {...props}
+      dangerouslySetInnerHTML={
+        props.dangerouslySetInnerHTML ?? {
+          // eslint-disable-next-line @typescript-eslint/naming-convention, react/jsx-no-useless-fragment
+          __html: renderToString(<>{children}</>),
+        }
+      }
+      // eslint-disable-next-line react/jsx-no-bind
+      ref={onRef}
+    />
+  );
+}

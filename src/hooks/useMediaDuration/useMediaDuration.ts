@@ -1,11 +1,9 @@
-import { type MutableRefObject, useCallback, useEffect, useState } from 'react';
+import { type RefObject, useCallback, useEffect, useState } from 'react';
 
 /**
  * Retrieves the duration of the audio / video file in seconds.
  */
-export function useMediaDuration(
-  mediaElementRef: MutableRefObject<HTMLMediaElement | null>,
-): number {
+export function useMediaDuration(mediaElementRef: RefObject<HTMLMediaElement | null>): number {
   const [mediaDuration, setMediaDuration] = useState<number>(Number.NaN);
 
   const updateDuration = useCallback(() => {

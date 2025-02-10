@@ -1,6 +1,6 @@
 import gsap from 'gsap';
 import Flip from 'gsap/Flip';
-import { useEffect, useRef, type MutableRefObject } from 'react';
+import { type RefObject, useEffect, useRef } from 'react';
 import { unref, type Unreffable } from '../../../utils/unref/unref.js';
 
 if (typeof window !== 'undefined') {
@@ -10,8 +10,11 @@ if (typeof window !== 'undefined') {
 export function useFlip(
   ref: Unreffable<HTMLElement | null>,
   flipStateVariables: Flip.FromToVars = {},
-): MutableRefObject<Flip.FlipState | undefined> {
-  const flipStateRef = useRef<Flip.FlipState>();
+): RefObject<Flip.FlipState | undefined> {
+  const flipStateRef = useRef<Flip.FlipState>(
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    undefined,
+  );
 
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   if (globalThis.window !== undefined) {

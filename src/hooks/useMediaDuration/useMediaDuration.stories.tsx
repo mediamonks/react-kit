@@ -2,7 +2,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import type { ReactElement } from 'react';
 import { useRefs } from '../useRefs/useRefs.js';
-import type { MutableRefs } from '../useRefs/useRefs.types.js';
+import type { Refs } from '../useRefs/useRefs.types.js';
 import { useMediaDuration } from './useMediaDuration.js';
 
 const meta = {
@@ -13,7 +13,7 @@ export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export type DemoComponentRefs = MutableRefs<{
+export type DemoComponentRefs = Refs<{
   video: HTMLVideoElement;
   audio: HTMLAudioElement;
 }>;

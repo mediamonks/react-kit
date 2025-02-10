@@ -11,6 +11,7 @@ export type Refs<T extends UnknownRecord = UnknownRecord> = {
 
 /**
  * Type utility to create an object type where all values are MutableRefObjects
+ * @deprecated use `Refs` instead
  */
 export type MutableRefs<T extends UnknownRecord = UnknownRecord> = {
   [P in keyof T]: MutableRefObject<T[P] | null>;

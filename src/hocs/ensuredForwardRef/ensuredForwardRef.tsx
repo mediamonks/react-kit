@@ -9,6 +9,9 @@ import {
   type RefAttributes,
 } from 'react';
 
+/**
+ * @deprecated use `useObjectRef` instead
+ */
 export interface EnsuredForwardRefRenderFunction<T, P = Record<string | number | symbol, unknown>> {
   (props: P, ref: MutableRefObject<T | null>): ReactElement | null;
   displayName?: string | undefined;
@@ -22,6 +25,9 @@ export interface EnsuredForwardRefRenderFunction<T, P = Record<string | number |
   propTypes?: never;
 }
 
+/**
+ * @deprecated use `useObjectRef` instead
+ */
 export function ensuredForwardRef<T, P = Record<string | number | symbol, unknown>>(
   // eslint-disable-next-line @typescript-eslint/naming-convention
   Component: EnsuredForwardRefRenderFunction<T, P>,
@@ -54,6 +60,7 @@ export function ensuredForwardRef<T, P = Record<string | number | symbol, unknow
       });
     }, [ref]);
 
+    // @ts-expect-error - deprecated in React 19
     return Component(props, refObject);
   });
 }

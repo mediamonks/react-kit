@@ -1,0 +1,67 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Hooks/useObjectRef" />
+
+# useObjectRef
+
+A React hook that creates a memoized object reference which can handle both RefObject and function
+refs. This hook provides a unified way to work with different types of React refs.
+
+## Reference
+
+```ts
+function useObjectRef<T>(ref?: Ref<T>): RefObject<T | null>;
+```
+
+### Parameters
+
+- `ref` (optional): A React ref that can be either a RefObject or a function ref callback
+
+### Returns
+
+- `RefObject<T | null>`: A memoized RefObject that can be used to access the current value
+
+## Usage
+
+### With RefObject
+
+```tsx
+function MyComponent() {
+  const elementRef = useRef<HTMLDivElement>(null);
+  const objRef = useObjectRef(elementRef);
+
+  return <div ref={objRef}>{/* Now you can use objRef.current to access the element */}</div>;
+}
+```
+
+### With Function Ref
+
+```tsx
+function MyComponent() {
+  const objRef = useObjectRef((element: HTMLDivElement | null) => {
+    if (element) {
+      console.log('Element mounted:', element);
+    }
+  });
+
+  return <div ref={objRef} />;
+}
+```
+
+### In a Reusable Component
+
+```tsx
+type MyComponentProps = ComponentPropsWithRef<'div'>;
+
+function MyComponent({ ref, ...props }: MyComponentProps) {
+  const objectRef = useObjectRef(ref);
+
+  return <div {...props} ref={objectRef} />;
+}
+```
+
+## Features
+
+- Handles both RefObject and function refs
+- Maintains reference stability across re-renders
+- Type-safe with TypeScript
