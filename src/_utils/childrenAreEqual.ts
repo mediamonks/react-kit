@@ -1,8 +1,8 @@
-import { type ReactElement, type ReactFragment } from 'react';
+import { type ReactElement } from 'react';
 
 export function childrenAreEqual(
-  previousChildren: ReactElement | ReactFragment | null,
-  nextChildren: ReactElement | ReactFragment | null,
+  previousChildren: ReactElement | null,
+  nextChildren: ReactElement | null,
 ): boolean {
   if (previousChildren === nextChildren) {
     return true;

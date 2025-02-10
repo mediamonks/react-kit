@@ -10,7 +10,10 @@ import { useRefValue } from '../useRefValue/useRefValue.js';
  */
 export function useInterval(callback: () => void, ms?: number, enabled = true): void {
   const callbackRef = useRefValue(callback);
-  const intervalRef = useRef<NodeJS.Timer>();
+  const intervalRef = useRef<NodeJS.Timer>(
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    undefined,
+  );
 
   useEffect(() => {
     if (!enabled) {

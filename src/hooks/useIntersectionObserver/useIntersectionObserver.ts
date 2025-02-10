@@ -22,10 +22,9 @@ export function useIntersectionObserver(
   const callbackRef = useRefValue(callback);
   const intersectionObserverInstance = useClientSideValue(
     () =>
-      new IntersectionObserver(
-        (entries, observer) => callbackRef.current?.(entries, observer),
-        options,
-      ),
+      new IntersectionObserver((entries, observer) => {
+        callbackRef.current?.(entries, observer);
+      }, options),
   );
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { StorybookConfig } from '@storybook/types';
+import type { StorybookConfig } from '@storybook/types';
 
 export default {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(ts|tsx)'],

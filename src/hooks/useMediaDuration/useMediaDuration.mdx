@@ -10,7 +10,7 @@ import { Meta } from '@storybook/blocks';
 
 ```ts
 export function useMediaDuration(
-  mediaElementRef: MutableRefObject<Pick<
+  mediaElementRef: RefObject<Pick<
     HTMLAudioElement,
     'addEventListener' | 'removeEventListener' | 'duration'
   > | null>,
@@ -28,7 +28,7 @@ export function useMediaDuration(
 ## Usage
 
 ```tsx
-export type DemoComponentRefs = MutableRefs<{
+export type DemoComponentRefs = Refs<{
   video: HTMLVideoElement;
 }>;
 

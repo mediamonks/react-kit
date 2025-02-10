@@ -9,7 +9,7 @@ Utility to set value for index in array in given RefObject.
 ## Reference
 
 ```ts
-export function arrayRef<T extends MutableRefObject<Array<unknown> | null>>(
+export function arrayRef<T extends RefObject<Array<unknown> | null>>(
   ref: T,
   index: number,
 ): (element: NonNullable<T['current']>[number]) => void;

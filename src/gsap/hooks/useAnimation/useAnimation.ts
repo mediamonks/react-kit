@@ -8,7 +8,10 @@ export function useAnimation<T extends gsap.core.Animation | undefined>(
   callback: () => T,
   dependencies: ReadonlyArray<unknown>,
 ): RefObject<T | undefined> {
-  const animation = useRef<T>();
+  const animation = useRef<T>(
+    // eslint-disable-next-line unicorn/no-useless-undefined
+    undefined,
+  );
 
   // eslint-disable-next-line react-hooks/exhaustive-deps, no-underscore-dangle
   const _callback = useCallback(callback, dependencies);
