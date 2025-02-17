@@ -4,7 +4,7 @@ import { unref, type Unreffable } from '../../utils/unref/unref.js';
 import { useRefValue } from '../useRefValue/useRefValue.js';
 
 export function useEventListener<T extends EventTarget | null>(
-  targetOption: Unreffable<T>,
+  targetOption: Unreffable<T> | undefined,
   type: string,
   listener: EventListener,
   options?: boolean | AddEventListenerOptions,
