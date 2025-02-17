@@ -10,6 +10,7 @@ export * from './hooks/useForceRerender/useForceRerender.js';
 export * from './hooks/useHasFocus/useHasFocus.js';
 export * from './hooks/useIntersectionObserver/useIntersectionObserver.js';
 export * from './hooks/useInterval/useInterval.js';
+export * from './hooks/useKeyboardShortcut/index.js';
 export * from './hooks/useMediaDuration/useMediaDuration.js';
 export * from './hooks/useMediaQuery/useMediaQuery.js';
 export * from './hooks/useMutationObserver/useMutationObserver.js';

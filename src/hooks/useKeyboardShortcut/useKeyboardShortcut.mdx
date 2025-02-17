@@ -1,0 +1,304 @@
+import { Meta, Stories } from '@storybook/blocks';
+import * as KeyboardShortcutStories from './useKeyboardShortcut.stories';
+
+<Meta of={KeyboardShortcutStories} title="Hooks / useKeyboardShortcut" />
+
+# useKeyboardShortcut
+
+Use this hook to add keyboard shortcuts to your application. Supports single keys, modifiers and
+sequences.
+
+The default configuration works out of the box with inputs and is cross-platform.
+
+```ts
+useKeyboardShortcut('ctrl+a', () => {
+  console.log('shortcut pressed');
+});
+```
+
+## Reference
+
+```ts
+type UseKeyboardShortcutOptions<T extends EventTarget = EventTarget> = {
+  ref?: RefObject<T | null> | T | HTMLElement | null | undefined;
+  ignoreWhenInputFocussed?: 'auto' | true | false;
+  command?: Shortcut;
+  convertPlatforms?: boolean;
+  windowsCommand?: Shortcut;
+  macOsCommand?: Shortcut;
+  eventType?: 'keyup' | 'keydown';
+  shouldStopPropagation?: boolean;
+  shouldPreventDefault?: boolean;
+};
+
+function useKeyboardShortcut<T extends EventTarget>(
+  keyOrOptions: SimpleShortcut | UseKeyboardShortcutOptions<T>,
+  callback: (keyboardEvent: KeyboardEvent) => void,
+): void;
+```
+
+### Parameters
+
+`keyOrOptions` - Either a simple key or a combination of keys (as a `string`), or an options object.
+
+When it's a string, the following types of shortcuts are supported: `a`, `ctrl+a`, `ctrl+shift+a`,
+etc.
+
+The options object supports the following properties:
+
+- `ref` = `document.body` - The `useRef` of the element to listen to. If not specified, the document
+  body will be used.<br />Useful to contain shortcuts to specific input elements or components.
+
+- `ignoreWhenInputFocussed` = `"auto"` - Whether to ignore the shortcut when the input is focused.
+  Defaults to "auto".
+
+  - `auto` - If the shortcut contains the `ctrl` or `cmd` modifier, it will be set to `false`.
+    Otherwise, it will be set to `true`.
+  - `true` - Always ignore when an input (`input`, `textarea`, `select`) has the focus.
+  - `false` - Never ignore, shortcut can always trigger.
+
+- `command` - The shortcut command, which key(s) to press.<br /> Is used as a default when no
+  specific `windowsCommand` or `macOsCommand` is provided.<br /> Can be defined in many formats as
+  **can be seen below**.
+
+- `convertPlatforms` = `true` - Whether to convert the modifier keys to match the current platform.
+  Defaults to true. There is no reason to ever set this to false, instead just provide an explicit
+  `windowsCommand`.
+
+  - `true` - If macOS shortcuts with the `cmd`/`meta` modifier are used, they will be converted to
+    `ctrl` when on the Windows platform. Conversions the other way are not done. For easiest
+    configuration, always specific macOS commands.
+  - `false` - No automatic conversion is happening. When configuring macOS shortcuts, use the
+    `windowsCommand` to manually set the alternative command.
+
+- `windowsCommand` - The windows-specific shortcut command, which key(s) to press. If not defined,
+  will use the `command` parameter instead.
+
+- `macOsCommand` - The macOS-specific shortcut command, which key(s) to press. If not defined, will
+  use the `command` parameter instead.
+
+- `eventType` = `"keydown"` - The event type to listen to. Defaults to "keydown". <br />`"keyup"`
+  can work for single keys, but is less user friendly when modifiers are involved.
+
+- `shouldStopPropagation` = `false` - Whether to stop propagation of the event. Defaults to
+  false.<br /> When set to `true`, `event.stopPropagation()` will be called when the shortcut is
+  pressed.
+
+- `shouldPreventDefault` = `false` - Whether to prevent default of the event. Defaults to
+  false.<br /> When set to `true`, `event.preventDefault()` will be called when the shortcut is
+  pressed.
+
+`callback` - The callback function that will be called when the shortcut (sequence) is pressed. The
+`KeyboardEvent` is passed to the callback, so you can propagation or default prevention based on
+conditional logic.
+
+### Types
+
+#### `Shortcut`
+
+A union type for different ways to define a shortcut.
+
+- `SimpleShortcut` - A shortcut can be a string or array of strings in multiple formats (see below).
+- `Command` – A single shortcut command (see below).
+- `Array<Command>` – A sequence of shortcut commands, the commands have to be pressed in order
+  within a short time.
+
+```ts
+export type Shortcut = SimpleShortcut | Command | Array<Command>;
+```
+
+#### `SimpleShortcut`
+
+Instead of defining shortcuts as objects with KeyCodes and Modifier fields, the `SimpleShortcut`
+type allows you to provide most shortcuts as typed strings, with simpler key and modifier values.
+
+These string based shortcuts are not official `KeyCode` names, but are mapped to them. <br /> These
+strings are fully typed, including up to two modifier keys (e.g. `cmd+shift+b`).
+
+If you want more modifier keys at the same time, use the `Command` format instead.<br /> Both `cmd`
+and `meta` can be used for "Command" key on macOS.
+
+Examples:
+
+- a single key, e.g. `'a'`
+- a shortcut, e.g. `'ctrl+b'` or `['ctrl', 'b']`
+- a sequence of keys, e.g. `['g', 'i']`
+- a sequence of shortcuts, e.g. `['cmd+k', 'cmd+s']` or `[['cmd', 'k'], ['cmd', 's']]`
+
+```ts
+export type SimpleShortcut = SimpleCommand | Array<SimpleCommand>;
+
+export type SimpleCommand = SimpleKey | [...Array<Modifiers>, SimpleKey] | CombinedCommand;
+
+export type CombinedCommand =
+  | `${Modifiers}+${SimpleKey}`
+  | `ctrl+${Exclude<Modifiers, 'ctrl'>}+${SimpleKey}`
+  | `cmd+${Exclude<Modifiers, 'cmd'>}+${SimpleKey}`
+  | `shift+${Exclude<Modifiers, 'shift'>}+${SimpleKey}`;
+```
+
+#### `Command`
+
+The most expressive shortcut format, allowing you to specify all modifier keys at the same time, but
+more verbose.
+
+All string-based formats are internally converted to this format.
+
+- `key` – A `KeyCode` name (e.g. `KeyA` or `Enter`). See
+  [MDN KeyboardEvent.code](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code).
+- `ctrlKey`, `shiftKey`, `altKey`, `metaKey` – Boolean values specifying whether the corresponding
+  modifier keys should be pressed.
+
+```ts
+export type Command = {
+  code: KeyCode;
+  ctrlKey?: boolean;
+  shiftKey?: boolean;
+  altKey?: boolean;
+  metaKey?: boolean;
+};
+```
+
+## Usage
+
+### Basic usage
+
+This is the simplest use case; globally listen to a single keypress, and invoke a callback.
+
+```tsx
+function DemoComponent() {
+  useKeyboardShortcut('a', () => {
+    console.log('a pressed');
+  });
+
+  return <div></div>;
+}
+```
+
+### Shortcut Formats
+
+```tsx
+function DemoComponent() {
+  // string formats
+  useKeyboardShortcut('a', () => {});
+  useKeyboardShortcut('ctrl+a', () => {});
+  useKeyboardShortcut(['ctrl'], ['a'], () => {});
+  useKeyboardShortcut(['cmd+k', 'cmd+s'], () => {});
+  useKeyboardShortcut(
+    [
+      ['cmd', 'k'],
+      ['cmd', 's'],
+    ],
+    () => {},
+  );
+
+  // When using options, the shortcut can be defined in both formats
+  useKeyboardShortcut({ command: 'a' }, () => {});
+  useKeyboardShortcut({ command: 'ctrl+a' }, () => {});
+
+  //  with 3+ modifiers, have to the Command object
+  useKeyboardShortcut(
+    {
+      command: {
+        code: 'KeyA',
+        ctrlKey: true,
+        shiftKey: true,
+        altKey: true,
+        metaKey: true,
+      },
+    },
+    () => {},
+  );
+
+  // You can also do this, but there is no reason to
+  useKeyboardShortcut({ command: [{ code: 'KeyG' }, { code: 'KeyI' }] }, () => {});
+  useKeyboardShortcut(
+    {
+      command: [
+        { code: 'KeyK', metaKey: true },
+        { code: 'KeyS', metaKey: true },
+      ],
+    },
+    () => {},
+  );
+
+  return <div></div>;
+}
+```
+
+### Platforms
+
+This is the simplest use case; globally listen to a single keypress, and invoke a callback.
+
+```tsx
+function DemoComponent() {
+  // Is cmd+k on macOs
+  // Is ctrl+k on windows
+  useKeyboardShortcut('cmd+k', () => {
+    console.log('key pressed');
+  });
+
+  // Is cmd+k on macOs
+  // Is ctrl+alt+k on windows
+  useKeyboardShortcut(
+    {
+      macOsCommand: 'cmd+k',
+      windowsCommand: 'ctrl+alt+k',
+    },
+    () => {
+      console.log('key pressed');
+    },
+  );
+
+  return <div></div>;
+}
+```
+
+### Inputs
+
+```tsx
+export const DemoComponent() {
+  // will NOT fire when the input has focus
+  useKeyboardShortcut('a', () => {
+    console.log('key pressed');
+  });
+  // WILL fire when the input has focus
+  useKeyboardShortcut('cmd+a', () => {
+    console.log('key pressed');
+  });
+
+  // WILL fire when the input has focus
+  // probably not what you want
+  useKeyboardShortcut(
+    {
+      command: 'a',
+      ignoreWhenInputFocussed: false,
+    },
+    () => {
+      console.log('key pressed');
+    },
+  );
+
+  // will NOT fire when input has focus
+  // but there is likely no reason to prevent this
+  useKeyboardShortcut(
+    {
+      command: 'cmd+k',
+      ignoreWhenInputFocussed: true,
+    },
+    () => {
+      console.log('key pressed');
+    },
+  );
+
+  return (
+    <div>
+      <input type="text" placeholder="Type here..." />
+    </div>
+  );
+};
+```
+
+## Examples
+
+<Stories />

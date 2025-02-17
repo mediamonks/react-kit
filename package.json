@@ -88,7 +88,7 @@
     "shx": "^0.3.4",
     "storybook": "^8.5.2",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.2",
+    "typescript": "^5.7.3",
     "vitest": "^3.0.5",
     "wait-on": "^7.1.0"
   },
