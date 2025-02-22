@@ -102,4 +102,18 @@ describe('isShortcutDown', () => {
 
     expect(isShortcutDown(event, command)).toBe(true);
   });
+
+  it('should handle single modifier keys on either side', () => {
+    const event = new KeyboardEvent('keydown', {
+      code: 'ControlRight',
+      ctrlKey: true,
+    });
+
+    const command: Command = {
+      code: 'ControlLeft',
+      ctrlKey: true,
+    };
+
+    expect(isShortcutDown(event, command)).toBe(true);
+  });
 });

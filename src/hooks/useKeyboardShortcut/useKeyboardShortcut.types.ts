@@ -1,6 +1,6 @@
-import type { CharacterKey, KeyCode, modifierKeys } from './keyCodes.js';
+import type { CharacterKey, KeyCode } from './keyCodes.js';
 
-export type Key = Exclude<KeyCode, keyof typeof modifierKeys>;
+export type Key = KeyCode;
 
 type Letters =
   | 'a'
@@ -55,18 +55,22 @@ export type SimpleKey =
   | EditingKeys
   | UiKeys
   | CharacterKey;
-export type Modifiers = 'ctrl' | 'shift' | 'alt' | 'meta' | 'cmd';
+export type Modifier = 'ctrl' | 'shift' | 'alt' | 'meta' | 'cmd';
 
 // only create types for single and double modifiers
 // if you want three or 4, use the array type instead, or use a cast (runtime it will work)
 export type CombinedCommand =
-  | `${Modifiers}+${SimpleKey}`
-  | `ctrl+${Exclude<Modifiers, 'ctrl'>}+${SimpleKey}`
-  | `cmd+${Exclude<Modifiers, 'cmd'>}+${SimpleKey}`
-  | `shift+${Exclude<Modifiers, 'shift'>}+${SimpleKey}`;
+  | `${Modifier}+${SimpleKey}`
+  | `ctrl+${Exclude<Modifier, 'ctrl'>}+${SimpleKey}`
+  | `cmd+${Exclude<Modifier, 'cmd'>}+${SimpleKey}`
+  | `shift+${Exclude<Modifier, 'shift'>}+${SimpleKey}`;
 
 // 'a', ['ctrl', 'a'], 'ctrl+a'
-export type SimpleCommand = SimpleKey | [...Array<Modifiers>, SimpleKey] | CombinedCommand;
+export type SimpleCommand =
+  | SimpleKey
+  | Modifier
+  | [...Array<Modifier>, SimpleKey]
+  | CombinedCommand;
 
 export type Command = {
   code: Key;
@@ -84,7 +88,10 @@ export type Command = {
 // - a sequence of keys, e.g. ['a', 'b', 'c']
 // - a sequence of shortcuts, e.g. [['ctrl', 'b'], ['ctrl', 'c']]
 // - a sequence of shortcuts, e.g. [['ctrl+b'], ['ctrl+c']]
-export type SimpleShortcut = SimpleCommand | Array<SimpleCommand>;
+export type SimpleShortcut =
+  | SimpleCommand
+  | Array<SimpleCommand>
+  | Array<Array<SimpleKey | Modifier>>;
 
 export type Shortcut = Command | Array<Command> | SimpleShortcut;
 

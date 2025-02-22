@@ -69,7 +69,7 @@ describe('useKeyboardShortcut', () => {
     expect(callback).not.toHaveBeenCalled();
   });
 
-  it('should ignore shortcuts in input elements when ignoreWhenInputFocussed is true', () => {
+  it('should ignore shortcuts in input elements when ignoreWhenInputFocused is true', () => {
     const input = document.createElement('input');
     mockRef.current.append(input);
 
@@ -78,7 +78,7 @@ describe('useKeyboardShortcut', () => {
         {
           ref: mockRef,
           command: 'a',
-          ignoreWhenInputFocussed: true,
+          ignoreWhenInputFocused: true,
         },
         callback,
       );
@@ -91,7 +91,7 @@ describe('useKeyboardShortcut', () => {
     expect(callback).not.toHaveBeenCalled();
   });
 
-  it('should handle shortcuts in input elements when ignoreWhenInputFocussed is false', () => {
+  it('should handle shortcuts in input elements when ignoreWhenInputFocused is false', () => {
     const input = document.createElement('input');
     mockRef.current.append(input);
 
@@ -100,7 +100,7 @@ describe('useKeyboardShortcut', () => {
         {
           ref: mockRef,
           command: 'a',
-          ignoreWhenInputFocussed: false,
+          ignoreWhenInputFocused: false,
         },
         callback,
       );
@@ -278,6 +278,17 @@ describe('useKeyboardShortcut', () => {
 
       document.body.dispatchEvent(createKeyboardEvent('KeyK', { metaKey: true }));
       document.body.dispatchEvent(createKeyboardEvent('KeyS', { metaKey: true }));
+
+      expect(callback).toHaveBeenCalledOnce();
+    });
+
+    it(`should support ['cmd', 'shift']`, () => {
+      renderHook(() => {
+        useKeyboardShortcut(['cmd', 'shift'], callback);
+      });
+
+      document.body.dispatchEvent(createKeyboardEvent('MetaLeft', { metaKey: true }));
+      document.body.dispatchEvent(createKeyboardEvent('ShiftLeft', { shiftKey: true }));
 
       expect(callback).toHaveBeenCalledOnce();
     });

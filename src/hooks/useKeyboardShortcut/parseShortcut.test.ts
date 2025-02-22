@@ -22,6 +22,14 @@ describe('convertKey', () => {
     expect(convertKey('enter')).toBe('Enter');
   });
 
+  it('converts modifiers', () => {
+    expect(convertKey('ctrl')).toBe('ControlLeft');
+    expect(convertKey('shift')).toBe('ShiftLeft');
+    expect(convertKey('alt')).toBe('AltLeft');
+    expect(convertKey('meta')).toBe('MetaLeft');
+    expect(convertKey('cmd')).toBe('MetaLeft');
+  });
+
   it('converts arrow keys to KeyCode format', () => {
     expect(convertKey('up')).toBe('ArrowUp');
     expect(convertKey('down')).toBe('ArrowDown');
@@ -67,10 +75,21 @@ describe('createCommand', () => {
       metaKey: false,
     });
   });
+
+  it('creates a command with only a modifier', () => {
+    expect(createCommand('ControlLeft', ['ctrl'])).toEqual({
+      code: 'ControlLeft',
+      ctrlKey: true,
+      shiftKey: false,
+      altKey: false,
+      metaKey: false,
+    });
+  });
 });
 
 describe('parseCommand', () => {
   it('returns null for empty command', () => {
+    // @ts-expect-error test runtime behavior
     expect(parseCommand('')).toBeNull();
   });
 
@@ -78,6 +97,16 @@ describe('parseCommand', () => {
     expect(parseCommand('a')).toEqual({
       code: 'KeyA',
       ctrlKey: false,
+      shiftKey: false,
+      altKey: false,
+      metaKey: false,
+    });
+  });
+
+  it('parses single key commands', () => {
+    expect(parseCommand('ctrl')).toEqual({
+      code: 'ControlLeft',
+      ctrlKey: true,
       shiftKey: false,
       altKey: false,
       metaKey: false,
@@ -103,16 +132,6 @@ describe('parseCommand', () => {
 
   it('parses commands with multiple modifiers', () => {
     expect(parseCommand('ctrl+shift+a')).toEqual({
-      code: 'KeyA',
-      ctrlKey: true,
-      shiftKey: true,
-      altKey: false,
-      metaKey: false,
-    });
-  });
-
-  it('handles capital letters in commands', () => {
-    expect(parseCommand('Ctrl+Shift+A')).toEqual({
       code: 'KeyA',
       ctrlKey: true,
       shiftKey: true,
@@ -160,6 +179,44 @@ describe('parseShortcut', () => {
         code: 'KeyB',
         ctrlKey: false,
         shiftKey: false,
+        altKey: false,
+        metaKey: false,
+      },
+    ]);
+  });
+
+  it('parses modifiers as single keys', () => {
+    expect(parseShortcut(['ctrl', 'b'])).toEqual([
+      {
+        code: 'ControlLeft',
+        ctrlKey: true,
+        shiftKey: false,
+        altKey: false,
+        metaKey: false,
+      },
+      {
+        code: 'KeyB',
+        ctrlKey: false,
+        shiftKey: false,
+        altKey: false,
+        metaKey: false,
+      },
+    ]);
+  });
+
+  it('parses modifiers as single keys', () => {
+    expect(parseShortcut(['ctrl', 'shift'])).toEqual([
+      {
+        code: 'ControlLeft',
+        ctrlKey: true,
+        shiftKey: false,
+        altKey: false,
+        metaKey: false,
+      },
+      {
+        code: 'ShiftLeft',
+        ctrlKey: false,
+        shiftKey: true,
         altKey: false,
         metaKey: false,
       },

@@ -171,7 +171,7 @@ export const SingleKeyNoIgnore: Story = {
     useKeyboardShortcut(
       {
         command: 'w',
-        ignoreWhenInputFocussed: false,
+        ignoreWhenInputFocused: false,
       },
       () => {
         setLastPressed('W key pressed! (works even when input is focused)');
@@ -207,6 +207,30 @@ export const Sequence: Story = {
       <div>
         <h3>Sequence Shortcut</h3>
         <p>Press Alt+N followed by Alt+M within 1 second</p>
+        <div>Last action: {lastPressed}</div>
+      </div>
+    );
+  },
+};
+
+export const Modifiers: Story = {
+  render: () => {
+    const [lastPressed, setLastPressed] = useDebugMessage();
+
+    useKeyboardShortcut(
+      {
+        command: ['shift', 'ctrl', 'alt', 'cmd'],
+      },
+      (event) => {
+        event.preventDefault();
+        setLastPressed('Shift, Ctrl, Alt, Cmd sequence completed!');
+      },
+    );
+
+    return (
+      <div>
+        <h3>Sequence Shortcut</h3>
+        <p>Press Shift, Ctrl, Alt, Cmd after each other</p>
         <div>Last action: {lastPressed}</div>
       </div>
     );

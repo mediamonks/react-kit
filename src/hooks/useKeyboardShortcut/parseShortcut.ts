@@ -1,18 +1,22 @@
 import { capitalize } from 'es-toolkit/string';
-import { characterMappings } from './keyCodes.js';
+import { characterMappings, modifierKeys, type KeyCode, type ModifierKeyCode } from './keyCodes.js';
 import type {
   CombinedCommand,
   Command,
   Key,
-  Modifiers,
+  Modifier,
   SimpleKey,
   SimpleShortcut,
 } from './useKeyboardShortcut.types.js';
 
 const modifierNames = ['ctrl', 'shift', 'alt', 'meta', 'cmd'] as const;
 
-function isModifier(key: string): key is Modifiers {
-  return modifierNames.includes(key as Modifiers);
+function isModifier(key: string): key is Modifier {
+  return modifierNames.includes(key as Modifier);
+}
+
+export function isModifierKeyCode(key: KeyCode): key is ModifierKeyCode {
+  return Object.values(modifierKeys).includes(key);
 }
 
 function isArrayOfStrings(array: Array<unknown>): array is Array<string> {
@@ -38,12 +42,20 @@ function isAllKeys(array: Array<unknown>): array is Array<SimpleKey> {
  * @param modifiers - Optional array of modifiers to include in the command.
  * @returns A command object with the specified key and modifiers.
  */
-export function createCommand(key: Key, modifiers: Array<Modifiers> = []): Command {
+export function createCommand(
+  key: Key,
+  modifiers: Array<Modifier | ModifierKeyCode> = [],
+): Command {
+  if (isModifierKeyCode(key) && modifiers.length === 0) {
+    // eslint-disable-next-line no-param-reassign
+    modifiers = [key];
+  }
+
   const modifiersCheck = modifiers.toString().toLowerCase();
 
   const result: Command = {
     code: key,
-    ctrlKey: modifiersCheck.includes('ctrl'),
+    ctrlKey: modifiersCheck.includes('ctrl') || modifiersCheck.includes('control'),
     shiftKey: modifiersCheck.includes('shift'),
     altKey: modifiersCheck.includes('alt'),
     metaKey: modifiersCheck.includes('meta') || modifiersCheck.includes('cmd'),
@@ -58,7 +70,7 @@ export function createCommand(key: Key, modifiers: Array<Modifiers> = []): Comma
  * @param key - The key to convert.
  * @returns The converted key as a Key enum value.
  */
-export function convertKey(key: string): Key {
+export function convertKey(key: SimpleKey | Modifier | CombinedCommand): Key {
   // Convert single character keys to KeyCode format
   if (key.length === 1 && /[a-z]/u.test(key)) {
     return `Key${key.toUpperCase()}` as Key;
@@ -72,6 +84,25 @@ export function convertKey(key: string): Key {
   // Convert special characters to KeyCode format
   if (key in characterMappings) {
     return characterMappings[key as keyof typeof characterMappings] as Key;
+  }
+
+  if (isModifier(key as string)) {
+    // eslint-disable-next-line default-case, @typescript-eslint/switch-exhaustiveness-check
+    switch (key) {
+      case 'meta':
+      case 'cmd': {
+        return 'MetaLeft';
+      }
+      case 'alt': {
+        return 'AltLeft';
+      }
+      case 'ctrl': {
+        return 'ControlLeft';
+      }
+      case 'shift': {
+        return 'ShiftLeft';
+      }
+    }
   }
 
   // For special keys like 'space', 'enter', etc.
@@ -90,7 +121,7 @@ export function convertKey(key: string): Key {
  * @param command The command string to parse.
  * @returns The parsed command, or null if the input is invalid.
  */
-export function parseCommand(command: string): Command | null {
+export function parseCommand(command: SimpleKey | Modifier | CombinedCommand): Command | null {
   if (!command) {
     return null;
   }
@@ -98,7 +129,7 @@ export function parseCommand(command: string): Command | null {
   // reversing makes it easier to destructure
   const [key, ...modifiers] = command.toLowerCase().split('+').toReversed();
 
-  return createCommand(convertKey(key), modifiers as Array<Modifiers>);
+  return createCommand(convertKey(key as SimpleKey | Modifier), modifiers as Array<Modifier>);
 }
 
 /**
@@ -132,7 +163,7 @@ export function parseShortcut(command: SimpleShortcut): Array<Command> {
       // to 5
       // [['ctrl', 'k'], ['ctrl', 's']]
       return parseShortcut(
-        command.map((commandItem) => commandItem.split('+') as [...Array<Modifiers>, SimpleKey]),
+        command.map((commandItem) => commandItem.split('+') as [...Array<Modifier>, SimpleKey]),
       );
     }
 
@@ -141,9 +172,9 @@ export function parseShortcut(command: SimpleShortcut): Array<Command> {
       // 3.
       // ['ctrl', 'shift', 'a']
       // to 5
-      // [['ctrl', 'shift', 'a']]
+      // [['ctrl'], ['shift'], ['a']]
 
-      return parseShortcut([command]);
+      return parseShortcut(command.map((cmd) => [cmd]));
     }
 
     if (isAllKeys(command)) {
@@ -165,7 +196,7 @@ export function parseShortcut(command: SimpleShortcut): Array<Command> {
         // reversing makes it easier to destructure
         const [key, ...modifiers] = commandItem.toReversed();
 
-        return createCommand(convertKey(key), modifiers as Array<Modifiers>);
+        return createCommand(convertKey(key as SimpleKey | Modifier), modifiers as Array<Modifier>);
       })
       .filter(Boolean) as Array<Command>;
   }

@@ -1,3 +1,4 @@
+import { isModifierKeyCode } from './parseShortcut.js';
 import type { Command } from './useKeyboardShortcut.types.js';
 
 const modifiers = ['ctrl', 'shift', 'alt', 'meta'] as const;
@@ -18,6 +19,11 @@ export function isShortcutDown(event: KeyboardEvent, command: Command): boolean 
   );
   if (!areModifiersCorrect) {
     return false;
+  }
+
+  // if we are only testing for modifiers, we are done
+  if (isModifierKeyCode(command.code)) {
+    return true;
   }
 
   // Check if the pressed key matches the command key

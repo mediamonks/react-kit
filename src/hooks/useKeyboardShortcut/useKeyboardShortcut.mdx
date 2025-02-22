@@ -21,7 +21,7 @@ useKeyboardShortcut('ctrl+a', () => {
 ```ts
 type UseKeyboardShortcutOptions<T extends EventTarget = EventTarget> = {
   ref?: RefObject<T | null> | T | HTMLElement | null | undefined;
-  ignoreWhenInputFocussed?: 'auto' | true | false;
+  ignoreWhenInputFocused?: 'auto' | true | false;
   command?: Shortcut;
   convertPlatforms?: boolean;
   windowsCommand?: Shortcut;
@@ -49,7 +49,7 @@ The options object supports the following properties:
 - `ref` = `document.body` - The `useRef` of the element to listen to. If not specified, the document
   body will be used.<br />Useful to contain shortcuts to specific input elements or components.
 
-- `ignoreWhenInputFocussed` = `"auto"` - Whether to ignore the shortcut when the input is focused.
+- `ignoreWhenInputFocused` = `"auto"` - Whether to ignore the shortcut when the input is focused.
   Defaults to "auto".
 
   - `auto` - If the shortcut contains the `ctrl` or `cmd` modifier, it will be set to `false`.
@@ -102,9 +102,10 @@ A union type for different ways to define a shortcut.
 - `Command` – A single shortcut command (see below).
 - `Array<Command>` – A sequence of shortcut commands, the commands have to be pressed in order
   within a short time.
+- `Modifier` – A shortcut command that only requires a modifier key to be pressed.
 
 ```ts
-export type Shortcut = SimpleShortcut | Command | Array<Command>;
+export type Shortcut = SimpleShortcut | Command | Array<Command> | Modifier;
 ```
 
 #### `SimpleShortcut`
@@ -121,8 +122,8 @@ and `meta` can be used for "Command" key on macOS.
 Examples:
 
 - a single key, e.g. `'a'`
-- a shortcut, e.g. `'ctrl+b'` or `['ctrl', 'b']`
-- a sequence of keys, e.g. `['g', 'i']`
+- a shortcut, e.g. `'ctrl+b'`
+- a sequence of keys, e.g. `['g', 'i']` or `['ctrl', 'shift']`
 - a sequence of shortcuts, e.g. `['cmd+k', 'cmd+s']` or `[['cmd', 'k'], ['cmd', 's']]`
 
 ```ts
@@ -182,15 +183,8 @@ function DemoComponent() {
   // string formats
   useKeyboardShortcut('a', () => {});
   useKeyboardShortcut('ctrl+a', () => {});
-  useKeyboardShortcut(['ctrl'], ['a'], () => {});
+  useKeyboardShortcut(['g', 'i'], () => {});
   useKeyboardShortcut(['cmd+k', 'cmd+s'], () => {});
-  useKeyboardShortcut(
-    [
-      ['cmd', 'k'],
-      ['cmd', 's'],
-    ],
-    () => {},
-  );
 
   // When using options, the shortcut can be defined in both formats
   useKeyboardShortcut({ command: 'a' }, () => {});
@@ -272,7 +266,7 @@ export const DemoComponent() {
   useKeyboardShortcut(
     {
       command: 'a',
-      ignoreWhenInputFocussed: false,
+      ignoreWhenInputFocused: false,
     },
     () => {
       console.log('key pressed');
@@ -284,7 +278,7 @@ export const DemoComponent() {
   useKeyboardShortcut(
     {
       command: 'cmd+k',
-      ignoreWhenInputFocussed: true,
+      ignoreWhenInputFocused: true,
     },
     () => {
       console.log('key pressed');

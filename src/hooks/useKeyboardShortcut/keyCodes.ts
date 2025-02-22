@@ -13,7 +13,7 @@ export const modifierKeys = {
   MetaRight: 'MetaRight',
 };
 
-export type Modifier = keyof typeof modifierKeys;
+export type ModifierKeyCode = keyof typeof modifierKeys;
 
 /**
  * Keyboard event code values based on MDN documentation

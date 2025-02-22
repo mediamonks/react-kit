@@ -1,14 +1,15 @@
 import type { Unreffable } from '../../utils/unref/unref.js';
 import { useEventListener } from '../useEventListener/useEventListener.js';
 import { isShortcutDown } from './isShortcutDown.js';
-import { keyCodes } from './keyCodes.js';
+import { type KeyCode } from './keyCodes.js';
+import { isModifierKeyCode } from './parseShortcut.js';
 import type { Command, Shortcut, SimpleShortcut } from './useKeyboardShortcut.types.js';
 import { getPlatformCommand, hasInputSafeModifiers } from './useKeyboardShortcut.utils.js';
 import { useSequence } from './useSequence.js';
 
 export type UseKeyboardShortcutOptions<T extends EventTarget | null = EventTarget> = {
   ref?: Unreffable<T>;
-  ignoreWhenInputFocussed?: 'auto' | true | false;
+  ignoreWhenInputFocused?: 'auto' | true | false;
   command?: Shortcut;
   convertPlatforms?: boolean;
   windowsCommand?: Shortcut;
@@ -29,7 +30,7 @@ export function useKeyboardShortcut<T extends EventTarget | null>(
 
   const {
     ref = document.body,
-    ignoreWhenInputFocussed: ignoreWhenInputFocussedProp = 'auto',
+    ignoreWhenInputFocused: ignoreWhenInputFocusedProp = 'auto',
     eventType = 'keydown',
     shouldStopPropagation = false,
     shouldPreventDefault = false,
@@ -43,27 +44,19 @@ export function useKeyboardShortcut<T extends EventTarget | null>(
   // - otherwise, we ignore the shortcut when in an input,
   // as it will also type the character in the input when wanting to trigger the shortcut
   const ignoreWhenInputFocused =
-    ignoreWhenInputFocussedProp === 'auto'
+    ignoreWhenInputFocusedProp === 'auto'
       ? !hasInputSafeModifiers(shortcut)
-      : ignoreWhenInputFocussedProp;
+      : ignoreWhenInputFocusedProp;
 
   const { check } = useSequence<Command, KeyboardEvent>(
     shortcut,
     // check the keyboard input against the next-up command in the sequence
     (currentCommand, keyboardEvent) => {
-      // if a modifier key is pressed, we should ignore this
+      // if a modifier key is pressed, we should ignore this if we are not checking for a modifier as a key itself
       // the sequence will reset the timer to give users more time, but not the progress itself, so it's safe
       if (
-        [
-          keyCodes.AltLeft,
-          keyCodes.AltRight,
-          keyCodes.ControlLeft,
-          keyCodes.ControlRight,
-          keyCodes.MetaLeft,
-          keyCodes.MetaRight,
-          keyCodes.ShiftLeft,
-          keyCodes.ShiftRight,
-        ].includes(keyboardEvent.code)
+        !isModifierKeyCode(currentCommand.code) &&
+        isModifierKeyCode(keyboardEvent.code as KeyCode)
       ) {
         return;
       }
