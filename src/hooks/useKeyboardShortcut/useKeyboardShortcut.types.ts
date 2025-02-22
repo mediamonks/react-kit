@@ -2,7 +2,7 @@ import type { CharacterKey, KeyCode } from './keyCodes.js';
 
 export type Key = KeyCode;
 
-type Letters =
+type EnglishAlphabetCharacters =
   | 'a'
   | 'b'
   | 'c'
@@ -29,7 +29,7 @@ type Letters =
   | 'x'
   | 'y'
   | 'z';
-type Digits = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
+type LatinDigits = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7' | '8' | '9';
 type FunctionKeys =
   | 'f1'
   | 'f2'
@@ -48,8 +48,8 @@ type EditingKeys = 'space' | 'backspace' | 'delete' | 'enter' | 'insert' | 'tab'
 type UiKeys = 'escape';
 
 export type SimpleKey =
-  | Letters
-  | Digits
+  | EnglishAlphabetCharacters
+  | LatinDigits
   | FunctionKeys
   | NavigationKeys
   | EditingKeys
