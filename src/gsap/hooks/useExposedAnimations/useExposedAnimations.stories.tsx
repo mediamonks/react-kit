@@ -2,6 +2,8 @@
 import gsap from 'gsap';
 import { useCallback, useEffect, useRef, useState, type ReactElement } from 'react';
 import { ensuredForwardRef } from '../../../hocs/ensuredForwardRef/ensuredForwardRef.js';
+import { useRefs } from '../../../hooks/useRefs/useRefs.js';
+import type { Refs } from '../../../hooks/useRefs/useRefs.types.js';
 import { arrayRef } from '../../../utils/arrayRef/arrayRef.js';
 import { useAnimation } from '../useAnimation/useAnimation.js';
 import { useExposeAnimation } from '../useExposeAnimation/useExposeAnimation.js';
@@ -140,6 +142,32 @@ export function RerenderTesting(): ReactElement {
         }}
       >
         Trigger rerender
+      </button>
+    </div>
+  );
+}
+
+export function WithUseRefsArray(): ReactElement {
+  const refs = useRefs<Refs<{ items: Array<HTMLDivElement> }>>();
+  const animations = useExposedAnimations(refs.items);
+
+  // eslint-disable-next-line no-console
+  console.log('useExposedAnimations', animations);
+
+  const onRestartButtonClick = useCallback(() => {
+    for (const animation of animations) {
+      animation.restart();
+    }
+  }, [animations]);
+
+  return (
+    <div>
+      {Array.from({ length: 3 }).map((_, index) => (
+        // eslint-disable-next-line react/no-array-index-key
+        <ChildItem key={index} ref={arrayRef(refs.items, index)} />
+      ))}
+      <button type="button" onClick={onRestartButtonClick}>
+        Restart animations
       </button>
     </div>
   );

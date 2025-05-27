@@ -6,7 +6,7 @@ import { animations } from '../../animations.js';
  * Hook to get animation from global animations map using given reference
  */
 export function useExposedAnimations(
-  target: Unreffable<ReadonlyArray<unknown>>,
+  target: Unreffable<ReadonlyArray<unknown> | null>,
 ): ReadonlyArray<gsap.core.Animation> {
   const [exposedAnimations, setExposedAnimations] = useState<ReadonlyArray<gsap.core.Animation>>(
     [],
