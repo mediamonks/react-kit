@@ -6,3 +6,4 @@ export * from './gsap/hooks/useExposedAnimations/useExposedAnimations.js';
 export * from './gsap/hooks/useFlip/useFlip.js';
 export * from './gsap/hooks/useScrollAnimation/useScrollAnimation.js';
 export * from './gsap/utils/getAnimation/getAnimation.js';
+export * from './gsap/animations.js';
