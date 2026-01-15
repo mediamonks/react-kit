@@ -42,7 +42,7 @@ type SplitTextWrapperProps<T extends KnownTarget> = {
 } & ComponentPropsWithoutRef<T>;
 
 export function SplitTextWrapper<T extends KnownTarget>({
-  variables = {},
+  variables = { type: 'chars,words,lines' },
   as,
   children,
   splitFirstElementChild = false,
