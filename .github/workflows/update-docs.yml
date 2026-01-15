@@ -29,11 +29,7 @@ jobs:
           node-version: lts/*
 
       - name: Build Storybook
-        env:
-          GSAP_TOKEN: ${{ secrets.GSAP_TOKEN }}
         run: |
-          npm config set //npm.greensock.com/:_authToken=$GSAP_TOKEN
-          npm config set @gsap:registry=https://npm.greensock.com
           npm ci
           npm run storybook:build
 
