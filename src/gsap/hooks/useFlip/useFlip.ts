@@ -1,5 +1,5 @@
 import gsap from 'gsap';
-import Flip from 'gsap/dist/Flip';
+import { Flip } from 'gsap/dist/Flip';
 import { type RefObject, useEffect, useRef } from 'react';
 import { unref, type Unreffable } from '../../../utils/unref/unref.js';
 
