@@ -1,14 +1,13 @@
 # NOTE: taken from https://github.com/MylesBorins/node-osc/blob/main/.github/workflows/bump-version.yml
 
 name: Publish package to npmjs
-env:
-  NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 on:
   release:
     types: [created]
   workflow_dispatch:
+
 jobs:
-  bump-version:
+  publish:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -27,3 +26,5 @@ jobs:
           npm run build
       - name: Publish
         run: npm publish --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
