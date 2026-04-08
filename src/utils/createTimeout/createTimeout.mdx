@@ -9,12 +9,18 @@ Creates a promise that resolves after given timeout.
 ## Reference
 
 ```ts
-createTimeout(ms = 0): Promise<void>
+createTimeout(ms = 0, options?: { signal?: AbortSignal }): Promise<void>
 ```
+
+### Parameters
+
+- `ms` - The number of milliseconds to wait before resolving. Defaults to `0`.
+- `options.signal` - An optional `AbortSignal` to cancel the timeout. When aborted, the promise
+  rejects with the signal's reason.
 
 ### Returns
 
-Promise that resolves after given timeout.
+Promise that resolves after given timeout, or rejects if the provided `signal` is aborted.
 
 ## Usage
 
@@ -24,6 +30,24 @@ Using `async/await`
 await createTimeout(1000);
 
 console.log("I'm called after 1 second");
+```
+
+Using with an `AbortSignal` to cancel the timeout
+
+```ts
+const controller = new AbortController();
+
+// Abort the timeout after 500ms
+setTimeout(() => {
+  controller.abort();
+}, 500);
+
+try {
+  await createTimeout(2000, { signal: controller.signal });
+  console.log('Timeout completed');
+} catch {
+  console.log('Timeout was cancelled');
+}
 ```
 
 Using `Promise.then`

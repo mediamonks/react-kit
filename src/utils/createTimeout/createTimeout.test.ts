@@ -27,4 +27,35 @@ describe('createTimeout', () => {
 
     expect(currentTime - startTime >= timeout).toBe(true);
   });
+
+  it('should reject immediately when signal is already aborted', async () => {
+    const controller = new AbortController();
+    controller.abort();
+
+    await expect(createTimeout(100, { signal: controller.signal })).rejects.toThrow();
+  });
+
+  it('should reject when signal is aborted before timeout', async () => {
+    const controller = new AbortController();
+
+    const promise = createTimeout(1000, { signal: controller.signal });
+
+    controller.abort();
+
+    await expect(promise).rejects.toThrow();
+  });
+
+  it('should resolve normally when no signal is provided', async () => {
+    await expect(createTimeout(0)).resolves.toBeUndefined();
+  });
+
+  it('should reject with the abort reason', async () => {
+    const controller = new AbortController();
+    const reason = new Error('custom abort reason');
+    controller.abort(reason);
+
+    await expect(createTimeout(100, { signal: controller.signal })).rejects.toThrow(
+      'custom abort reason',
+    );
+  });
 });
