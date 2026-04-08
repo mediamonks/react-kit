@@ -71,24 +71,30 @@ export function TransitionPresence({
     const abortController = new AbortController();
 
     (async (): Promise<void> => {
-      onPreviousChildrenUnmountingRef.current?.(previousChildren, children);
+      try {
+        onPreviousChildrenUnmountingRef.current?.(previousChildren, children);
 
-      // Defer children update for before unmount lifecycle
-      await beforeUnmountPreviousChildren(abortController.signal);
+        // Defer children update for before unmount lifecycle
+        await beforeUnmountPreviousChildren(abortController.signal);
 
-      setPreviousChildren(null);
+        setPreviousChildren(null);
 
-      // Wait a tick after removing previous children to make sure new children
-      // are re-initialized
-      await createTimeout();
+        // Wait a tick after removing previous children to make sure new children
+        // are re-initialized
+        await createTimeout(0, { signal: abortController.signal });
 
-      onPreviousChildrenUnmountedRef.current?.(previousChildren, children);
+        onPreviousChildrenUnmountedRef.current?.(previousChildren, children);
 
-      // Set new children
-      setPreviousChildren(children);
-      await createTimeout();
+        // Set new children
+        setPreviousChildren(children);
+        await createTimeout(0, { signal: abortController.signal });
 
-      onChildrenMountedRef.current?.(previousChildren, children);
+        onChildrenMountedRef.current?.(previousChildren, children);
+      } catch (error) {
+        if (!abortController.signal.aborted) {
+          throw new Error(`Unexpected error in TransitionPresence transition: ${error}`);
+        }
+      }
     })();
 
     return () => {
