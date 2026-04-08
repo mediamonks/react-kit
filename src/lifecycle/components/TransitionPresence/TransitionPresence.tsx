@@ -91,8 +91,8 @@ export function TransitionPresence({
 
         onChildrenMountedRef.current?.(previousChildren, children);
       } catch (error) {
-        if (!abortController.signal.aborted) {
-          throw new Error(`Unexpected error in TransitionPresence transition: ${error}`);
+        if (error !== abortController.signal.reason) {
+          throw new Error(`Unexpected error in TransitionPresence transition`, { cause: error });
         }
       }
     })();
