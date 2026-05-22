@@ -18,7 +18,7 @@ type AutoFillChildrenProps = {
   ref: RefCallback<unknown>;
 };
 
-type AutoFillProps = {
+export type AutoFillProps = {
   children:
     | ReactElement<AutoFillChildrenProps>
     | ReadonlyArray<ReactElement<AutoFillChildrenProps>>;

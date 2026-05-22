@@ -1,9 +1,9 @@
 import { type Meta, type StoryObj } from '@storybook/react';
-import { AutoFill } from './AutoFill.js';
+import { InfiniteAutoFill } from './InfiniteAutoFill.js';
 
 const meta = {
-  title: 'Components / AutoFill',
-  component: AutoFill,
+  title: 'Components / InfiniteAutoFill',
+  component: InfiniteAutoFill,
 } satisfies Meta;
 
 type Story = StoryObj<typeof meta>;
@@ -20,7 +20,7 @@ export const Horizontal: Story = {
           outline: '1px solid blue',
         }}
       >
-        <AutoFill axis="x">
+        <InfiniteAutoFill axis="x">
           <div
             style={{
               padding: 15,
@@ -50,7 +50,7 @@ export const Horizontal: Story = {
               }}
             />
           </div>
-        </AutoFill>
+        </InfiniteAutoFill>
       </div>
     );
   },
@@ -71,7 +71,7 @@ export const Vertical: Story = {
           outline: '1px solid blue',
         }}
       >
-        <AutoFill axis="y">
+        <InfiniteAutoFill axis="y">
           <div
             style={{
               padding: 15,
@@ -86,7 +86,7 @@ export const Vertical: Story = {
               }}
             />
           </div>
-        </AutoFill>
+        </InfiniteAutoFill>
       </div>
     );
   },
