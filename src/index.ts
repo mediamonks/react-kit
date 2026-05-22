@@ -41,3 +41,4 @@ export * from './utils/createTimeout/createTimeout.js';
 export * from './utils/isRefObject/isRefObject.js';
 export * from './utils/regexPatterns/regexPatterns.js';
 export * from './utils/unref/unref.js';
+export * from './utils/waitFor/waitFor.js';
