@@ -13,3 +13,6 @@ const onClick = useCallback(() => {
   getAnimation(animationReference.current)?.play();
 }, []);
 ```
+
+Pass the type the animation has as a type argument, for example `getAnimation<Timeline>(reference)`
+for a timeline to add to another one (`useExposedAnimation`, Nesting in a parent timeline).

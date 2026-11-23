@@ -6,12 +6,10 @@ import { animations } from '../../animations.js';
 /**
  * Hook to get Motion animations from the global animations map using given references
  */
-export function useExposedAnimations(
-  target: Unreffable<ReadonlyArray<unknown> | null>,
-): ReadonlyArray<AnimationPlaybackControls | undefined> {
-  const [exposedAnimations, setExposedAnimations] = useState<
-    ReadonlyArray<AnimationPlaybackControls | undefined>
-  >([]);
+export function useExposedAnimations<
+  T extends AnimationPlaybackControls = AnimationPlaybackControls,
+>(target: Unreffable<ReadonlyArray<unknown> | null>): ReadonlyArray<T | undefined> {
+  const [exposedAnimations, setExposedAnimations] = useState<ReadonlyArray<T | undefined>>([]);
 
   useEffect(
     () =>
@@ -19,7 +17,7 @@ export function useExposedAnimations(
         const array = unref(target);
 
         if (array) {
-          const newAnimations = array.map((ref) => animations.get(ref));
+          const newAnimations = array.map((ref) => animations.get(ref) as T | undefined);
           // this should only be done when the refs have been updated, otherwise we're returning
           // a new array ref with the same values, which will cause a re-render
           setExposedAnimations((currentAnimations) =>

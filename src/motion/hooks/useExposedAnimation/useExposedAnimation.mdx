@@ -29,3 +29,49 @@ function Parent(): ReactElement {
   );
 }
 ```
+
+## Nesting in a parent timeline
+
+Since Motion 14.7, `animate()` from `motion` returns a `Timeline`: a parent can add the exposed
+animation of a child to its own timeline at a position, as with GSAP's `timeline.add()`. The parent
+then plays the child; the child no longer plays on its own.
+
+- Create the child's animation with `animate()` from `motion`. `motion/mini` returns playback
+  controls without `add()`, so an animation made with it can't be nested; use it for animations no
+  parent sequences.
+- Pass `Timeline` as the type: `useExposedAnimation<Timeline>(reference)`.
+- Positions are Motion's: `'<'`, `'+0.2'`, `'-0.2'` or a label (GSAP writes `'+=0.2'`).
+- Add the child in the parent's `useAnimation` with the child's animation as a dependency. A stopped
+  Motion animation stays in the timeline it was added to (GSAP's `kill()` removes it), so the parent
+  builds its timeline again when the child unmounts or creates a new animation: the exposed
+  animation is `undefined` or new, and `useAnimation` stops the old timeline.
+
+<Canvas of={stories.NestedInParentTimeline} />
+
+```tsx
+function Parent(): ReactElement {
+  const ref = useRef<HTMLDivElement>(null);
+  const childReference = useRef(Symbol('child animation'));
+  const child = useExposedAnimation<Timeline>(childReference);
+
+  useAnimation(() => {
+    if (!ref.current) {
+      return;
+    }
+
+    const timeline = animate([[ref.current, { opacity: [0, 1] }, { duration: 0.6 }]]);
+
+    if (child) {
+      timeline.add(child, '-0.3');
+    }
+
+    return timeline;
+  }, [child]);
+
+  return (
+    <div ref={ref}>
+      <Child animationReference={childReference} />
+    </div>
+  );
+}
+```

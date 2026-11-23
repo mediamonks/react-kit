@@ -1,6 +1,9 @@
 /**
  * A map of animations by reference that notifies its listeners (once per microtask) when an
- * animation is set. A typed version of the GSAP entry's map, used by the Motion entry.
+ * animation is set or deleted. A typed version of the GSAP entry's map, used by the Motion entry.
+ * Unlike the GSAP entry's map it also notifies on delete: a Motion animation that is stopped stays
+ * in the timeline it was added to, so a parent has to know when its child's animation is gone to
+ * rebuild its timeline without it.
  */
 export class AnimationsMap<T> extends Map<unknown, T> {
   private readonly callbacks = new Set<() => void>();
@@ -20,9 +23,32 @@ export class AnimationsMap<T> extends Map<unknown, T> {
     }
 
     const result = super.set(key, value);
+    this.queueUpdate();
 
+    return result;
+  }
+
+  public delete(key: unknown): boolean {
+    const isDeleted = super.delete(key);
+
+    if (isDeleted) {
+      this.queueUpdate();
+    }
+
+    return isDeleted;
+  }
+
+  public listen(callback: () => void): () => void {
+    this.callbacks.add(callback);
+
+    return () => {
+      this.callbacks.delete(callback);
+    };
+  }
+
+  private queueUpdate(): void {
     if (this.updateQueued) {
-      return result;
+      return;
     }
 
     this.updateQueued = true;
@@ -34,15 +60,5 @@ export class AnimationsMap<T> extends Map<unknown, T> {
 
       this.updateQueued = false;
     });
-
-    return result;
-  }
-
-  public listen(callback: () => void): () => void {
-    this.callbacks.add(callback);
-
-    return () => {
-      this.callbacks.delete(callback);
-    };
   }
 }

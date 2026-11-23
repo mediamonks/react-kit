@@ -49,6 +49,10 @@ to `@mediamonks/react-kit`; both are optional peer dependencies.
 The hooks both entries have share their names and arguments, so code differs only in its import path
 and the animation type (`gsap.core.Animation` or Motion's `AnimationPlaybackControls`).
 
+A parent can add the exposed animation of a child to its own timeline in both entries: with GSAP's
+`timeline.add()`, or with Motion's `Timeline.add()` (Motion 14.7 and up, `animate()` from `motion`,
+not `motion/mini`). See `useExposedAnimation` in the docs.
+
 ```tsx
 import { useAnimation } from '@mediamonks/react-kit/motion';
 import { animate } from 'motion';
