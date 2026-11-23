@@ -1,0 +1,20 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Motion / Hooks / useExposedAnimations" />
+
+# useExposedAnimations
+
+The `useExposedAnimations` hook gets the Motion animations that are exposed in the global animations
+map for a list of references, in the same order (`undefined` for a reference without an animation).
+It rerenders when one of the animations changes.
+
+```tsx
+const references = useRef(items.map((item) => item.id));
+const animations = useExposedAnimations(references);
+
+const onPlayAll = useCallback(() => {
+  for (const animation of animations) {
+    animation?.play();
+  }
+}, [animations]);
+```

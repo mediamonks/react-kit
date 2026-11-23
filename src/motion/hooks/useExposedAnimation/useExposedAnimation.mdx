@@ -1,0 +1,31 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as stories from './useExposedAnimation.stories';
+
+<Meta title="Motion / Hooks / useExposedAnimation" />
+
+# useExposedAnimation
+
+The `useExposedAnimation` hook gets the Motion animation that is exposed (`useExposeAnimation`) in
+the global animations map for a given reference. It rerenders when the animation for the reference
+changes.
+
+> Note: the return value is `undefined` in the first render, because animations are created after
+> components mount.
+
+<Canvas of={stories.ChildComponentAnimation} />
+
+```tsx
+function Parent(): ReactElement {
+  const animationReference = useRef(Symbol('child animation'));
+  const animation = useExposedAnimation(animationReference);
+
+  return (
+    <>
+      <Child animationReference={animationReference} />
+      <button onClick={() => animation?.play()} type="button">
+        Play
+      </button>
+    </>
+  );
+}
+```
