@@ -1,0 +1,18 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Motion / Utils / getAnimation" />
+
+# getAnimation
+
+`getAnimation` returns the Motion animation that is exposed (`useExposeAnimation`) for a reference,
+or `undefined`. Use it outside React's render, for example in an event handler; in a component,
+`useExposedAnimation` rerenders when the animation changes.
+
+```tsx
+const onClick = useCallback(() => {
+  getAnimation(animationReference.current)?.play();
+}, []);
+```
+
+Pass the type the animation has as a type argument, for example `getAnimation<Timeline>(reference)`
+for a timeline to add to another one (`useExposedAnimation`, Nesting in a parent timeline).

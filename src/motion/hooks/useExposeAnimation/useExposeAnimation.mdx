@@ -1,0 +1,27 @@
+import { Meta } from '@storybook/blocks';
+
+<Meta title="Motion / Hooks / useExposeAnimation" />
+
+# useExposeAnimation
+
+The `useExposeAnimation` hook exposes a Motion animation in the global `animations` map of the
+Motion entry for a given reference (not necessarily an `HTMLElement`), so a parent component can get
+it with `useExposedAnimation`, `useExposedAnimations` or `getAnimation`. The animation is removed
+from the map when the component unmounts.
+
+```tsx
+import { useAnimation, useExposeAnimation } from '@mediamonks/react-kit/motion';
+import { animate } from 'motion';
+
+function Child({ animationReference }: ChildProps): ReactElement {
+  const ref = useRef<HTMLDivElement>(null);
+  const animation = useAnimation(
+    () => (ref.current ? animate(ref.current, { x: [0, 200] }) : undefined),
+    [],
+  );
+
+  useExposeAnimation(animation, animationReference);
+
+  return <div ref={ref} />;
+}
+```

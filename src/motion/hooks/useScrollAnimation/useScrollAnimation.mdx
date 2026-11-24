@@ -1,0 +1,40 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as stories from './useScrollAnimation.stories';
+
+<Meta title="Motion / Hooks / useScrollAnimation" />
+
+# useScrollAnimation
+
+The `useScrollAnimation` hook creates a Motion animation and links its progress to scroll with
+Motion's [`scroll()`](https://motion.dev/docs/scroll). The animation is stopped, and its link to
+scroll removed, when the component unmounts or one of the dependencies changes.
+
+The third argument returns the options of `scroll()` (`target`, `container`, `axis`, `offset`). It
+is called when the animation is created, so it can read elements from refs. Motion measures the
+target and the container and follows their size changes itself: there is no refresh as with
+ScrollTrigger.
+
+<Canvas of={stories.ScrollAnimation} />
+
+```tsx
+function ScrollAnimation(): ReactElement {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useScrollAnimation(
+    () => {
+      if (ref.current === null) {
+        return;
+      }
+
+      return animate(ref.current, { scale: [1, 0.5] }, { ease: 'linear' });
+    },
+    [],
+    () => ({ target: ref.current ?? undefined, offset: ['start end', 'end start'] }),
+  );
+
+  return <div ref={ref} />;
+}
+```
+
+For an animation that plays once when an element scrolls into view, use `useAnimation` with Motion's
+[`inView()`](https://motion.dev/docs/inview) instead.

@@ -1,0 +1,77 @@
+import { Meta, Canvas } from '@storybook/blocks';
+import * as stories from './useAnimation.stories';
+
+<Meta title="Motion / Hooks / useAnimation" />
+
+# useAnimation
+
+The `useAnimation` hook from `@mediamonks/react-kit/motion` creates an animation with
+[Motion](https://motion.dev)'s `animate()`. The animation is stopped when the component unmounts and
+recreated when one of the dependencies changes.
+
+The Motion entry has the same hooks as the GSAP entry (`useAnimation`, `useExposeAnimation`,
+`useExposedAnimation`, `useExposedAnimations`, `useScrollAnimation`, `getAnimation` and
+`animations`), so code that uses them only differs in its import path and the animation type:
+Motion's `AnimationPlaybackControls` instead of `gsap.core.Animation`. Install `motion` next to
+`@mediamonks/react-kit`; it is an optional peer dependency, like `gsap` for the GSAP entry.
+
+## Usage
+
+The callback returns the animation (or `undefined`), the hook returns a RefObject that holds it
+after mount.
+
+```tsx
+import { useAnimation } from '@mediamonks/react-kit/motion';
+import { animate } from 'motion';
+
+function Component(): ReactElement {
+  const ref = useRef<HTMLDivElement>(null);
+
+  useAnimation(() => {
+    if (ref.current === null) {
+      return;
+    }
+
+    return animate(ref.current, { opacity: [0, 1] }, { duration: 0.6 });
+  }, []);
+
+  return <div ref={ref} />;
+}
+```
+
+`animate()` from `motion/mini` (smaller, Web Animations API only) returns the same controls, so the
+hook works with both.
+
+### Sequence
+
+Pass a sequence to `animate()` where you would build a timeline with GSAP.
+
+<Canvas of={stories.Sequence} />
+
+### Tween
+
+<Canvas of={stories.Tween} />
+
+### On action
+
+The hook returns the animation, use it to control the animation. Pause it in the callback if it
+shouldn't start on mount; Motion has no `paused` option.
+
+<Canvas of={stories.OnAction} />
+
+```tsx
+const animation = useAnimation(() => {
+  if (ref.current === null) {
+    return;
+  }
+
+  const controls = animate(ref.current, { scale: [0, 1] }, { duration: 0.6 });
+  controls.pause();
+
+  return controls;
+}, []);
+
+const onPlay = useCallback(() => {
+  animation.current?.play();
+}, [animation]);
+```

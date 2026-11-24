@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind, react/no-multi-comp, react/jsx-no-literals */
 import type { Meta, StoryObj } from '@storybook/react';
-import { shuffle } from 'lodash-es';
+import { shuffle } from 'es-toolkit';
 import { useEffect, useState, type ReactElement } from 'react';
 import { arrayRef } from '../../utils/arrayRef/arrayRef.js';
 import { useRefs } from './useRefs.js';

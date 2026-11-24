@@ -1,4 +1,4 @@
-import { memoize } from 'lodash-es';
+import { memoize } from 'es-toolkit/compat';
 import type { RefObject } from 'react';
 import { trimEnd } from '../../_utils/trimEnd/trimEnd.js';
 
@@ -42,6 +42,10 @@ function getMemoizeKeyForRefAndIndex(ref: RefObject<Array<unknown> | null>, inde
   return `${refMap.get(ref)}_${index}`;
 }
 
-export const arrayRef = memoize(arrayRefInternal, (ref, index) =>
+/**
+ * Returns a callback ref that sets the element at `index` in the array of `ref`, the same function
+ * for the same ref and index.
+ */
+export const arrayRef: typeof arrayRefInternal = memoize(arrayRefInternal, (ref, index) =>
   getMemoizeKeyForRefAndIndex(ref, index),
 );

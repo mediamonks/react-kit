@@ -34,6 +34,35 @@ function DemoComponent() {
 }
 ```
 
+### Animation entries
+
+The animation hooks come in two entries, one per animation library. Install the library you use next
+to `@mediamonks/react-kit`; both are optional peer dependencies.
+
+- `@mediamonks/react-kit/gsap` for [GSAP](https://gsap.com): `useAnimation`, `useExposeAnimation`,
+  `useExposedAnimation`, `useExposedAnimations`, `useScrollAnimation` (ScrollTrigger), `useFlip`,
+  `SplitTextWrapper`, `getAnimation` and `animations`
+- `@mediamonks/react-kit/motion` for [Motion](https://motion.dev): `useAnimation`,
+  `useExposeAnimation`, `useExposedAnimation`, `useExposedAnimations`, `useScrollAnimation`
+  (`scroll()`), `getAnimation` and `animations`
+
+The hooks both entries have share their names and arguments, so code differs only in its import path
+and the animation type (`gsap.core.Animation` or Motion's `AnimationPlaybackControls`).
+
+A parent can add the exposed animation of a child to its own timeline in both entries: with GSAP's
+`timeline.add()`, or with Motion's `Timeline.add()` (Motion 14.7 and up, `animate()` from `motion`,
+not `motion/mini`). See `useExposedAnimation` in the docs.
+
+```tsx
+import { useAnimation } from '@mediamonks/react-kit/motion';
+import { animate } from 'motion';
+
+useAnimation(
+  () => (ref.current ? animate(ref.current, { opacity: [0, 1] }, { duration: 0.6 }) : undefined),
+  [],
+);
+```
+
 ## Docs
 
 [https://mediamonks.github.io/react-kit/](https://mediamonks.github.io/react-kit/)
