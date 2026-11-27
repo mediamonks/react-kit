@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-literals */
 import { type Meta, type StoryObj } from '@storybook/react';
 import { AutoFill } from './AutoFill.js';
 
